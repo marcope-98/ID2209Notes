@@ -68,4 +68,3 @@ This repository contains the notes of the course ID2209 - Distributed Artificial
 - Section 17.1.6 - Multiagent epistemic logics
 - Section 17.2 - Logic of mental states
 - Section 17.3 - Logic for cooperation
-# ID2209Notes
