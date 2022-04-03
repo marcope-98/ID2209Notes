@@ -302,7 +302,23 @@ Similarly to Pareto efficiency, \side{social welfare} is an important property o
 		the outcome that maximized social welfare is the one that maximizes this value.
 		
 		From an individual agent’s point of view, the problem with maximizing social welfare is that it does not look at the pay-offs of individual agents, only to the total welfare created. (maximizing social welfare does not care about how the utility of an outcome is divided among the players).
-		
+
+
+\subsubsection{Other minor properties}
+\begin{itemize}
+\item \side{Convergence/ guaranteed success}\\
+If it ensures that eventually agreement is certain to be reached.
+\item \side{Computational efficiency}\\
+As little computations is needed as possible. Trade off between the cost of the process and the solution quality
+\item \side{Distribution}\\
+All else being equal, distributed protocols should be preferred to avoid a single point of failure and a performance bottleneck. This may conflict with minimizing the amount of communication that is required.
+\item \side{Stability}\\
+Among self interested agents, mechanism should be designed to be stable (non-manipulable), it should motivate each agent to behave in the desired manner.
+\item \side{Individual rationality}\\
+Participation in a negotiation is individually rational to an agent if the agent's payoff in the negotiated solution is no less than payoff that the agent would get by not participating in the negotiation.\\
+A mechanism is individually rational if participation is individually rational for all agents.\\
+If the negotiated solution is not individually rational for some agent then self-interested agent would not participate in that negotiation.
+\end{itemize}
 \subsection{Competitive and Zero-Sum Interactions}
 A scenario in which an outcome $\omega\in\Omega$ is preferred by agent $i$ over an outcome $\omega’$, if ,and only if, $\omega’$ is preferred over $\omega$ by agent $j$, is said to be \side{strictly competitive}.\\
 	Formally, a competitive scenario takes the form:
@@ -451,27 +467,353 @@ So far we have lloked at the general setting of a multiagent encounter. In this 
 \subsection{Social Welfare Functions and Social Choice Functions}
 The general setting of a voting protocol is as follows:
 \begin{itemize}
-\item 
+\item A set of agents or \side{voters}
+\[Ag = \{1, ...,n\}\]
+Ideally, this should be finite and the cardinality should be an odd number to avoid ties.
+\item A set of possible outcomes or \side{candidates}
+\[\Omega =\{\omega_q, \omega_w, ...\}\]
+over which voters will make group decision. This set is assumed to be finite.
+
+The goal of the agents is to rank or order these candidates or simply to choose one from the set.
 \end{itemize}
+The problem that social choice theory tries to solve is,\\
+ \say{given a collection of preference orders, one for each agent, how do we combine these to derive a group decision?}.
+ 
+ The answert isby using a \side{social welfare function} which maps the voter preferences to a \side{social preference order}\\
+ \[f:\quad \Pi(\Omega) \times ...\times\Pi(\Omega) \rightarrow \Pi(\Omega)\]
+ The social preference ordering will be denoted with the notation $\cmore^*$.
+ 
+ If the agents are required to choose just one candidate over the set $\Omega$, we will use a \side{social choice function} or \side{voting procedure}:
+ \[f:\quad \Pi(\Omega) \times ...\times\Pi(\Omega) \rightarrow \Omega\]
+
 \subsection{Voting Protocols}
 \subsubsection{Simple majority voting}
-\subsubsection{Binary protocol}
-\subsubsection{Borda protocol}
-\subsubsection{Majority Graph: Condercet's Winner and Slater ranking}
-\subsection{Desirable Properties for Voting Procedures}
-\subsection{Insincere Voters}
+\begin{itemize}
+\item Every voter submits their preference order
+\item The winner is the outcome that appears first in the preference orders the largest number of times
+\item This is generally applied to single choice, but it can be generalized to a social preference ordering.
+\end{itemize}
+\side{Simple majority voting} works relatively well with only two candidates, since it is straightforward to implement and understand by the voters.
 
+However, when more than 2 voters are involved problems start to arise.
+
+Let us consider that three voters submitted the following preferences:
+\begin{align*}
+42\%& \omega_L \cmore \omega_D \cmore \omega_C\\
+14\%& \omega_D \cmore \omega_L \cmore \omega_C\\
+44\%& \omega_C \cmore \omega_D \cmore \omega_L\\
+\end{align*}
+Then the winner is selected based on the top preferences (i.e. $C$), even though the majority of the voters considered $C$ as the least preferrable outcome.
+
+This means that in principle the majority of the voters will be unhappy with the result of the voting protocol.
+
+Furthermore, this simple majority protocol is sensible to insincere strategical voting (e.g. the 14\% that voted $D$ instead could have voted for $L$ just to make $C$ lose the voting).
+
+Moreover, the simple majority voting is sensible to \side{Condorcet's paradox}:
+\begin{equation*}
+\omega_1 \cmore_i \omega_2 \cmore_i \omega_3\\
+\omega_3 \cmore_j \omega_1 \cmore_j \omega_2\\
+\omega_2 \cmore_k \omega_3 \cmore_k \omega_1\\
+\end{equation*}
+In this case the winner is dependent on the agenda: which order we start to compute the outcome, but nonetheless $\sfrac{2}{3}$ of the voters will prefer another candidate.
+
+\subsubsection{Binary protocol}
+Among the alternative to simple majority voting there is the \side{Binary protocol} (aka sequential majority elections).
+
+\begin{itemize}
+\item Voters submit their preference ordering
+\item The element of the set of outcomes are compare pairwise
+\item the winner of the pairwise ``election'' is allowed to continue to the next pairwise election
+\item The order of pairwise elections (i.e. which candidates to compare first), is called \side{agenda}
+\end{itemize}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width= .8\textwidth]{01/03}
+\end{figure}
+
+
+From the picture provided we can clearly notice that the winner of the overall election depends on the agenda, which imply that the protocol can be manipulated if the preference orderings in known a priori.
+
+\subsubsection{Borda protocol}
+One issue with simple majority voting and the binary protocol is that they completely ignore the information that is enconded in each submitted preference ordering (they only loop at the top voted candidates).\\
+The \side{Borda protocol} addresses such issue:
+\begin{itemize}
+\item Each voter submit its preference ordering over the candidates
+\item a number equal to the cardinality of the set of candidates (i.e. $\abs{\Omega}$) is assigned to the highest candidate in some agent's preference list
+\item a value of $\abs{\Omega}-1$ is assigned to the second and so on
+\item a the end we sum up the numeric value associated to each preference orderic and obtain the social choice result
+\end{itemize}
+
+This protocol is fast when compared to the binary protocol in the case of a large amount of candidates.
+
+However it is not  \side{indipendent of irrelevant alternatives}, i.e. removing one candidate will change the end result.
+
+
+\subsubsection{Majority Graph: Condorcet's Winner and Slater ranking}
+An useful tool to analyse voting procedures or protocols is the \side{Majority Graph}. It can be considered as a succint representation of the voter preferences:
+\begin{itemize}
+\item each node in the majority graph is a candidate
+\item each edge in the majority graph represents a preference (the edge will start from the node most preferred and will terminate in the node less preferred)
+\item a \side{possible winner} is a candidate that is the overall winner for at least one agenda. (occurs when there are loops in the majority graph)
+\item a \side{Condorcet's winner} is a candidate that is the overall winner for all possible agenda (occurs when there are no loops in the majority graph). In simple terms, is that candidate that will beat all others in a pairwise election.
+\end{itemize}
+
+While the overall winner determination is straightforward in the case of a majority graph with no loops (cfr. Condorcet's Winner), it is otherwise in the case of a majority graph with loops.
+
+In that specific scenario, the \side{slater rule} or \side{slater ranking} is considered: it, in fact, tries to find a consistent ranking that does not contain any cycle that is as close a possible to the majority graph.
+
+In other terms, it tries to \say{minimize the number of disagreements between the majority graph and the social choice}.
+
+In practice, the Slater ranking considers the Condorcet's winners obtained by inverting the least amount of edges in the majority graph.
+\subsection{Desirable Properties for Voting Procedures}
+\begin{enumerate}
+\item \side{Pareto condition}\\
+There is no other outcome that makes one agent better off without making another agent worse off.
+
+Borda and simple majority voting satisfy this condition.\\
+Binary protocol does not (the result depends on the agenda).
+\item \side{Condorcet winner condition}\\
+The Condorcet winner should be selected by the social choice function.
+
+Only Binary protol satisfies this condition.
+\item \side{Indipendence of irrelevant alternatives}\\
+Given a set of candidates of which $\omega_i$ and $\omega_j$ are part of. \\
+Let us assume that $\omega_i \cmore^* \omega_j$.\\
+A change in preferences in any other candidate should not change the relative ranking of $\omega_i$ and $\omega_j$.
+
+None of the protocol we have seen satisfies this property.
+\item \side{Dictatorship}\\
+A social welfare function is said to be a dictatorship if for some voter $i$ we have
+\[f(\bar{\omega_1}, \bar{\omega_2}, ...) = \bar{\omega_i}\]
+
+All protocols we have seen so far are non-dictatorship.
+\end{enumerate}
+
+\begin{theorem}[Arrow's theorem]\pside{Arrow's theorem}\\
+If $\abs{\Omega}>2$ then the only voting procedure that satisfies Pareto condition, Condercet Winner condition and IIA is dictatorship.
+\end{theorem}
+\subsection{Insincere Voters}
+\begin{itemize}
+\item In reality it is seldom that all agent's preferences are known: usually agents have to reveal their preferences.
+\item Assuming knowledege of the preferences is equivalent to assuming that the agents reveal their preferences truthfully
+\item If an agent can benefit from insincerely declaring his preferences, it will do so.
+\item The goal is to generate protocols such that when agents use them according to some stability solution concept (dominant strategy equilibrium) the desirable social outcomes follow
+\item The strategies are not externally imposed on the agents, but instead each agent uses the strategy that is best for itself
+\end{itemize}
+However:\\
+
+Let each agent $i$ from $A$ have some ordering $\theta_i$ from $\Theta$ which totally characterized his preferences. A social choice function $f:\quad \Theta \rightarrow \Omega$ chooses a social outcome given the agent's orderings.
+
+\begin{theorem}[Gibbard-Satterthwaite impossibility theorem]\pside{Gibbard- Satterthwaite impossibility theorem}\\
+Let each agent's ordering $\theta_i$ consists of a preference order $\cmore_i$ on $\Omega$.\\
+Let there be no restictions on $\cmore_i$ (i.e. each agent may rank the outcomes $\Omega$ in any order).\\
+Let $\abs{\Omega} > 2$.\\
+Now, if the social function $f(\cdot)$ is truthfully implementable in a dominant strategy equilibrium (or is not manipulable), then $f(\cdot)$ is dictatorial, i.e. there is some agent who gets one of its most preferred outcome chosen no matter what types the other reveal.
+\end{theorem}
+
+Broadly speaking, the only procedure or mechanism that is immune to strategic manipulation (in the sense of untruthful report of an agent preference) is dictatorship in the case of more than 2 candidates.
+
+There are ways to circumvent the impossibility theorem, by relaxing the assumptions made by the theorem itself.\\
+The individual preferences, in fact, may happen to belong to some restrincted domain, thus invalidating the conditions of the impossibility theorem, and it is known that there are island in the space of agent's preferences for which non-manipulable non-dictatorial protocols can be constructed.
+
+The solution in practive is to make agents precisely internalize the externality by imposing a tax on those agents whose vote changes the outcome. The size of tax is exactly how much its vote lowers the other's utility.\\
+Such solution is known as the \side{Clark tax algorithm}:
+\begin{itemize}
+\item Every agent $i$ from $A$ reveals his valuation $v^*_i(g)$ for every possible $g$ (which may be non-truthful)
+\item The social choice is 
+\[g^* =\argmax_g \, \sum \,v^*_i(g)\]
+\item Every agent is levied a tax:
+\[tax_i = \sum_{j\ne i} v^*_j(g)\,\left(\argmax_g\, \sum _{k\ne i}\,v^*_k(g)\right) - \sum_{j\ne i}\,v^*_j(g)\]
+\end{itemize}
+It follows that
+\begin{theorem}
+If each agent has quasilinear preferences, then, under the Clarke tax algorithm, each agent's dominant strategy is to reveal his true preferences, i.e. 
+\[v^*_i(g) = v_i(g) \qquad\forall g\]
+\end{theorem}
+
+In conclusion, the Clarke tax algorithm:
+\begin{itemize}
+\item the mechanism leads to the socially most preferred $g$ to be chosen
+\item because of truth telling, the agents need not waste effort in counter speculating each other preference declarations
+\item participation in the mechanism may only increase an agent's utility
+\item the mechanism does not mantain budget balance: too much tax is collected
+\item it is not coalision proof 
+\end{itemize}
+
+Other way to circumvent the Impossibilty theorem:
+\begin{itemize}
+\item some fairness can be achieved by choosing the dictator randomly in the protocol
+\item to use a protcol for which computing an untruthful revelation (that is the better than the truthful one) is prohibitively costly computationally
+\end{itemize}
 
 \section{Auctions}
+Auctinos are mechanisms sed to reach agreeements on one very simple issue: that of how to allocate scarce resources to agents.
+
+It is important to understand that the resource in question is scarce and it is tipically desired by more than one agent (if one of the preconditions is not met than the allocation is trivial and straighforward).
+
+Auctions provide a reasonable and principled way to allocate resources to agents, in particular they are effective at allocating resources efficiently, in the sense of allocating resources to those that value them the most.
 \subsection{Auction parameters for classification}
+In general terms:
+\begin{itemize}
+\item An auction takes place between an agent known as the \side{auctioneer} and a collection of agents known as the \side{bidders}
+\item The goal of the auctino is for the auctioneer to allocate a good to one of the bidders
+\item The auctioneer desires to maximize the price at which the good is allocated.
+
+Hence the agent auctioneer will attempt to achieve its desire through the design of an appropriate auction
+\item The bidders desire to minimize the selling price.
+
+Hence the bidder agents will attempt to achieve their desires by using an effective strategy
+\end{itemize}
+
+There are several factors that can affect both the auctino protocol and the strategy that agents use:
+\begin{itemize}
+\item The good has a \side{private value}, \side{public/common value} or a \side{correlated value} (i.e. an agent valuation of the good depends partly on private factors and partly on other agents' valuations of it).
+\item \side{winner determination}: who gets the good that the bidders are bidding for and how much do they pay.
+
+In this setting, there are \side{first-price auctions} (the price goes to the highest bidder) and \side{second-price auctions} (the price goes to the highest bidder but it will pay the amount bid by the second highest bid)
+\item Whether or not the bids made by the agents are known to each other.
+
+In this setting, we will  differentiate between \side{open-cry} and \side{sealed-bid}
+\item The mechanism by which bidding proceeds.
+
+In this setting, we will differentiate between \side{one shot}, \side{ascending auctions} or \side{descending auctions} (in which the price starts at a \side{reservation price}: in the case of ascending the reservation price is proposed by the first bidder, whereas in descending the reservation price is proposed by the auctioneer).
+\end{itemize}
 \subsection{English auctions}
+English auctions are: first-price, open cry, ascending auctions.
+
+\begin{itemize}
+\item The auctioneer sets a reservation price for the good (low price) and the good is allocated to the auctioneer for this amount
+\item Bids are then invited from agents, who must bid more than the current highest bid. (all agents can see the bid)
+\item When no agent is willing to raise the bid, then the good is allocated to the agent that has made the current highest bid at the amount of its bid.
+\end{itemize}
+
+The dominant strategy is to bid a small amount more than the current highest bid until the bid price reaches their private valuation and then to withdraw.
+
+English auction's however are sensible to the \side{winner's curse}: should the winner feel ``happy'' that they have obtained the good for less than or equal to their private valuation or should they feel worried because no other agent valued the good so highly?
+
 \subsection{Japanese auctions}
+Japanese auctions are: open cry, ascending auctions
+\begin{itemize}
+\item The auctioneer sets a reservation price
+\item Each agent must choose whether or not to be in
+\item The auctioneer successively increases the price
+\item After each increase an agent must say if he stays or not. When agent drops out it is irrevocable
+\item The auction ends when exactly one agent is left
+\item The winner must buy the good for the current price
+\end{itemize}
+
 \subsection{Dutch auctions}
+Dutch auctions are: open-cry, descending auctions:
+\begin{itemize}
+\item The auctioneer sets a reservation price
+\item The auctioneer then continually lowers the offer price of the good by some small value, until some agent makes a bid for the good
+\item The good is then allocated to the agent that made the offer
+\end{itemize}
+Dutch auctions are also susceptible to the winner's curse.
+
+The dominant strategy is to shade bid a bit below the true willingness to pay.
 \subsection{First-price sealed-bid auctions}
+First-price sealed-bid auctions are: first-price, sealed-bid, one-shot auctions.
+\begin{itemize}
+\item A single round of proposals is considered
+\item Bidders submit to the auctioneer a bid for the good
+\item The good is awarded to the agent that made the highest bid
+\item The winner pays the price of the highest bid
+\end{itemize}
+The dominant strategy for an agent is to bid less than it true valuation. How much less will of course depend on what the other agents bid (hence there is no general solution).
+
 \subsection{Vickrey auctions}
+Vickrey auctions are: second-price, sealed-bid auctions.
+\begin{itemize}
+\item There is a single bidding round
+\item Each bidder submits a single bid.
+\item The good is awarded to the agent that made the highest bid
+\item The winning bidder pays the price of the second-highest bid 
+\end{itemize}
+
+The dominant strategy is truth telling: a bidder's dominant strategy in a private value Vickrey auction is to bid their true valuation. 
+
+As such Vickrey auction are not prone to strategic manipulation, however it makes possible for \side{antisocial behaviour} to occur: one agent may bid close to the highest bid just to make the winner pay close to the amount that they have bid.
 \subsection{Interralated auctions}
+Some auctions are interralated to each other:
+\begin{itemize}
+\item Two good are sold separately, but the bidders would like to acquire them together
+\item In this case the strategy to consider for more than one auction but for several interrelated auctions and then accomodate some valuations and  bids according to this strategy but not for some particolar auction. 
+\end{itemize}
+
+Let us consider the example of the proposed figure:
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.7\textwidth]{01/04}
+\end{figure}
+
+Two agents (agent 1 on the left and agent 2 on the right) are concurring for the acquisition of two tasks: $\tau_1$ and $\tau_2$.\\
+It makes no sense for them to acquire just one of the two tasks. Please notice that in order to complete the full task an agent must go to the start of the arrow/task and fully traverse its edge.
+
+Condering all of the above the valuation of the tasks for the two agents can be represented as a cost-to-go:
+
+\begin{gather*}
+\text{Agent 1: }\qquad c_1(\tau_1) =2.0 \qquad c_1(\tau_2) =1.0 \qquad c_1(\tau_1, \tau_2) =2.0\\
+\text{Agent 2: }\qquad c_2(\tau_1) = 1.5  \qquad c_2(\tau_2) = 1.5 \qquad c_2(\tau_1, \tau_2) =2.5 
+\end{gather*}
+However if both agents decided to follow this strategy, task $\tau_1$ would go to agent 2 (lower cost to go), whereas task $\tau_2$ would go to agent 1 (lower cost to go).
+
+In order for agent 1 to win both tasks, since it is of no use for an agent to win just one task in an interrelated auction, it can incorporate the full look ahead in its bid.
+
+If in fact, agent 1 wins $\tau_1$, it will bid $c_1(\tau_2) = c_1(\tau_1, \tau_2) - c_1(\tau_1) = 0$ for the second task, otherwise it will bid $c_1(\tau_2) = 1$.
+So it makes sense to accomodate the first bid with this knowledge.
+If agent 1 wins $\tau_1$, it will win $\tau_2$ at the price of 0 and gets a payoff of $c_1(\tau_2) - 0 = 1$ that can redistribute to the first bid.
+
+In conclusion the dominant strategy is to accomodate the payoff into the first bid:
+\[c_1(\tau_1) -payoff = 2-1=1\]
+
+In other terms this implies that if agent 1 realizes that by winning $\tau_2$ it will automatically win $\tau_1$, it will bid ``higher'' for $\tau_1$ or say that the effort to complete task $\tau_1$ will be lower by winning also  $\tau_2$. 
+
 \subsection{Lies and Collusion}
+It is in the auctioneer interest to have a protocol that is immune to collusion by bidders, i.e. that made it against the bidder' best interests to engage in collusion with other bidders.
+
+Similarly, as a potential bidder in an auction, we would like a protocol that made honesty on the part of the auctioneer the dominant strategy.
+
+None of the auction discussed above is immune to collusion: for any of them the grand coalition of all agents involved in bidding for the good can agree beforehand to collude to put forward artificially low bids for the good on offer.\\
+When the good is obtaines, the bidders can then obtain its true value and split the profits among themselves.
+A solution to collusion of the bidder is to modify the protocol so that the bidders cannot identify each other which however it's not possible in open cry auctions.
+
+With regard to the honesty of the auctioneer, the main opportunity for lying occurs in the Vickrey auctions: the auctioneer can lie to the winner about the price of the second highest bid. A solution to this is to sign bids in some way so that the winner can independently verify the value of the second highest bid ro use a trusted third party to handle bids.
+
+In open cry auctino settings there is no possibility for lying by the auctioneer, nor in  the first-price sealed-bid auctions.
+
+Lastly, another possible opportunity for lying by the auctioneer is to place bogus bidders (aka \side{shills}), in an attempt to artificially inflate the current bidding price.
+
+Moreover, there are main limitation of auctions is that they are only concerned with the allocation of goods and as such are not adequate for settling agreements that concerns maters of mutual interest.
+
 \section{Contract Net Protocol (CNP)}
 
 \section{Negotiation parameters}
+The basic components that make up a negotiation setting are:
+\begin{itemize}
+\item A \side{Negotiation set}, which represents the space of possible proposals that agents can make
+\item A \side{protocol}, which defines the legal proposals that agents can make, as a funciton of prior negotiation history.
+\item A collection of \side{strategies}, one for each agent, which determine what proposals the agents will make.
+\item A \side{rule} that determines when a deal has been struck, and what this agreement deal is.
+\end{itemize}
+
+Negotiation usually proceeds in a series of rounds, with some proposal made at every round. The proposals that agents make are defined by their strategy, must be drawn from the negotiation set, and must be legal, as defined by the protocol.\\
+If agreement is reaches, as defined by the agreement rule, then negotiation terminates with the agreement deal.\\
+
+Several attributes may complicate negotiation:
+\begin{itemize}
+\item Multiple issues are involved: in case of a single attribute/price we have a symmetric scenario which is easy to analyze because it is always obvious what represents a concession.
+
+On the other hand, in multiple-issue negotiation scenarios, agents negotiate over not just the value of a single attribute, but the values of multiple attributes, which may be interrelated. In such scenarios, it is usually much less obvious what represents a true concession.
+
+Moreover multiple attributes also lead to an exponential growth in the space of possible deals. This means that, in attempting to decide what proposal to make next, it will be entirely unfeasible for an agent to explicitly consider every possible deal in domains of moderate size.
+\item Another source of complexity in negotiation is the number of agents involved in the process, and the way in which these agents interact. There are three obvious possibilities:
+\begin{enumerate}
+\item \side{One-to-one negotiation}
+\item \side{Many-to-one negotiation}, as in the case of auctions or reverse auctions
+\item \side{Many-to-many negotiation}
+\end{enumerate}
+\end{itemize}
 \subsection{Monotonic Concession Protocol}
