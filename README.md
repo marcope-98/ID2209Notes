@@ -1,55 +1,22 @@
 # Overview #
 This repository contains the notes of the course ID2209 - Distributed Artificial Intelligence and Intelligent Agents
 
-# TODO: #
-## Introduction:
-- [ ] Take notes from 2021 video lectures
-## Agent Negotiation
-- [x] Read related chapters from book
-- [ ] Finish taking notes from textbook 
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 video lectures
-## Agent Communication
-- [x] Read related chapters from book
-- [ ] Adjust notes from textbook to avoid plagiarism
-- [ ] Add images
-- [ ] Add references and hyperlinks of tables
-- [ ] Add KQML and FIPA messages example
-- [ ] Watch 2021 Video lectures
-## Agent Coordination
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
-## MAS Architecture
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
-## Agent-Oriented Software Engineering
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
-## Agent Theory
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
-## Agent Architectures
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
-## ML and RL
-- [ ] Watch 2021 VIdeo Lectures
-## Agent Mobility
-- [ ] Read related chapters from book
-- [ ] Add images
-- [ ] Add references and hyperlinks
-- [ ] Watch 2021 VIdeo Lectures
+Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/33)
 
+# TODO: #
+- [ ] fix equation alignment under "simple majority voting" section
+- [ ] replace \missingfigure{} with proper images
+- [x] complete "Introduction" chapter 
+- [ ] complete "Agent Negotiation" chapter 
+- [ ] complete "Agent Communication" chapter 
+- [ ] complete "Agent Coordination" chapter 
+- [ ] complete "MAS Architecture" chapter 
+- [ ] complete "Agent Oriented Software Engineering" chapter 
+- [ ] complete "Agent Theory" chapter 
+- [ ] complete "Agent Architecture" chapter 
+- [ ] complete "ML and RL" chapter 
+- [ ] complete "Agent Mobility" chapter 
+ 
 # Textbook:
 - Agent Negotiation: ch. 11, 12, 14, 15
 - Agent Communication: ch. 6, 7
