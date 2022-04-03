@@ -1,0 +1,15 @@
+*.acn
+*.aux
+*.bcf
+*.glo
+*.ist
+*.log
+*.run.xml
+*.synctex.gz
+*.toc
+*.out
+*.tdo
+*.bbl
+*.mtc*
+*.blg
+*.maf

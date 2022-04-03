@@ -1,0 +1,70 @@
+\documentclass[a4paper, 10pt, oneside]{report}
+ %\documentclass[a4paper, 10pt, oneside,draft]{report}
+\usepackage[utf8]{inputenc}
+
+%\pdfcompresslevel=0
+%\pdfobjcompresslevel=0
+
+
+\input{lib/includes}
+\input{lib/acronyms}
+\input{lib/commands}
+
+
+\title{Distributed Artificial Intelligence\\and\\ Intelligent Agents}
+\author{Marco Peressutti}
+\date{\today}
+
+
+
+\includeonly{
+chapters/00-Introduction,
+chapters/01-Negotiation,
+chapters/02-Communication,
+chapters/03-Coordination,
+chapters/04-MASArchitecture,
+chapters/05-AOSE,
+chapters/06-Theory,
+chapters/07-Architecture,
+chapters/08-MLandRL,
+chapters/09-Mobility
+}
+	
+\addbibresource{bib/bibliography.bib}
+\graphicspath{
+{images/}
+}
+\makeglossaries
+
+\begin{document}
+ 
+\maketitle
+\printglossaries
+\dominitoc[n]
+\tableofcontents
+%\begin{empheq}[box=%
+%	\fbox]{gather*}
+%		\mathbf{OP} = f(q_1,\dots,\,q_N,\,t)
+%	\end{empheq}
+	
+
+
+\clearpage
+
+\include{chapters/00-Introduction}
+\include{chapters/01-Negotiation}
+\include{chapters/02-Communication}
+\include{chapters/03-Coordination}
+\include{chapters/04-MASArchitecture}
+\include{chapters/05-AOSE}
+\include{chapters/06-Theory}
+\include{chapters/07-Architecture}
+\include{chapters/08-MLandRL}
+\include{chapters/09-Mobility}
+
+\clearpage 
+\chapter*{Bibliography}
+\addcontentsline{toc}{chapter}{{Bibliography}}
+\printbibliography[heading=bibempty]
+
+\end{document}

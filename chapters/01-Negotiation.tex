@@ -1,0 +1,477 @@
+\chapter{Agent Negotiation}
+\minitoc
+
+\newpage
+\begin{itemize}
+\item Davis and Smith\\
+\say{Negotiation is a process of improving agreement (reducing inconsistency and uncertainty) on common viewpoints or plans through the exchange of relevant information}.\\
+
+Negotiation is a two way exchange of information (more than one agent must be involved for negotiation to happen).\\
+Each party evaluates the information from its own perspective.\\
+final agreement is achieved by \side{mutual selection}.
+\item Pruitt\\
+\say{Negotiation is a process by which a joint decision is made by two or more parties. The parties first verbalize contradictory demands and then move towards agreement by a process of concession or search for new alternatives}\\
+
+\side{Mutual conflict} is the necessary condition to start negotiation.\\
+Negotiation involves three main elements: \side{communication}, \side{decision making} (decision about next concession to make in order to continue negotiation) and a \side{procedural model} (protocol inside which we communicate and make decision).\\
+\side{Implicit negotiation} where one or more parties does not know that there is conflict can happen but it will not be treated in the course.
+\end{itemize}
+
+From the definitions provided we can conclude that there are three basic negotiation categories:
+\begin{itemize}
+\item \side{Negotiation language category} (Communication)
+
+We will consider the language category more in depth in chapter \ref{ch:AgentCommunication}: Agent Communication.\\
+The language category deals with the concepts of:
+\begin{itemize}
+\item \side{Language primitives}\\
+Low level communications (message sending) and conversational aspects (relative to speech acts and performatives)
+\item \side{Object structure}\\
+What is the object of negotiation (price, schedule, tasks, ...) and what is the context of the message/information.
+\item \side{Internal protocol}\\
+Specify the possibilities of initiating a negotiation cycle and responding to a message
+\item \side{Semantics}\\
+Strictly related to language primitives (pre-conditions, post-conditions, modal logic).
+\end{itemize}
+
+\item \side{Negotiation decision category} (Decision making)
+
+The decision category deals with which strategy and consequently which language primitive to choose inside of a protocol.\\
+It deals with the concepts of:
+\begin{itemize}
+\item preferences\\ 
+what are preferrable outcomes
+\item utility functions\\
+ numerical/functional representation of preferences
+\item comparing and matching functions
+\item negotiation strategies
+\end{itemize}
+
+\item \side{Negotiation process category} (Protocols/procedural model)
+
+It deals with the concepts of:
+\begin{itemize}
+\item \side{Procedural negotiation model}\\
+what is the protocol of negotiation and their properties
+\item \side{System behaviour and analysis}\\
+analysis of the interaction between different parts of the system in order to recognize what are protocols and preferences (it will not be considered in the course)
+\end{itemize}
+\end{itemize}
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.5\textwidth]{/01/00}
+\caption{trivial form of how the categories are interralated in the negotiation context}
+\end{figure}
+
+Furthermore, since negotiation happens when mutual conflict occurs, we can say that negotiation is a \side{conflict resolution} approach/method/area.
+
+In general terms, negotiation usually proceeds in \side{series of rounds}  with every agent making a proposal at every round.
+For this reason, the negotiation process can be seen as a mutual exchange of information.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.5\textwidth]{01/01}
+\end{figure}
+
+Another way of looking at the negotiation process is as an iterative concession process: each agent starts at its most preferred outcome and makes a proposal, it will then proceed to conceed to a less preferred outcome until a \side{Point of acceptance or agreement} is reached. (Be aware of the fact that not all negotiation end with agreement).
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.5\textwidth]{01/02}
+\end{figure}
+
+Hence the Negotiation process can be seen as moving towards a point of agreement.
+
+\section{Multiagent Interactions}
+	In the typical structure of a multiagent systems, one can notice the presence of some common elements:
+	\begin{itemize}
+	\item the system contains a number of agents
+	\item each agent has the ability to communicate with another agent
+	\item each agent has the ability to act in an environment
+	\item different agents have different \side{spheres of influence}, i.e. they are able to influence or have control over the environment, or a part of it.
+	\item these spheres of interest may coincide or overlap giving rise to dependencies between agents.
+	\end{itemize}	
+	
+	Thus:\\
+	\say{When faced with what appears to be a multiagent domain, it is critically important to understand the type of interaction that takes place between agents in order to be able to make the best decision possible about what action to perform.}
+
+\subsection{Utilities and Preferences}
+In order to simplify the analysis of multiagent interactions, throughout this chapter we will consider the following assumption, unless stated differently:
+	\begin{itemize}
+	\item Two agents act and interact in an environment. We will refer to these two agents as agent $i$ and agent $j$
+	\item The two agents are \side{self-interest}, i.e. each agent has its own preferences and desires about how the world should be
+	\item There exists a \side{set of outcomes} that the two agents have preferences over. We will refer to this set with the notation:
+	\[\Omega = \{\omega_1, \omega_2,...\}\]
+	\end{itemize}
+	
+	The preferences of the two agents are formally captured by means of \side{utility functions}, which maps each outcome in the set $\Omega$ to a real number describing how “good” an outcome is.\\
+	Since the agents are self-interest each agent will have its own utility function, hence:
+	\[u_i\,:\,\Omega\rightarrow\mathbb{R}\qquad;\qquad u_j\,:\,\Omega\rightarrow\mathbb{R}\]
+	The introduction of an utility function eventually leads to a \side{preference ordering} over the outcomes of the set for each agent.
+	This means that, if $\omega$ and $\omega’$ are both possible outcomes contained in $\Omega$ and $u_i(\omega)\ge u_i(\omega’)$, then agent $i$ preferes outcome $\omega$ at least as much as outcome $\omega’$.
+	
+	Since we will make extensive use of the concept of preference ordering throughout the next sections, it is worth introduce a much more compact notation. We will write:
+	\begin{align*}
+	\omega \cge_i \omega’ &&\text{ as an abbreviation for } && u_i(\omega) \ge u_i(\omega’)\\
+	\omega \cmore_i \omega’ &&\text{ as an abbreviation for } && u_i(\omega) > u_i(\omega’)
+	\end{align*}
+	where the second expression represents the case in which outcome $\omega$ is \side{stricly preferred} by agent $i$ over $\omega’$.
+	
+	In other words, the notation can be summarized as follows:
+	\begin{empheq}[box=%
+	\fbox]{gather*}
+		\omega \cmore_i \omega’ \,\iff\,u_i(\omega)\ge u_i(\omega’)\text{ and not } u_i(\omega)=u_i(\omega’)
+	\end{empheq}
+	
+	Moreover we can notice that the ordering relation expressed by the operator $\cge$, has the following properties:
+	\begin{enumerate}
+	\item \side{Reflexivity}
+	\[\forall \omega \in \Omega\rightarrow \omega\cge_i\omega\]
+	\item \side{Transitivity}
+	\[\text{If } \omega \cge_i\omega’ \text{ \&\& } \omega’\cge_i\omega`` \rightarrow \omega \cge_i\omega``\]
+	\item \side{Comparability}
+	\[\forall \omega\in \Omega, \forall \omega’\in\Omega\rightarrow \omega\cge_i\omega’\text{ || } \omega’\cge_i\omega\]
+	\end{enumerate}
+	The strict preference relationship still has the second and third property, however it is not reflexive
+	
+\subsection{Setting the scene}
+So far, we have talked introduced a model to represent the agents preferences, but we still need to formalize a model of the environment in which agents act and interact. In particular, we will assume that:
+	\begin{itemize}
+	\item Two agents will simultaneously choose an action to perform in the environment
+	\item as a result of the actions they select, an outcome in $\Omega$ will result
+	\item the \side{actual outcome} that will result will depend on the particular \side{combination of actions} performed.
+	
+	In other terms: both agents can influence the actual outcome 
+	\item The two agents must perform an action
+	\item The two agents cannot see the action performed by the other agent
+	\end{itemize}
+	
+	We will restrict our analysis to two possible actions that the agent can choose from: cooperate $C$ and defect $D$. Hence, we will refer to the \side{set of actions} with the notation
+	\[Ac = \{C,D\}\]
+	Given all the above, the environment formally described by a \side{state transformer function}:
+	\[\tau: \underbrace{Ac}{\text{agent $i$’s action}}\times\underbrace{Ac}{\text{agent $j$’s action}}\rightarrow \Omega\]
+	Hence, several scenarios can happen:
+	\begin{enumerate}
+	\item The environment maps each combination of actions to a different outcome, and thus is sensitive to the actions of both agents
+	\[\tau(D,D)=\omega_1\qquad\tau(D,C)=\omega_2\qquad\tau(C,D)=\omega_3\qquad\tau(C,C)=\omega_4\]
+	\item The environment maps each combination of actions to the same outcome and thus neither of the agents have influence in the environment
+	\[\tau(D,D)=\omega_1\qquad\tau(D,C)=\omega_1\qquad\tau(C,D)=\omega_1\qquad\tau(C,C)=\omega_1\]
+	\item The environment maps each combination of actions to an outcome that is correlated to the choice of only one agent and thus the outcome depends solely on the action performed by one agent
+	\[\tau(D,D)=\omega_1\qquad\tau(D,C)=\omega_2\qquad\tau(C,D)=\omega_1\qquad\tau(C,C)=\omega_2\]	
+	\end{enumerate}
+	Since the latter two cases are of no interest for our analysis we will focus on the scenario in which both agents exert some kind of influence on the actual outcome. We, therefore, will consider the agent preferences (in the form of utility function) as follows
+	\[
+	\left.
+	\begin{aligned}
+	u_i(\omega_1) = 1&\quad u_i(\omega_2) = 1&\quad u_i(\omega_3) = 4&\quad u_i(\omega_4) = 4\\
+	u_j(\omega_1) = 1&\quad u_j(\omega_2) = 4&\quad u_j(\omega_3) = 1&\quad u_j(\omega_4) = 4
+	\end{aligned}
+	\right\}
+	\]
+	Given the state transformer function, we can abuse notation and write
+	\[
+	\left.
+	\begin{aligned}
+	u_i(D,D) = 1&\quad u_i(D,C) = 1&\quad u_i(C,D) = 4&\quad u_i(C,C) = 4\\
+	u_j(D,D) = 1&\quad u_j(D,C) = 4&\quad u_j(C,D) = 1&\quad u_j(C,C) = 4
+	\end{aligned}
+	\right\}
+	\]
+	Hence, with respect to agent $i$’s preferences (first row) over the possible outcomes, we can characterize the preference ordering as follows:
+	\[(C,C) \cge_i(C,D) \cge_i(D,C) \cge_i(D,D) \]
+	Similarly for agent $j$, the resulting preference ordering can be characterize as follows:
+	\[(C,C) \cge_i(D,C) \cge_i(C,D) \cge_i(D,D) \]
+	It is straightforward to see that if both agents \side{act rationally}, i.e. \say{they both choose to perform the action that will lead to their preferred outcomes}\cite{mastxt}, they will both choose to cooperate.
+	This is because, both agents prefer all the outcomes in which they cooperate, regardless of what the other agent action is.
+	
+	A common way to represent the previously described interaction scenario is via \side{pay-off matrix} (standard game-theoretic notation):
+	\begin{table}[!h]
+	\centering
+	\begin{NiceTabular}{c|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}}
+	&\Block{1-2}{i defects}&&\Block{1-2}{i cooperates}&\\
+	\hline
+	\Block{2-1}{j defects}&&1&&4\\
+	&1&&1&\\
+	\hline
+	\Block{2-1}{j cooperates}&&1&&4\\
+	&4&&4&
+	\end{NiceTabular}
+	\end{table}
+	The pay-off matrix uniquely defines a \side{game in strategic form}. The way to interpret it is as follows:
+	\begin{itemize}
+	\item each cell in the matrix correspond to one of the possible outcomes
+	\item The top-right value in each cell corresponds to the payoff received by the column player
+	\item The bottom-left value in each cell corresponds to the payoff received by the row player
+	\end{itemize}
+	
+\subsection{Solution Concepts and Solution Properties}
+A question still remains unanswered: What should an agent do? What action should he chooses? 
+		
+		We briefly touched on the topic on the previous section, but we have provided neither the concepts that make up the solution nor the desirable properties that a solution should have.
+		
+		In this section, we will tackle the problem to its core.
+		
+\subsubsection{Dominant strategies - Dominance}
+One of the main concept that we will introduce is that of \side{dominance}.
+		
+		\say{A strategy $s_i$ is [said to be] \textbf{dominant} for player $i$ if, no matter what strategy $s_j$ agent $j$ chooses, $i$ will do at least as well playing $s_i$ as it would doing anything else}\cite{mastxt}.
+		The notion of \side{dominant strategy} is strictly related to the concept of \side{best response}, in the sense that \say{a strategy $s_i$ for agent $i$ is dominant if it is the best response to \textbf{all} of agent strategies}\cite{mastxt}.
+		
+		Thus, a dominant strategy, if it exists, simplify the decision about what action to perform: \say{the agent guarantees its best outcome 
+by performing the dominant strategy}\cite{mastxt}.
+
+\subsubsection{Nash Equilibria}
+The notion of \side{equilibrium}, or more precisely \side{Nash equilibrium}, is hard to formalize in the context of strategic decision making.
+		
+		We can, however, provide a basic definition by saying that two strategies $s_1$ and $s_2$ are in Nash equilibrium if:
+		\begin{enumerate}
+		\item under the assumption that agent $i$ plays $s_1$, agent $j$ can do no better than play $s_2$, and
+		\item under the assumption that agent $j$ plays $s_2$, agent $i$ can do no better than play $s_1$
+		\end{enumerate}
+		From this conditions, one can clearly notice that \textbf{two strategies are in Nash equilibrium if they are the best response to each other}.
+		
+		The mutual nature of the concept makes it so that \emph{neither agent has any incentive to deviate from a Nash equilibrium}: even if an agent chooses a different strategy, the other agent can do no better than to choose the strategy in Nash equilibrium.
+		
+		Technically, this type of Nash equilibrium is known as \side{pure strategy Nash equilibrium}, and as much as it is appealing from its theoretical stand point, it is extremely expensive from a computational stand point.\\
+		In fact, finding one or more Nash equilibria requires to consider each combination of strategy and check if they are in Nash equilibrium.\\
+		Thus, if there are $n$ agents, each with $m$ possible strategies to choose from, the number of possible combinations of actions (and hence possible outcomes) will be $m^n$.
+		
+		Nonetheless, the presence of Nash equilibrium provides a definite answer to what action an agent should choose. However, two common issues might emerge:
+		\begin{enumerate}
+		\item Not every interaction scenario has a pure strategy Nash equilibrium
+		\item Some interaction scenarios have more than one pure strategy Nash equilibrium
+		\end{enumerate}
+		
+		With regard to the first issue, we need to modify our notion of what a strategy is. So far, we have implicitly considered a strategy as a deterministic choice of an action. This is inline with the fact that the subroutines that an agent can execute should not be subject to uncertainties or randomness (in general, we would like a subroutine to yield the same correct result on different execution).
+		
+		However, \say{it can be useful to introduce randomness or uncertainty into our actions}\cite{mastxt}.
+		The reason why that is can be best explained considering the game or rock-paper-scissors, of which the pay-off matrix is provided below:
+		\begin{table}[!h]
+		\centering
+		\begin{NiceTabular}{c|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}}
+		&\Block{1-2}{i plays rock}&&\Block{1-2}{i plays paper}&&\Block{1-2}{i plays scissors}&\\
+		\hline
+		\Block{2-1}{j plays rock}&&0&&1&&-1\\
+		&0&&-1&&1&\\
+		\hline
+		\Block{2-1}{j plays paper}&&-1&&0&&1\\
+		&1&&0&&-1&\\
+		\hline
+		\Block{2-1}{j plays scissors}&&1&&-1&&0\\
+		&-1&&1&&0&
+		\end{NiceTabular}
+		\end{table}
+		From the provided payoff matrix, one can clearly notice that the game has no pure strategy Nash equilibrium as well as no dominant strategy.
+		Yet, this is not completely true: a \side{mixed strategy} allows the agent to choose between possible choices by introducing randomness into the selection.\\
+		If the agent chooses one of the actions at random, with each choice having equal probability of being selected, the strategy turns out to be in \textbf{Nash equilibrium with itself}. This is because if an agent decides to choose an action at random, the other agent can do no better than adopting the same strategy and vice versa.
+		
+		In general, if a player has $k$ possible choices, $s_1, s_2, ..., s_k$, then a mixed strategy over these choices takes the form:
+		\begin{itemize}
+		\item play $s_1$ with probability $p_1$
+		\item play $s_2$ with probability $p_2$
+		\item ...
+		\item play $s_k$ with probability $p_k$
+		\end{itemize}
+		In other terms, a mixed strategy over $s_1, s_2, ..., s_k$ is a probability distribution over $s_1, s_2, ..., s_k$.
+		
+		The result formalized by John Forbes Nash, Jr. best summarize the discussion that we have made so far:\\
+		\say{Every game in which every player has a finite set of possible strategies has a Nash equilibrium in mixed strategies}
+		
+\subsubsection{Pareto efficiency}
+The notion of \side{Pareto efficiency} or \side{Pareto optimality}, contrary to the notion of Nash equilibrium and dominant strategy, is more of a (desirable) property of solutions rather than a solution concept.
+		
+		Formally:\\
+		\say{an outcome is Pareto efficient if there is no other outcome that improves one player’s utility without making somebody else worse off}.\cite{mastxt}\\
+		On the other hand:
+		\say{An outcome is said to be Pareto inefficient if there is another outcome that makes at least one player better off without making anybody else worse off}\cite{mastxt}.
+		
+		To put it in simpler terms we can consider an example: a brother and a sister have to divide a cake. Among the solutions of this problem, those who are Pareto efficient are:
+		\begin{itemize}
+		\item The brother eats the whole cake
+		\item The sister eats the whole cake
+		\item Any other distribution of the cake, which leaves no cake left
+		\end{itemize}
+		Hence, a solution is Pareto efficient if it consumes/uses the total utility.
+		
+\subsubsection{Maximizing social welfare}
+Similarly to Pareto efficiency, \side{social welfare} is an important property of outcomes, but is not generally a way of directly selecting them.
+		
+		The core principle of \side{Maximizing social welfare} involves the measurement of how much utility is created by an outcome in total.\\
+		Formally, let $sw(\omega)$ denote the sum of utilities of each agent for outcome $\omega$
+		\[sw(\omega) =\sum_{i\in Ag} u_i(\omega)\]
+		the outcome that maximized social welfare is the one that maximizes this value.
+		
+		From an individual agent’s point of view, the problem with maximizing social welfare is that it does not look at the pay-offs of individual agents, only to the total welfare created. (maximizing social welfare does not care about how the utility of an outcome is divided among the players).
+		
+\subsection{Competitive and Zero-Sum Interactions}
+A scenario in which an outcome $\omega\in\Omega$ is preferred by agent $i$ over an outcome $\omega’$, if ,and only if, $\omega’$ is preferred over $\omega$ by agent $j$, is said to be \side{strictly competitive}.\\
+	Formally, a competitive scenario takes the form:
+	\[\omega \cmore_i \omega’\qquad\iff\qquad\omega’\cmore_j \omega\]
+	Under this condition, it is straightforward to see that the preferences of the players are \side{diametrically opposed} to one another
+	
+	\side{Zero-sum encounters}, similarly, are those in which, for any particular outcome, the utilities of the two agents sum to zero. Formally, these scenario is described by the condition:
+	\[u_i(\omega) + u_j(omega) = 0\qquad \forall \omega \in \Omega\]
+	Once again, any zero-sum scenario is strictly competitive, allowing for no possibility of cooperative behavior: \say{the best outcome for an agent is the worst outcome for its opponent. If an agent allows the opponent to get a positive utility, then it will get negative utility.}\cite{mastxt}\\
+	Popular Zero-sum encounters are the games of chess and checkers as well as rock-paper-scissors.
+	
+	Interesting enough, zero-sum is debatable that zero-sum games actually exists in real-world scenarios (apart from artificially forms of interaction like the games mentioned before). However, it appears that people interacting in many scenarios have a tendency to treat them as if they were zero sum.
+	
+\subsection{The Prisoner's Dilemma}
+The \side{Prisoner’s Dilemma} is as follows:
+	\say{Two man are collectively charged with a crime and held in separate cells. They have no way of communicating with each other or making any kind of agreement. The two man are told that:
+	\begin{enumerate}
+	\item If one of them confesses to the crime and the other does not, the confessor will be freed, and the other will be jailed for three years
+	\item If both confess to the crime, then each will be jailed for two years
+	\end{enumerate}
+	Both prisoners know that if neither confesses, then they will each be jailed for one year.}\cite{mastxt}
+	Under this conditions let us associate the act of confessing with defection $D$ and not confessing with coopering $C$.
+	
+	There exists 4 possible outcomes to the prisoner’s dilemma:
+	\begin{table}[!h]
+	\centering
+	\begin{NiceTabular}{c|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}}
+	&\Block{1-2}{i defects}&&\Block{1-2}{i cooperates}&\\
+	\hline
+	\Block{2-1}{j defects}&&2&&0\\
+	&2&&5&\\
+	\hline
+	\Block{2-1}{j cooperates}&&5&&3\\
+	&0&&3&
+	\end{NiceTabular}
+	\end{table}
+	Where the number displayed are NOT the year spent in prison.
+	
+	From the provided payoff matrix we can come up with the preference ordering of each agent/prisoner:
+	\[
+	\begin{dcases}
+	(D,C) \cmore_i (C,C) \cmore_i (D,D) \cmore_i (C,D) & \text{for agent }i\\
+	(C,D) \cmore_j (C,C) \cmore_j (D,D) \cmore_j (D,C) & \text{for agent }j\\
+	\end{dcases}
+	\]
+	Thus, we can analyze the best response of an agent to the choice of action of the other:
+	\begin{itemize}
+	\item Assuming the other player cooperates. The best response is to defect
+	\item Assuming the other player defect. The best response is to defect
+	\end{itemize}
+	From this we can conclude that defection for $i$ is the best response to all possible strategies of the player $j$: by definition, defection is thus a dominant strategy for $i$.
+	
+	Since the same conclusion can be drawn for agent $j$, the scenario under consideration is \side{symmetric}: this will result in both agent choosing to defect.\\
+	From an analysis of the problem under the concepts that we have seen previously, we can state that
+	\begin{itemize}
+	\item the pair $(D,D)$ is the only Nash equilibrium of the scenario, however intuition says that this is not the best the players can do. 		\item the pair of actions $(D,D)$ is also the only one that is not Pareto efficient. 
+	\item The outcome that maximizes social welfare is $(C,C)$
+	\end{itemize}
+	
+	\say{The fact that utility seems to be wasted here, and that the agents could both do better by cooperating, even though the rational thing to do is to defect, is why this is referred to as dilemma.} \cite{mastxt}
+	
+	Moreover, the prisoner’s dilemma also seems to be the game that characterized the \side{tragedy of the commons}: which is concerned with the use of a shared, depletable resource by a society of self-interested individuals (e.g. overfishing in the seas, exploitation of bandwidth capacity on the Internet).
+	
+	Many people find the conclusion of the analysis deeply upsetting: \say{the result seems to imply that cooperatoin can only arise as a result of irrational behavior, and that cooperative behavior can be exploited by those who behave rationally.}\cite{mastxt}\\
+	Binmore argues that the discomfort we have with the analsys of the prisoner’s dilemma is misplaced:\\
+	\say{A whole generation of scholars swallowed the line that the prisoner’s dilemma embodies the essence of the problem of human cooperation. They therefore set themselves the hopeless task of giving reasons why [this analysis] is mistaken... Rational players don’t cooperate in the prisoner’s dilemma because the conditions necessary for rational cooperation are absent}.
+	
+\subsection{Other Symmetric 2$\times$2 Interactions}
+The prisoner’s dilemma and its variation are not the only type of multiagent interaction that exists.
+	
+	In fact, if we restrict our attention to interaction in which there are:
+	\begin{itemize}
+	\item Two agents
+	\item Each agent has two possible actions (C or D)
+	\item The scenario is symmetric
+	\end{itemize}
+	Then $4! = 24$ possible orderings of preferences, and as a consequence, 24 different games, can be constructed.
+	
+	\begin{table}[!h]
+	\centering
+	\begin{NiceTabular}{lll}[hvlines]
+	\textbf{Scenario}&\textbf{Preferences over outcomes}&\textbf{Comment}\\
+	1&$(C,C)\cmore_i(C,D)\cmore_i(D,C)\cmore_i(D,D)$&cooperation dominates\\
+	2&$(C,C)\cmore_i(C,D)\cmore_i(D,D)\cmore_i(D,C)$&cooperation dominates\\
+	3&$(C,C)\cmore_i(D,C)\cmore_i(C,D)\cmore_i(D,D)$&\\
+	4&$(C,C)\cmore_i(D,C)\cmore_i(D,D)\cmore_i(C,D)$&stag hunt\\
+	5&$(C,C)\cmore_i(D,D)\cmore_i(C,D)\cmore_i(D,C)$&\\
+	6&$(C,C)\cmore_i(D,D)\cmore_i(D,C)\cmore_i(C,D)$&\\
+	7&$(C,D)\cmore_i(C,C)\cmore_i(D,C)\cmore_i(D,D)$&\\
+	8&$(C,D)\cmore_i(C,C)\cmore_i(D,D)\cmore_i(D,C)$&\\
+	9&$(C,D)\cmore_i(D,C)\cmore_i(C,C)\cmore_i(D,D)$&\\
+	10&$(C,D)\cmore_i(D,C)\cmore_i(D,D)\cmore_i(C,C)$&\\
+	11&$(C,D)\cmore_i(D,D)\cmore_i(C,C)\cmore_i(D,C)$&\\
+	12&$(C,D)\cmore_i(D,D)\cmore_i(D,C)\cmore_i(C,C)$&\\
+	13&$(D,C)\cmore_i(C,C)\cmore_i(C,D)\cmore_i(D,D)$&game of chicken\\
+	14&$(D,C)\cmore_i(C,C)\cmore_i(D,D)\cmore_i(C,D)$&prisoner’s dilemma\\
+	15&$(D,C)\cmore_i(C,D)\cmore_i(C,C)\cmore_i(D,D)$&\\
+	16&$(D,C)\cmore_i(C,D)\cmore_i(D,D)\cmore_i(C,C)$&\\
+	17&$(D,C)\cmore_i(D,D)\cmore_i(C,C)\cmore_i(C,D)$&\\
+	18&$(D,C)\cmore_i(D,D)\cmore_i(C,D)\cmore_i(C,C)$&\\
+	19&$(D,D)\cmore_i(C,C)\cmore_i(C,D)\cmore_i(D,C)$&\\
+	20&$(D,D)\cmore_i(C,C)\cmore_i(D,C)\cmore_i(C,D)$&\\
+	21&$(D,D)\cmore_i(C,D)\cmore_i(C,C)\cmore_i(D,C)$&\\
+	22&$(D,D)\cmore_i(C,D)\cmore_i(D,C)\cmore_i(C,C)$&\\
+	23&$(D,D)\cmore_i(D,C)\cmore_i(C,C)\cmore_i(C,D)$&defection dominates\\
+	24&$(D,D)\cmore_i(D,C)\cmore_i(C,D)\cmore_i(C,C)$&defection dominates
+	\end{NiceTabular}
+	\end{table}
+
+	For the sake of the analysis we will briefly look into two more of these games: stag hunt and the game of chicken.
+
+\begin{itemize}
+\item The stag hunt
+\begin{table}[!h]
+	\centering
+	\begin{NiceTabular}{c|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}}
+	&\Block{1-2}{i defects}&&\Block{1-2}{i cooperates}&\\
+	\hline
+	\Block{2-1}{j defects}&&1&&0\\
+	&1&&2&\\
+	\hline
+	\Block{2-1}{j cooperates}&&2&&3\\
+	&0&&3&
+	\end{NiceTabular}
+	\end{table}
+	
+\item The Game of chicken
+\begin{table}[!h]
+	\centering
+	\begin{NiceTabular}{c|w{c}{0.75cm}w{c}{0.75cm}|w{c}{0.75cm}w{c}{0.75cm}}
+	&\Block{1-2}{i defects}&&\Block{1-2}{i cooperates}&\\
+	\hline
+	\Block{2-1}{j defects}&&0&&1\\
+	&0&&3&\\
+	\hline
+	\Block{2-1}{j cooperates}&&3&&2\\
+	&1&&2&
+	\end{NiceTabular}
+	\end{table}
+\end{itemize}	
+
+
+\section{Voting}
+So far we have lloked at the general setting of a multiagent encounter. In this section we will look at a specific class of protocols intended for making group decisions. This is the domain of social choice theory (aka voting theory).
+
+\subsection{Social Welfare Functions and Social Choice Functions}
+The general setting of a voting protocol is as follows:
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection{Voting Protocols}
+\subsubsection{Simple majority voting}
+\subsubsection{Binary protocol}
+\subsubsection{Borda protocol}
+\subsubsection{Majority Graph: Condercet's Winner and Slater ranking}
+\subsection{Desirable Properties for Voting Procedures}
+\subsection{Insincere Voters}
+
+
+\section{Auctions}
+\subsection{Auction parameters for classification}
+\subsection{English auctions}
+\subsection{Japanese auctions}
+\subsection{Dutch auctions}
+\subsection{First-price sealed-bid auctions}
+\subsection{Vickrey auctions}
+\subsection{Interralated auctions}
+\subsection{Lies and Collusion}
+\section{Contract Net Protocol (CNP)}
+
+\section{Negotiation parameters}
+\subsection{Monotonic Concession Protocol}
