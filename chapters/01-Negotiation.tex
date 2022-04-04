@@ -816,4 +816,123 @@ Moreover multiple attributes also lead to an exponential growth in the space of 
 \item \side{Many-to-many negotiation}
 \end{enumerate}
 \end{itemize}
-\subsection{Monotonic Concession Protocol}
+
+\subsection{Task Oriented Domain}
+The idea behind Negotiation for task allocation is that agents who have tasks to carry out may be able to benefit by reorganizing the distribution of tasks among themselves; but this raises the issue of how to reach agreement on who will do which tasks.
+
+Formally this scenario is known under the name of \side{Task Oriented Domain (TOD)}. A task oriented domain is a triple:
+\[< T, Ag, c >\]
+where
+\begin{itemize}
+\item $T$ is the finite set of all possible tasks
+\item $Ag = \{1,...,n\}$ is the finite set of negotiation participant agents
+\item $c: 2^T \rightarrow\mathbb{R}_+$ is a function which defines the cost of executing each subset of tasks: the cost of executing any set of tasks is a positive real number 
+\end{itemize}
+
+The cost functino must satisfy two constraints:
+\begin{enumerate}
+\item It must be \side{monotonic}
+\[\text{If } T_1, T_2 \subseteq T \text{ are sets of tasks such that } T_1\subseteq T_2, then c(T_1) \le c(T_2)\]
+\item The cost of doing nothing is zero
+\[c(0) =0\]
+\end{enumerate}
+
+We will restrict our attention as follows:
+\begin{itemize}
+\item One-to-one negotiation scenario, with two agents $\{1,2\}$
+\item Given an encounter $< T_1, T_2>$, a \side{deal} will be an allocation of the tasks $T_1 \cup T_2$ to the agents 1 and 2.
+\item Three types of deal may happen under this conditions:
+\begin{enumerate}
+\item \side{Pure deals}: agents are deterministically allocated exhaustive disjoint task set.\\
+Formally, a pure deal is a pair $< D_1, D_2>$ where 
+\[D_1 \cup D_2 = T_1 \cup T_2\]
+\item \side{Mixed deals}: specify a probability distribution over partitions
+\item \side{All-or-Nothing deals}: mixed deals where the alternatives only include partitions where one agent handles the tasks of all agents.
+\end{enumerate}
+\item The \side{cost} to an agent $i$ of a deal $\delta = <D_1, D_2>$ is defined to be $c(D_i)$ and it will  be denoted as $cost_i(\delta)$
+\item The \side{utility} of a deal $\delta$ to an agent $i$ is the difference between the cost of agent $i$ doing the tasks $T_i$ that it was originally assigned in the encounter and the cost $cost_i(\delta)$ of the tasks it is assigned in $\delta$:
+\[utility_i(\delta) = c(T _i) - cost_i(\delta)\]
+Thus the utility of a deal represents how much the agent has to gain from the deal (a negative utility means that the agent is worse off than it was originally)
+\item If the agents fail to reach an agreement they must perform the tasks that they were originally allocated (\side{conflict deal}, $\Theta = <T_1, T_2>$) 
+\end{itemize} 
+The properties that govern this agent interactions are:
+\begin{itemize}
+\item Dominance\\
+A deal $\delta_1$ is said to be dominant if and only if:
+\begin{enumerate}
+\item Deal $\delta_1$ is at least as good for every agent as $\delta_2$
+\[\forall i \in \{1,2\}, utility_i(\delta_1) \ge utility_i(\delta_2)\]
+\item Deal $\delta_1$ is better for some agent than $\delta_2$
+\[\exists i \in \{ utility_i(\delta_1) > utility_i(\delta_2)\}\]
+\end{enumerate}
+A deal is said to be \side{weakly dominant} if at least the first condition holds.
+\item Pareto optimal\\
+A deal $\delta$ is Pareto optimal if there is no deal $\delta'$ such that $\delta' \cmore \delta$
+\item Individual rationality\\
+A deal $\delta$ is said to be individual rational if it weakly dominates the conflict deal
+\[\delta \cge \Theta\]
+If a deal is not individual rational, then at least one agent can do better by simply performing the tasks it was originally allocated (it prefers the conflict deal)
+\end{itemize}
+
+Given all of the above, we are in the position to define the space of possible proposals that agents can make: the negotiation set consists of the set of deals that are individual rational and Pareto optimal.\\
+In the following figure is proposed the set of possible deals in a 2 agent encounter
+
+\begin{figure}[!h]
+\centering 
+\includegraphics[width=.5\textwidth]{01/05}
+\end{figure}
+Here, the first, third and fourth quadrant includes the subset of deals that are not individual rational. (there is no point for an agent to accept a deal that produces negative utility).\\
+Similarly, all deals strictly inside the ellipsis are not Pareto Optimal. Which brings as to the boundary of the negotiation set in the second quadrant.\\
+Agent $i$ (ordinate axis) will start at its best possible deal (B), whereas agent $j$ (abscissa axis) will start at its best possible deal (C).\\
+Both agent will then concede in one or more rounds until a point of mutual agreement on the boundary of the negotiation set is reached.
+
+\subsection{Worth Oriented Domain}
+\subsection{Monotonic Concession Protocol (MCP)}
+The rules of this negotiation protocol are:
+\begin{itemize}
+\item Negotiation proceeds in a series of rounds
+\item On the first round both agents simultaneously propose a deal from the negotiation set
+\item An agreement is reached if the two agents propose deals $\delta_1$ and $\delta_2$, respectively, such that either:
+\[utility_1(\delta_2) \ge utility_1(\delta_1)\qquad || \qquad utility_2(\delta_1)\ge utility_2(\delta_2)\]
+\item If both agents offers match or exceed those of the other agent, then one of the proposals is selected at random
+\item If only one proposal exceeds or matches the other's proposal, then this is the agreement deal
+\item If no agreement is reached, then negotiation proceeds to another round of simultaneous proposals, where no agent is allowed to make a proposal that is less preferred by the other agent than the deal it proposed at the previous round
+\item If neither agent makes a concession in some round, then negotiation terminates with the conflict deal
+\end{itemize}
+
+Using such protocol negotiation is guaranteed to end (with or without agreement) after a finite number of rounds, however the protocol does not guarantee that the agreement (or lack of it) will be reached quickly.
+\subsection{The Zeuthen strategy}
+\begin{enumerate}
+\item What should an agent's first proposal be?
+\item On any given round, who should concede?
+\item If an agent concedes, then how much should it concede?
+\end{enumerate}
+
+With regard to the first question: an agent's first proposal should be its most preferred deal.
+
+With respect to the second question: the idea of the \side{Zeuthen strategy} is to measure an agent's willingness to risk conflict (i.e. an agent is more willing to risk conflict if the difference in utility between its current proposal and the conflict deal is low).
+
+Agent $i$'s willingness to risk conflict at round $t$ is:
+\[risk^t_i = \cfrac{\text{utilty }i\text{ loses by conceding and accepting}j\text{`s offer} }{\text{utility }i\text{loses by not conceding and causing conflict}}\]
+Until an agreement is reached, the value of risk is between 0 and 1 (the higher the value the higher the risk, which means that an agent has less to lose from conflict and as such it is more willing to risk conflict).\\
+Formally:
+\[risk^t_i =
+\begin{dcases}
+1 & \text{If }utility_i(\delta_i^t)=0\\
+\cfrac{utility_i(\delta_i^t) - utility_i(\delta_j^t)}{utility_i(\delta_i^t)} &\text{otherwise}
+\end{dcases}
+\]
+Hence, the zeuthen strategy proposes that the agent to concede on round $t$ of negotiation should be the one with the smaller value of risk.\\
+Moreover, the agent in question should make the smallest concession necessary to change the balance of risk, so that on the next round, the other agent will concede.
+
+Lastly, in the case of equal risk, a coin flip will decide which agent should concede, otherwise we are in the same situation of the prisoner's dilemma.
+
+We notice that the Zeuthen strategy and the protocol itself:
+\begin{itemize}
+\item Does not guarantee success, but it does guarantee termination
+\item It does not guarantee to maximize social welfare
+\item If agreement is reached, then this agreement will be Pareto Optimal
+\item It is individual rational
+\item It is in Nash equilibrium (if an agent is using the Zeuthen strategy the other can do no better than using the same strategy)
+\end{itemize}
+\subsection{Deception}
