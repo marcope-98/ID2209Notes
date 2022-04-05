@@ -4,27 +4,28 @@ This repository contains the notes of the course ID2209 - Distributed Artificial
 Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/33)
 
 # TODO: #
-- [ ] fix equation alignment under "simple majority voting" section
-- [ ] replace \missingfigure{} with proper images
+- [x] fix equation alignment under "simple majority voting" section
+- [x] replace \missingfigure{} with proper images
 - [x] complete "Introduction" chapter 
-- [ ] complete "Agent Negotiation" chapter 
+- [x] complete "Agent Negotiation" chapter 
 - [ ] complete "Agent Communication" chapter 
 - [ ] complete "Agent Coordination" chapter 
 - [ ] complete "MAS Architecture" chapter 
 - [ ] complete "Agent Oriented Software Engineering" chapter 
 - [ ] complete "Agent Theory" chapter 
 - [ ] complete "Agent Architecture" chapter 
-- [ ] complete "ML and RL" chapter 
+- [x] complete "ML and RL" chapter 
 - [ ] complete "Agent Mobility" chapter 
  
 # Textbook:
 - Agent Negotiation: ch. 11, 12, 14, 15
-- Agent Communication: ch. 6, 7
+- Agent Communication: ch. 7
 - Agent Coodination: ch. 8
-- MAS Architectures and AOSE: ch. Appendix A, 10
+- MAS Architectures: ch. Appendix A, 10
+- AOSE: ch. 9
 - Agent Theory: ch. 17
 - Agent Architectures: ch. 2, 3, 4, 5
-- Mobile Agents: ch. 9, 4
+- Mobile Agents: ch. 9.4
 ## Less relevant topics:
 - Chapter 3 - Deductive reasoning agents
 - Chapter 6 - Understanding each other

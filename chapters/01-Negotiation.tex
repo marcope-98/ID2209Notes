@@ -493,15 +493,15 @@ The problem that social choice theory tries to solve is,\\
 \item The winner is the outcome that appears first in the preference orders the largest number of times
 \item This is generally applied to single choice, but it can be generalized to a social preference ordering.
 \end{itemize}
-\side{Simple majority voting} works relatively well with only two candidates, since it is straightforward to implement and understand by the voters.
+\phantom{c}\side{Simple majority voting} works relatively well with only two candidates, since it is straightforward to implement and understand by the voters.
 
 However, when more than 2 voters are involved problems start to arise.
 
 Let us consider that three voters submitted the following preferences:
 \begin{align*}
-42\%& \omega_L \cmore \omega_D \cmore \omega_C\\
-14\%& \omega_D \cmore \omega_L \cmore \omega_C\\
-44\%& \omega_C \cmore \omega_D \cmore \omega_L\\
+42\%\qquad& \omega_L \cmore \omega_D \cmore \omega_C\\
+14\%\qquad& \omega_D \cmore \omega_L \cmore \omega_C\\
+44\%\qquad& \omega_C \cmore \omega_D \cmore \omega_L\\
 \end{align*}
 Then the winner is selected based on the top preferences (i.e. $C$), even though the majority of the voters considered $C$ as the least preferrable outcome.
 
@@ -788,8 +788,6 @@ Lastly, another possible opportunity for lying by the auctioneer is to place bog
 
 Moreover, there are main limitation of auctions is that they are only concerned with the allocation of goods and as such are not adequate for settling agreements that concerns maters of mutual interest.
 
-\section{Contract Net Protocol (CNP)}
-
 \section{Negotiation parameters}
 The basic components that make up a negotiation setting are:
 \begin{itemize}
@@ -886,7 +884,66 @@ Similarly, all deals strictly inside the ellipsis are not Pareto Optimal. Which 
 Agent $i$ (ordinate axis) will start at its best possible deal (B), whereas agent $j$ (abscissa axis) will start at its best possible deal (C).\\
 Both agent will then concede in one or more rounds until a point of mutual agreement on the boundary of the negotiation set is reached.
 
+Task Oriented Domains assume that agents have symmetric cost functions (i.e. $c_i(T') = c_j(T')$) and that every agent is capable of handling tasks of all agents.\\
+However, there exists other subtypes of Task oriented domains that consider different relations in the agents cost functions:
+\begin{itemize}
+\item \side{Subadditive TODs (STODs)} are TODs where:
+\[c_i (T' \cup T'') \le c_i(T') + c_i(T'')\]
+\item \side{Concave TODs (CTODs)} are subadditive TODs where:
+\[c_i (T' \cup T'') - c_i(T') \ge c_i (T'' \cup T''') -  c_i(T'')\qquad \text{and }\qquad T' \subset T''\]
+\item \side{Modular TODs (MTODs)} are concave TODs where:
+\[c_i (T' \cup T'') \le c_i(T') + c_i(T'') - c_i (T'\cap T'')\]
+\end{itemize} 
+
+\begin{table}[!h]
+\centering
+\begin{NiceTabular}{ccccccccccccc}[hvlines]
+&\Block{1-3}{TOD}&&&\Block{1-3}{STOD}&&&\Block{1-3}{CTOD}&&&\Block{1-3}{MTOD}&&\\
+& Hid & Pha & Dec& Hid & Pha & Dec& Hid & Pha & Dec& Hid & Pha & Dec\\
+Pure&L& L& L& L& L& L& L& L& L& L& & \\
+Mixed&L& & L& L&  & L& L& & & L& & \\
+All-or-nothing&& & & &  & L& & & & &  & \\
+\end{NiceTabular}
+\caption{The L states that lying is profitable and possible}
+\end{table}
+
+
 \subsection{Worth Oriented Domain}
+ \phantom{c}\side{Worth Oriented domains} are domains where agents assign a worth to each potential state (of the environment), which captures its desirability for the agent.
+\begin{itemize}
+\item agent's goal is to bring about the state of the environment with highest value
+\item We assume that the collection of agents has available set of joint plans (a joint plan is executed by several different agents). In other terms there is no possibility to complete a task alone.
+\end{itemize}
+Contrary to TOD, where tasks could have been achieved separately by both agents, in worth oriented domain the outcome can be achieved only by joint efforts (e.g. buying and selling are part of the worth oriented domain).
+ 
+Formally, Worth oriented domains can be defined as a tuple
+\[<E, Ag, J, c>\]
+where:
+\begin{itemize}
+\item $E$: is the set of possible environment states/outcomes
+\item $Ag$: is the set of possible agents
+\item $J$: is the set of possible joint plans
+\item $c(j,i)$: is the cost for agent $i$ of executing the plan $j$
+\end{itemize}
+Moreover, we will denote as $W(e,i)$ the value of worth of agent $i$ in state $e$.
+
+Unlike, TODs, agents negotiating over Worth Oriented Domains are not negotiating about a single issue:
+\begin{itemize}
+\item They are negotiating over both the state that they wish to bring about (which has a different value for different agent)
+\item They are negotiating over the means by which they will reach the state
+\end{itemize}
+
+Since this domain deals with multiple set of attributes, we are interested to find the Pareto Optimal solution. In order to do so we calculate the utility by:
+\begin{itemize}
+\item Weighting each attribute
+\item Rating or ranking each attribute value
+\item Using constraints on an attribute
+\end{itemize}
+
+The negotiation process will proceed to in rounds where each agent concedes, ultimately reaching an agreement or finding no agreement.
+
+If the utility graphs representing the rating of each agent intersects at some point, then a point of acceptance is reached, otherwise the negotiation terminates in conflict.
+
 \subsection{Monotonic Concession Protocol (MCP)}
 The rules of this negotiation protocol are:
 \begin{itemize}
@@ -935,4 +992,119 @@ We notice that the Zeuthen strategy and the protocol itself:
 \item It is individual rational
 \item It is in Nash equilibrium (if an agent is using the Zeuthen strategy the other can do no better than using the same strategy)
 \end{itemize}
+
 \subsection{Deception}
+
+There are three obvious ways in which an agent can be deceitful in Task oriented domain:
+\begin{itemize}
+\item \side{Phantom tasks}\\
+An agent can pretend to have been allocated a task that it has not been allocated.
+
+An obvious respoinse to these is to ensure that the tasks an agent has been assigned to carry out are verifiable by all negotiation participants.
+\item \side{Decoy tasks}\\
+An agent can prodice an artificial task when asked for it.
+
+Detection of decoy tasks is esssentially impossible, mmaking it hard to be sure that deception will occur in such domains.
+\item \side{Hidden tasks}\\
+An agent may benefit from deception by hiding tasks that it has to perform
+\end{itemize}
+Using mixed deals or all-or-nothing deals helps to get rid of deceptions:
+\begin{itemize}
+\item probability is assigned to each Agent task
+\item all or nothing deal is applied
+\item weighted coin (with probabilities) is used
+\item In case of phantom and decoy tasks, the deceiving agent can have a bigger probability to be assigned all the tasks, hence it has no advantage in lying
+\item However, it is possible that decoy tasks do not increase probability to be allocated all the tasks in some topology
+\end{itemize}
+
+This cas aspect can be further proven with an example:
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.5\textwidth]{01/06}
+\end{figure}
+Two postmen need, for some obscure reason to redistribute their letters:
+\begin{itemize}
+\item Agent $i$, has to deliver letter $b$ and $f$
+\item Agent $j$, has to deliver a letter to $e$
+\end{itemize}
+Agent $i$ decides to deceive the other agent and hide the letter $b$.
+
+However, if the two agents use a weighted coin and a all-or-nothing deal to reallocate their task, deceiving becomes disadvantegeous from a probabilistic standpoint. 
+In order to understand why let us consider a simple model of the probability based on the edges that an agent has to traverse:
+\begin{itemize}
+\item Agent $i$ (the deceiving one) have an expected cost that has the following form:
+\[expected\,cost = \sfrac{3}{8}\cdot 8 + \sfrac{5}{8}\cdot2 = 4.25\]
+The expected cost components are derived in the followin way:
+\begin{itemize}
+\item Compute the probabilities based on the claimed letters to deliver.
+
+Agent $i$ claims to have only the letter $f$ to deliver which is at a distance of 3 edges from the post office. Since there are a total of 8 edges, the associated probability is $3/8$. As a result, the probability of winning the coin flip is $1-\sfrac{3}{8} = \sfrac{5}{8}$
+\item Compute the cost of delivering the letter (which is the number of edges forward and back to traverse).
+
+In the case of agent $i$, losing the coin flip will imply that he has to deliver all the letters (all-or-nothing deals). The shortest path to do so implies traversing all of the 8 edges of the graph, hence the associated cost is 8.
+
+On the contrary if agent $i$ wins the weighted coin flip, it has still to deliver the hidden letter $b$ which would require him to traverse 1 edge forward and back, resulting in a total cost of 2.
+ 
+\end{itemize}
+\item From the expected cost result we can then compute the utility that agent $i$ obtained by hiding the letter: this value is compute as the difference of traversing the whole graph with the expected cost:
+\[utility = 8-4.25 = 3.75\]
+\item We can notice that if agent $i$ would have not hidden the letter, it would have gotten a coin flip probability of $\sfrac{4}{8}= 0.5$ since the sum of the edges that he would have had to traverse is 3 for the letter $f$ and 1 for the letter $b$.
+Whereas the cost of winning the coin flip would have been 0 (no letters to deliver), and the cost of losing the coin flip is 8 (the postman has to deliver all the letters which means that it has to traverse the whole graph).
+
+Hence the expected cost of not lying would have been:
+\[expected\,cost = 0.5 \cdot 8 + 0.5\cdot 0 = 4\]
+and as a result the utility would have been:
+\[utility = 8-4 = 4\]
+which is higher than the utility of hiding the letter $b$
+\end{itemize}
+
+\section{Contract Net Protocol (CNP)}
+Cooperating experts metaphor:
+\begin{itemize}
+\item work independently
+\item exchange results
+\item ask help when enable to solve individually
+\end{itemize}
+
+The assumptions that CNP makes is that
+\begin{itemize}
+\item If the problem is too large then partition it and find other experts who can solve the task
+\item If the problem is outside of expertise then also findanother expert
+\item If expert is known then contact them directly, otherwise describe the task to the entire group of agents
+\item If somebody from the group agree then the agent will notifies it
+\item If more then one agree then choose one
+\end{itemize}
+
+The basic premise of the CNP is that, if an agent cannot solve an assigned problem using local resources/expertise, it will decompose the problem into subproblems and try to find other willing agents with the necessary resource/expertise to solve these subproblems
+
+In this sense, each agent can take one of two roles: \side{manager} or \side{contractor}.
+
+The overall contracting mechanism goes as follows:
+\begin{enumerate}
+\item contract announcement by the manager agent
+\item submission of bids by contracting agents in response to the announcement
+\item evaluation of submitted bids by the manager
+\item awarding a subproblem contract to the contractor with the most appropriate bids
+\end{enumerate}
+Contrary to auctions, there is no limitations in respecting the bid that agent have made: this means that even though an agent wins a bid and accept a given task it is not forced to take it.
+
+Formally, Let us consider:
+\begin{itemize}
+\item $\tau_i^t$ the set of tasks allocated to the agent $i$ at time $t$
+\item $e_i$ the resources available to $i$
+\item $\tau(ts)$ the announce task
+\end{itemize}
+
+The \side{marginal cost} proposed by Sandholm, takes the form:
+\[\mu_i(\tau(ts)|\tau_i^t) = c_i(\tau(ts) \cup \tau_i^t) - c_i(\tau_i^t)\]
+
+Hence the decision to bid happens if and only if 
+\[\mu(\tau(ts)|\tau_i^t) < (e(ts) + e_i)\]
+where $e(ts)$ is reward for doing the new task
+
+The problems with CNP are:
+\begin{enumerate}
+\item it does not detect conflicts
+\item it assumes benevolent and non-antagonistic agents
+\item it is still rather communication intensive
+\end{enumerate}
