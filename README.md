@@ -6,6 +6,7 @@ Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/
 # TODO: #
 - [x] fix equation alignment under "simple majority voting" section
 - [x] replace \missingfigure{} with proper images
+- [ ] add tables with performatives of KQML and FIPA, + image with KQML communication architecture 
 - [x] complete "Introduction" chapter 
 - [x] complete "Agent Negotiation" chapter 
 - [ ] complete "Agent Communication" chapter 

@@ -1,0 +1,395 @@
+\chapter{Agent Communication}
+\label{ch:AgentCommunication}
+
+\minitoc
+
+Communication has been a topic of extensive study in the field of computer science. Particularly, the problem of \side{synchronization} of multiple processes was of key interest in the 1970s and 1980s.
+
+This is of importance since processes have fundamentally the same behaviour of agents. In fact, the object oriented paradigm would require \side{communication via method invocation} to allow an object to message another and change its internal state (this is not allowed in an agent-oriented setting).
+
+Let us consider, for example, two agents $i$ and $j$, where $i$ has the capability to perform an action $\alpha$ (similar to a method).\\
+In an agent-oriented world, contrary to object-oriented, there is no such thing as method invocation. This is because both $i$ is an \side{autonomous agent}, and as such it has control over both its state and behaviour.\\
+Hence, it cannot be taken for granted that agent $i$ will execute action $\alpha$ just because another agent $j$ wants it to: performing the action may not be in the best interests of agent $i$.
+
+In general, agents can neither force other agents to perform some action, nor write data onto the internal state of other agents, but this does not mean that they cannot communicate.\\
+What agents can do is perform \side{communicative actions} in an attempt to \side{influence} other agents.
+
+\section{Approaches to software interoperation}
+We intiially consider \side{software interoperation}, i.e. the exchange of information and services with other programs, thereby solving problems that cannot be solved alone.\\
+This is fundamentally different from communication (interaction between humans).
+
+The main problem related with software interoperation is \side{heterogeneity}, in the sense that two or more software in need to interoperate might be written by different people, at different times and in different languages.
+
+Hence, in order for them to communicate successfully it should be provided:
+\begin{itemize}
+\item a standard communication language
+\item common libraries
+\item run time support
+\end{itemize}
+And particularly, we would like to answer the following questions:
+\begin{itemize}
+\item What is an appropriate agent communication language?
+\item How do we build agents capable of communicating in this language?
+\item What communication architectures are conductive to cooperation?
+\end{itemize}
+
+\subsection{Components of a system for effective interaction and interoperability}
+The basic components of a system to achieve effective software interaction adn interoperability are:
+\begin{itemize}
+\item a common language
+\item a common understanding of the knowledge exchanged (common understanding of the components of the language as well as their meaning)
+\item the ability to exchange whatever is included in the previous items.
+\end{itemize}
+
+The reason why we cannot use natural language as a common language for agent communication is that it is not easy to develop system that understands it completely. 
+Moreover, the use of other communication protocols such as xml or json it is not ideal since agents have conversations (as opposed to exchange of single messages).
+
+In addition to this the communication behaviour should allow to express agents strategies, intentions, roles, ..., i.e. concepts that are high level than can be expressed in low level languages.
+
+\subsection{Three Important Aspects}
+There are three important aspects in communication:
+\begin{enumerate}
+\item \side{Syntax}: how the symbols of communication are structured.
+
+It includes the grammatical rules, how we write and so on.
+\item \side{Semantics}: what the symbols denote
+\item \side{Pragmatics}: How the symbols are interpreted, what is the context of the communication. The same sentence can be interpreted in different ways.
+\end{enumerate} 
+
+The combination of semantics and pragmatics is the \side{meaning} of the communication.
+
+From the above, we deduce that an agent communication language (ACL) should be:
+\begin{enumerate}
+\item Syntactic: should allow syntactic translation between the agents
+\item Meaning: should allow meaning content preservation among applications.
+\item Communication: should be able to communicate complex attributes about their information and knowledge.
+\end{enumerate}
+Hence what distinguish ACLs from other languages is:
+\begin{itemize}
+\item Semantic complexity
+\item ACLs can handle propositions, rules and actions instead of simple objects with no semantics associated with them. Hence ACL does not deal with a simple exchange of data, but instead with the exchange of information that has a meaning.
+\item An ACL message describes a desired state in a declarative language, rather than a procedure or a method. 
+\end{itemize}
+
+
+\section{Speech Acts}
+\phantom{c}\side{Speech acts theory} treats communication as action. It is predicated on the assumption that speech actions are performed by agents just like other actions, in the furtherance of their intentions.
+
+As such, speech act theories attempt to account for how language is used by people every day to achieve their goals and intentions. 
+
+\subsection{Austin}
+The theory of speech acts is generally recognized to have begun with the work of the philosopher John Austin. He noted that a certain class of natural language utterances, referred to as \side{speech acts}, had the characteristics of actions, in the sense that they change the state of the world in a way analogous to physical actions.
+
+Austin identified a number of \side{performative verbs}, which correspond to various different types of speech acts (e.g. request, inform, promise).\\
+In addition, Austin distinguished three different aspects of speech acts:
+\begin{enumerate}
+\item \side{locutionary act}: act of making an utterance
+\item \side{illocutionary act}: action performed in saying something
+\item \side{perlocution}: effect of the act
+\end{enumerate}
+Austin referred to the conditions required for the successful completion of performatives as \side{felicity conditions}, that are as follows:
+\begin{itemize}
+\item There must be an accepted conventional procedure for the performative, and the circumstances and persons must be as specified in the procedure
+\item The procedure must be executed correctly and completely
+\item The act must be sincere and any uptake required must be completed insofar as is possible
+\end{itemize}
+
+We are particularly interested in the illocutionary act.\\ Formally, an illocutionary act $F(P)$ si composed from:
+\begin{itemize}
+\item \side{propositional content} $P$: what is the utterance or message exchanged
+\item \side{context}: context of the message
+\item \side{illocutionary force} $F$: what is the intention of the message
+\end{itemize}
+
+
+The illocutionary force divides speech acts into categories described by :
+\begin{itemize}
+\item \side{Illocutionary point} 
+\item \side{direction of fit}, is the coveyed message describing the world or changing the world
+\item \side{sincerity conditions}
+ \end{itemize}
+\subsection{Searle}
+
+Searle extended the work of Austin in his 1969 book \emph{Speech Acts}.
+%For our use we are going to consider only the illocutionary act.\\
+Searle identified several properties that must hold for a speech act prefromed between a \side{HEARER} and a \side{SPEAKER} to succeed.
+\begin{enumerate}
+\item \side{Normal I/O Conditions}: the HEARER is able to hear the performative of the speaker and the act was performed in normal circumstances (not in a film or a play).
+\item \side{Preparatory conditions}: state what must be true of the world in order that SPEAKER correctly choose the speech act (in a request to perform ACTION, the HEARER must be able to perform such ACTION and the SPEAKER must believe the HEARER is able to perform such ACTION)
+\item \side{Sincerity conditions}:these conditions distinguish sincere performatives of the request; an insincere performance of the act might occur if SPEAKER did not really want ACTION to be performed.
+\end{enumerate}
+
+Searle also attempted a systematic classification of possible types of speech acts identifying the followin five key classes:
+\begin{itemize}
+\item \side{Representatives} (inform): a representative act commits the speaker to the truth of an expressed proposition
+\item \side{Directives} (request): a directive is an attempt on the part of the speaker to get the hearer to do something
+\item \side{Commissives} (promise): Commit the speaker to a course of action
+\item \side{Expressives} (thanking): Express some psychological state such as gratitude
+\item \side{Declarations} (declaring war): Effect some changes in an institutional state of affairs
+\end{itemize}
+Later some additional speech acts were introduces: \side{Permissives} and \side{Prohibitives}
+
+%\begin{table}[!h]
+%\centering
+%\begin{NiceTabular}{|c|c|c|c|}
+%\hline
+%\textbf{Illocutionary act}& \textbf{Illocutionary point}&\textbf{Direction of fit} & \textbf{Sincerity condition}\\
+%\hline
+%\Block{2-1}{Assertives/\\Representatives }&\Block{2-1}{Commits speaker to \\truth of utterance}&\Block{2-1}{world $\rightarrow$ word\\(describe world)}&\Block{2-1}{Speaker believes \\utterance}\\
+%&  &  & \\
+%\hline
+%\Block{2-1}{Directives } & \Block{2-1}{Speaker tries to make \\hearer do something }& \Block{2-1}{word $\rightarrow$ world \\(change world)}& \Block{2-1}{Speaker wants Hearer to \\establish the truth of utterance}\\
+%&  &  & \\
+%\hline
+%\Block{3-1}{Commisives}&\Block{3-1}{Commits Speaker to \\future action}&\Block{3-1}{word $\rightarrow$ world \\(change world)}& \Block{3-1}{Speaker intends to act \\such that the truth of the \\utterance is established}\\
+%&&&\\
+%&&&\\
+%\hline
+%\Block{2-1}{Expressives}&\Block{2-1}{Express psychological state}&\Block{2-1}{None}&\Block{2-1}{Several possibilities}\\
+%&&&\\
+%\hline
+%\Block{2-1}{Declaratives}&\Block{2-1}{Establish correspondence between \\utterance and world}&\Block{2-1}{world $\rightarrow$ word \\word $\rightarrow$ world}&\Block{2-1}{None}\\
+%&&&\\
+%\hline
+%\end{NiceTabular}
+%\end{table}
+
+\subsection{Plan-based theory}
+In order for an AI to make a plan about how to achieve goals from the interaction with humans or other autonomous agents, such plans must include speech actions.  Formally the aim of the application of such mechanism is to develop a theory of speech acts\\
+\say{... by modelling them in a planning system as operators defined... in terms of speakers' and hearers' beliefs and goals. Thus speech acts are treated in the same way as physical actions}.
+
+Cohen and Perrault came up with a formalism called the \side{STRIPS} notation, in which the properties of an action are characterized via \side{precondition}s and \side{postcondition}s.\\
+Cohen and Perrault also demonstrated how the preconditions and postconditions of speech acts could be represented in a multimodal logic containing operators for describing the beliefs, abilities and wants of the participants in the speech act.
+
+In short, in order for a speech act to be successful the preconditions must be fullfilled; however the fulfillment of the preconditions are not enough in itself to guarantee that the desired action will actually be performed. This is because some speech act such as request or inform only models the illocutionary force of the act, not the perlocutionary force.
+
+For this reason, Cohen and Perrault introduced some mediating act: Convince and CauseToWant; which respectively will make the hearer believe an inform act and believe that the speaker of a request act wants the hearer to do an action.
+\missingfigure{plan based theory table page 175}
+
+\subsection{Speech acts as rational actions}
+While the plan-based theory of speech acts was a major step forward, it was recognized that a theory of speech acts should be rooted in a more general theory of rational action.\\
+This led Cohen and Levesque to develop a theory in which speech acts were modelled as actinos performed by rational agents in the furtherance of their intentions.\\
+The foundation upon which they built this model of rational action was their theory of intention.
+
+\section{Agent Communication Languages (ACL)}
+In the ACL we strive to communicate or exchange the meaning explicitly by saying what is the intention in the language. This is in contract with the human language in which the meaning is hidden by the words used, the intonation, the tone (it is not always explictly said).
+
+There are some fundamental components of the language that may help to achieve a language that explicitly communicate meaning:
+\begin{itemize}
+\item An illocutionary force represented by a performative verb. (e.g. request, inform)
+\item Propositional content, what the agent said.
+\end{itemize}
+This makes it so that different propositional content can be interpreted in different ways by the hearer based on the associated illocutionary force.
+
+The semantic of speech acts can be represented via plan-based theory, which treats speech acts as physical actions. Thus, each action is characterised by preconditions (conditions that must be fulfilled for successful communication) and postconditions (effect).
+
+\subsection{KSE}
+Speech act theories have directly informed and influenced a number of languages that have been developed specifically for agent communication.\\
+In the early 1990s, the US-based DARPA-funded Knowledge Sharing Effort (KSE) was formed.
+
+The KSE generated threemain deliverables:
+\begin{itemize}
+\item The \side{Knowledge Interchange Format (KIF)}.\\
+This language was explicitly intended to allow the representation of knowledge about some particular domain of discourse (aka the content of the message).
+\item The \side{Ontolingua}\\
+Ontology representation.
+\item The \side{Knowledge Query and Manipulation Language (KQML)}. \\
+This language defines an envelope format for messages, but is not concerned with the content part of the messages.
+In short, it defines the language for both message formatting and message handling protocols
+\end{itemize}
+The Basic assumption that KSE makes is that 
+\say{Software agents are applications for which ability to communicate with other applications and share knoledge is of primary importance.}
+In the KSE case, the basic components of an ACL are represented as follows:
+\begin{itemize}
+\item Communication, through a interaction protocol, communication language and a transport protocol
+\item Representation, through knowledge bases and ontologies (way of representing organization of knowledge, how concept are organized and what is their meaning, set of symbols with their associated meaning)
+\item Supporting components, through planning activities, modeling other agents and environments, meta-knowledge (how we can reason about what we know) and reasoning
+\end{itemize}
+\subsubsection{KIF}
+The Knowledge Interchange Format (KIF) was intended to:
+\begin{itemize}
+\item  create a language for development of intelligent applications. 
+\item create a common interchange format that allows to translate from any language to it and vice versa.
+\item  express the contents of a message but not the message itself.
+\end{itemize}
+KIF was not intended to:
+\begin{itemize}
+\item to model the interaction with human user
+\item to be internal representation for knowledge within computer programs.
+\end{itemize}
+
+The interchange format that KIF uses is best described with an example.\\
+Let us assume we have two languages ($L_1$ and $L_2$). In this scenario we need to develop two translations in order to have communication between the two agents.\\
+If we have three languages, the number of translations is 6\\
+If we have four languages, the number of translations is 12\\
+
+We can notice that as the number of languages increases the number of translations necessary increases drastically, for this reason an intermediate language from and to other languages are translated was proposed under the name of KIF.
+It means the for each language we need to develop only two translations. \\
+
+KIF is a prefix version of first order predicate calculus.
+\begin{itemize}
+\item The prefix version tells that first we place the operation then the operands 
+\item KIF has a declarative semantics\\
+you do not need to say how it will be executed in the interpreter but instead you can present your statement in some arbitrary order and then an inference mechanism will find a way in which it can be operated
+\item KIF is logically comprehensive.\\
+allows to represent all necessary logic constraints
+\item KIF provides for representatino of knowledge about representation of knowledge (meta-level)
+\end{itemize}
+Additional features are:
+\begin{itemize}
+\item Translatability, easy to represent
+\item Readability, easy to read
+\item Usability as a representation language 
+\end{itemize}
+
+Using KIF, it is possible to express:
+\begin{itemize}
+\item Properties of things in a domain
+\item Relationships between things in a domain
+\item General properties of a domain
+\end{itemize}
+
+In order to do so, KIF has introduced:
+\begin{itemize}
+\item Variables: ordinary variable represented with a $?$ prefix and list variables represented with a $@$ prefix
+\item Operators
+\begin{itemize}
+\item term operators: e.g. listof, if, ...
+\item sentence operators: e.g. not, and, $/=$, ...
+\item rule operators: e.g. $=>>$, ...
+\item definition operators: e.g. defobject, deffunction,...
+\end{itemize}
+\item Constants
+\begin{itemize}
+\item object constants
+\item function constants
+\item relational constants
+\item logical constants
+\end{itemize}
+\item Expressions/Sentences: word or a finite sequence of words
+\end{itemize}
+\subsubsection{Ontologies}
+An ontology is a formal explicity specification of a shared conceptualization.
+
+An ontology is a description of the concepts and relationships that can exist for an agent or a community of agents. \\
+The reason why we need ontology is that agents need to have the same understanding of concepts that we use.
+
+An example is the world VISA, which can be both a entering permit or a credit card. We therefore can specify an ontology for traveling and one for finance and distinguish between the two.
+
+Hence, ontology is used to agree on a terminology to describe a domain, and by referencing this ontology we communicate the meaning of the communication.\\
+Ontolingua is one of the first ontologies developed that was used to give notion or meaning of words that we use in KIF.
+
+
+\subsubsection{KQML}
+KQML is a message-based language for agent communication. Thus KQML defines a common format for messages.
+
+Each KQML object has a \side{performative} and a number of \side{parameters}.
+
+An example of a KQML object is 
+
+\begin{lstlisting}[language=C++]
+{$performative$
+	:content $content$
+	:receiver $receiver$
+	:language $language$
+	:ontology $ontology$
+}
+\end{lstlisting}
+
+KQML defines a set of standard performatives to choose from of which different parameters are required. 
+In table \ref{} the list of 41 performatives are proposed with their meaning and in table \ref{} the list of the main parameters of KQML messages are summarized.
+
+\missingfigure{KQML performatives + meaning}
+\missingfigure{KQML parameters + meaning}
+
+To more fuly understand these performatives, it is necessary to understand the notion of a \side{virtual knowledge base (VKB)} as it was used in KQML. The idea was that agents using KQML to communicate may be implemented using different programming languages and paradigms and any information that agents have may be internally represented in many different ways. However, for the purpose of communication, it makes sense for agents to treat other agents as if they had some internal representation of knowledge.  \\
+This attributed knoledge is known as the virtual knowledge base.\\
+
+Despite the initial success, KQML was subsequently criticized on a number of grounds:
+\begin{itemize}
+\item The basic KQML performative set was rather fluid. It was never tightly constrained, and so different implementatinos of KQML were developed that could not, in fact, interoperate
+\item Transport mechanisms for KQML messages were never precisely defined
+\item The semantics of KQML was never rigorously defined. this is because the meaning of KQML performatives was only defined using informal, English language descriptions, open to different interpretations (it was impossible to tell whether to agents were using KQML language properly)
+\item The lenguage was missing an entire class of performatives, such as commissives (which are a requirement for agent coordination)
+\item The performative set for KQML was overly large and, it could be argued, rather ad hoc.
+\end{itemize}
+
+In an environment it is good to have language, but we need some supporting elements which are \side{Facilitators}. Facilitators are used to route the message in case an agent does not know exactly the address of the receiver.\\
+In this sense, facilitators help to make communication protocol transparent.
+
+We can think of facilitators as a special class of agents that perform useful communication services such as:
+\begin{itemize}
+\item Maintain registry of service names
+\item Forward messages to named services
+\item Routing messages based on content (not the content of the message but rather ontology and language)
+\item Provide matchmaking betweeen information providers and requesters
+\item Provide mediation and translation services
+\item  ....
+\end{itemize}
+
+In particular KQML defines a standard protocol to be implemented by facilitator:
+\begin{itemize}
+\item \side{Point-to-Point protocol} \\
+If A is aware about B then it is appropriate to send query about X to B.\\
+In other terms if agent A knows exactly agent B then it is allowed to reach and communicate with it directly
+\item \side{Subscribe performative}\\
+Request that Facilitator F helps find the truth of X. If B subsequently informs F that it believes X to be true, then F can in turn inform A
+\item \side{broker performative}\\
+A asks Facilitator to find another agent (not F) which can process a given performative. (agent A does not ask value of X, but rather someone who can process X)
+\item \side{recruit performative}\\
+Asks Facilitator to find an appropriate agent to which an embedded performative can be forwarded. A reply is returned directly to the original agent
+\item \side{recommend performative}\\
+Asks Facilitator to respond with the name of another agent which is appropriate for sending a particular performative 
+\end{itemize}
+
+Another element of interest of KQML is its internal structure.\\
+The communication architecture is built around three main elements:
+\begin{enumerate}
+\item facilitators.\\
+Facilitators are agents with own KQML routers, they are no different (in implementation) from other agents.
+The only things that makes them different from regular agents is that they have some predefined functionality about a particular facilitating communication.\\
+Tipically one facilitator for each local group of agents.
+\item routers.\\
+Content independent message routers.\\
+Each KQML agent is associated with its own separate router process.\\
+router handles all KQML messages going to and from the associated agent.\\
+can try to find Internet address for service and deliver message to it.
+\item Library of interfaces (KRIL)\\
+\side{Router Interface Library (KRIL)}\\
+It is a programming interface between router and agent.\\
+It is embedded into application\\
+The main role of KRIL to make access to the router as simple as possible for the programmer\\
+API are developed for different languages and then these API can be used directly in agent in order to make communication, tipically with primitives to send message and it defines some point of  listening in which messages from other agents will be accomodated and processed.
+\end{enumerate}
+In general, KQML allows us to implement the system via some independent routing mechanism without involving a particular agent in the knowledge of such mechanism.
+
+It says that we can provide routers that can route network between different engines  and in order to communicate with routers we provide some predefined interface that one can embed in you agent.
+\subsection{FIPA ACL}
+In 1995, the \side{Foundation for Intelligent Physical Agents (FIPA)} began its work on developing standard for agent systems. The centerpiece of this initiative was the development of an agent communication language (ACL).
+
+The FIPA ACL is superficially similar to KQML, since:
+\begin{itemize}
+\item It defines an outer language for messages
+\item It defines 20 performatives for defining the intended interpretation of messages,
+\item it does not mandate any specific language for message content
+\end{itemize}
+In additino the concrete syntax for FIPA ACL messages closely resembles that of KQML
+
+\begin{lstlisting}[language=C++]
+{$performative$
+	:sender $sender$
+	:receiver $receiver$
+	:content $content$
+	:language $language$
+	:ontology $ontology$
+}
+\end{lstlisting}
+Hence the structure of messages is the same and the message attribute fields are also very similar, however the most important difference between the two languages is the collection of performatives they provide.
+\missingfigure{FIPA ACL performatives +meaning}
+
+FIPA provides some standardization of agent interaction protocols.\\
+Ongoing conversations between agents fall into typical patterns. In such cases, certain message sequences are expected and at any point in the conversation other messages are expected to follow.\\
+These typical patterns of message exchange are called protocols.
+
+FIPA does not allow a protcol to be up to interpretation, for this reason they provide some  standardized version of each multiagent interactions  such as actions or voting or others and specify exactly how these interactions should be carried on.
+	
