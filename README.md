@@ -1,7 +1,7 @@
 # Overview #
 This repository contains the notes of the course ID2209 - Distributed Artificial Intelligence and Intelligent Agents
 
-Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/33)
+Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/50)
 
 # TODO: #
 - [x] fix equation alignment under "simple majority voting" section
@@ -9,10 +9,10 @@ Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/
 - [ ] add tables with performatives of KQML and FIPA, + image with KQML communication architecture 
 - [x] complete "Introduction" chapter 
 - [x] complete "Agent Negotiation" chapter 
-- [ ] complete "Agent Communication" chapter 
+- [x] complete "Agent Communication" chapter 
 - [ ] complete "Agent Coordination" chapter 
 - [ ] complete "MAS Architecture" chapter 
-- [ ] complete "Agent Oriented Software Engineering" chapter 
+- [x] complete "Agent Oriented Software Engineering" chapter 
 - [ ] complete "Agent Theory" chapter 
 - [ ] complete "Agent Architecture" chapter 
 - [x] complete "ML and RL" chapter 

@@ -1,0 +1,263 @@
+\chapter{Agent Coordination}
+\minitoc
+
+Coordination is \say{the process by which an agent reasons about its local actions and the anticipated actions of other to try and esure that the community acts in a coherent manner.}
+
+\section{General models}
+In some sense coordination is the normal way of operating MASs, in which agents can plan their activities based on what they perceive around them. However, during this process agents can incur into some conflicts that are solved via Negotiation.\\
+As a consequence, Coordination in the normal behaviour of the agents, whereas Negotiation is exception handling.
+
+\subsection{Motivation}
+The reasons why we need cooperation between agents is for:
+\begin{itemize}
+\item Preventing anarchy or chaos.\\
+If agents do not coordinate their behaviour than cause will arise in the system quite quickly
+\item Meeting global contraints.\\
+In particular, if a budget is given to some agents when reasoning about a project, there is a budget constraint that needs to be satisfied.
+\item Distributed expertise, resources or information.\\
+Because in many cases we have some sofisticated expertise by different actors and we would like them to work them together.
+\item Dependencies between agents' actions.
+\item Efficiency\\
+The exchange of information with other agents may increase the efficiency of the solution.
+\end{itemize}
+
+\subsection{Coordination properties and mechanisms}
+Each coordination mechanism needs to ensure:
+\begin{itemize}
+\item \side{Coverage}. \\
+Given a common area of operation, all the portions of the problem are included into the activity of at least one agent.
+\item \side{Connectivity}.\\
+Agents interact in a way that allow their activity to be integrated into the final overall solution.
+\item \side{Rationality}.\\
+Team members act in purpose in a consistent way.
+\item \side{Capability}.\\
+All objectives must be achievable within available computational and resource limitations.
+\end{itemize}
+
+Moreover the activities that the mechanism needs, while operating, to perform is to:
+\begin{itemize}
+\item supply timely information to needly agents
+\item ensure synchronization
+\item avoid redundant problem solving
+\end{itemize}
+ 
+The question ramains on how a designer achieve coherent behaviour of the system and in particular of each agents. There are three approaches to achieve coherent behaviour:
+\begin{itemize}
+\item \side{complete knowledge}.\\
+Each agent knows completely what other agents do and based on this knowledge the agent will reason about its own activity
+\item \side{centralized control}.\\
+A designated agent will decide about the allocation of tasks and how these tasks can be used and synchronized
+\item \side{distributed control}.\\
+No agent has overview of tasks and agents reach coordination/coherent behaviour via negotiation or taking into consideration the activity of nearby agents
+\end{itemize}
+
+Fundamental coordination processes:
+\begin{itemize}
+\item \side{Mutual adjustment}.\\
+Agents will adjust their behaviour based on the behaviour of other agents.
+\item \side{Direct supervision}.\\
+An agent will tell nearby agents to change their behaviour.
+\item \side{Standardization}.\\
+Standardization of what can be done and what should be avoided, and based on that agents will try to adjust their own behaviour based on some rules.
+\end{itemize}
+
+\subsection{Coordiantion problem}
+In order to tackle the coordination problem there are several steps that we must take:
+\begin{itemize}
+\item analysis of a perspective for coordination
+\begin{itemize}
+\item external observation.\\
+Based on the behaviour of others each agent adjust its behaviour. However it may be not enough because:
+\begin{itemize}
+\item behaviour can be coordinated but incoherent.\\
+An agent might try to reason about the course of actions but it does not interpret other agents' actions correctly.
+\item behaviour can be coherent but non-coordinated.
+\end{itemize}
+\item examining internal goals and motivations is necessary.\\
+Which implies that having a model of behaviour of other surrounding agents can help establish coordination in MASs
+\end{itemize}
+\item applying appropriate coordination model.\\
+An agent will need to have a general model of coordination that fits all the cases that might occur which will be a purely mathematical approach. 
+\end{itemize}
+
+\subsubsection{Control decisions and search}
+View to coordination as a matter of effective control of distributed search.\\
+Almost every problem can be interpreted as a search problem, and it is a process of looking at a sequence of actions that react to a goal or look at some subgoal to reach a  solvable goal.
+
+In other terms, in any case an agent has complete knowledge of the current  situation, has access to sequence of possible actions and it can try to combine every possible actions to reach a goal.
+
+Thus, control in this sense is:
+\begin{itemize}
+\item control decisions are decisions about what actions to take next
+\item control decisions are choices
+\item copntrol knowledge is any knowledge that informs control decisions
+\item each control choice is the outcome of an overall control regime which includes knowledge about
+\begin{itemize}
+\item what are the control alternatives? What are the agent choices?
+\item What are the decision criteria? 
+\item what is the decision procedure?
+\end{itemize}
+\end{itemize}
+
+Hence, in principle agents will deal with a search problem and they must have a control procedure over this search. And this control decision will be the underlying coordination mechanism.
+
+Control choices become more complicated to the degree that control decisions have
+\begin{itemize}
+\item numerous choices
+\item asynchronous behaviour
+\item decentralized control
+\end{itemize}
+
+\subsection{DAI and distributed search}
+In the distributed search problem the space of alternative problem states (goals) can be seen as a large search space investigated by a number of agents. Each agent has to make local control decisions.\\
+These local control decisions have impacts on the overall efforts done by the collection of problem solvers.
+
+The coordination process kickstarts when these local control area between agents overlap. 
+\missingfigure{13}
+
+Two kinds of control in DAI
+\begin{enumerate}
+\item \side{Network control} or \side{Cooperative control}:\\
+Comprises decision procedures that lead to good overall performance
+\item \side{Local control}:\\
+refers to decision procedures that lead to good local decisions, and that are based on local information only
+\end{enumerate}
+
+\subsubsection{Network control}
+Sets contexts for agent's individual control decisions based on network level information (which can be the information the dependencies of two different goals or the intersection between two areas).
+Network-level information is:
+\begin{itemize}
+\item aggregatred from more than one agent or abstracted from data from more than one agent
+\item Information that concerns the relationships among a collection of agents
+\end{itemize}
+Network-level information can be utilized to influence:
+\begin{itemize}
+\item set of action alternatives to consider a control decisions
+\item the decision criteria applied to choose one of them
+\item  the control decision procedure
+\end{itemize}
+
+One type of network control (or coordination) is allocation of search-space regions to agents. 
+\begin{itemize}
+\item search space, alternative problem states (goals).
+\item establishing dependencies between nodes.
+\item search process explores that space by generating a tree of possibilities taking into account dependencies
+\item since a search process explores a tree of possibilities (and any tree is recursively composed of subtrees) it follows that any region of the search space can be characterized by a set of subtree roots
+\item allocation of search-space regions to age4nts takes place by allocating collections of search-subtree roots to agents
+\item dynamic nature of region allocation
+\end{itemize}
+
+
+\subsubsection{Dependencies analysis}
+Two kinds of dependencies might occur in a tree:
+\begin{enumerate}
+\item \side{logical dependencies}, an action or goal depends on another action or goal
+\item \side{resource dependencies}, both actions depends on a resource that goal consumes and the other produces.
+\end{enumerate}
+A very important part of coordination is analysis of interdependencies because the behaviour of the agents involved in the coordination process is based on such analysis.
+
+it may occur that some joint goals:
+\begin{itemize}
+\item team members are mutually responsible to one another
+\item the team members have a joint commitment to the joint activity
+\item the team members are committed to be mutually supportive of one another
+\end{itemize}
+
+\subsubsection{Local control}
+Concerns the status and process of a single node in its own local environment and its own local  search space region
+
+Interaction with network control:
+\begin{itemize}
+\item network may increase or decrease local control uncertainty
+\item better local control may more efficiently uncover information that can focus network control decision
+\end{itemize}
+
+Control decision uncertainty: ambiguity in the next actino choice (often is characterized as the size of the set of next-states)\\
+Resucing degree and/or reducing impact of uncertainty
+\begin{itemize}
+\item Impact- arbitrariness of control decisions
+\item Impact of control uncertainty can be reduced by reducing common dependencies that agent share
+\end{itemize}
+
+Activities in coordination
+\begin{itemize}
+\item Defining the goal graph
+\item Assigning regions of search space
+\item controlling decisions about which areas of the graph to explore
+\item traversing the goal structure satisfying dependencies
+\item ensuring report of the successful traversal
+\end{itemize}
+Determining the approach for each of the phases is a matter of system design and it depends upon:
+\begin{itemize}
+\item The nature of the domain
+\item The type of agents included into community
+\item the desired solution characteristics
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+\section{Common coordination techniques}
+
+\begin{itemize}
+\item Organisational structures
+\item Meta-level Information exchange
+\item multi-agent Planning
+\item Explicity analysis and synchronization
+\item Norms and social laws
+\item Coordination models based on human teamwork ( Joint commitments and mutual modelling)
+\end{itemize}
+
+\subsection{Comparing common coordination techniques}
+\missingfigure{24}
+
+\subsection{Organizational structures}
+\begin{itemize}
+\item the simplest coordination approach
+\item implicit coordination
+\item provides framework for defining
+\begin{itemize}
+\item roles
+\item communication paths
+\item authority relationships
+\end{itemize}
+\item pre-defined, long-term relations
+\item specifies the distribution of specializations among agents
+\item a precide way of dividing the problem space without specifying particular problems
+\item agents are associated with problem types and problem instances circulate to the agents which are responsible for instances of that type
+\end{itemize}
+
+Organisational structures may be: functional, spatial, product-oriented
+
+\subsection{Meta-level information exchange}
+
+\subsection{Multi-agent planning}
+
+\subsection{Explicit anaylsis and synchronizatino}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

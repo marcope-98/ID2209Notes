@@ -1,0 +1,171 @@
+\chapter{Agent Oriented Software Engineering}
+\minitoc
+
+As MASs become more established in the collective consciousness of the computer science community, we might expect to see increasing effort devoted to devising methodologies to support the development of agent systems.
+
+\section{When is an Agent-Based Solution Appropriate?}
+
+There are a number of factors which point to the appropriateness of an agent-based approach:
+\begin{itemize}
+\item The environment is open or at least highly dynamic, uncertain or complex
+\item Agents are a natural metaphor.\\
+Many environments are naturally modelled as societies of agents, either cooperating with each other to solve complex problems, or else competing with one another.
+\item Distribution of data, control or expertise.\\
+In some environments, the distribution of either data, control or expertise means that a centralized solution is at best extremely difficult or at worst impossible.
+\item Legacy systems.\\
+A problem increasingly faced by software developers is that of \side{legacy software}, that is technologically obsolete but functionally essential to an organization.\\
+Such software cannot generally be discarded, because of the short-term cost of rewriting. And yet it is often required to interact with other software components which were never imagined by the original designers. One solution to this problem is to wrap the legacy components, providing them with an agent layer functionality, enabling them to communicate and cooperate with other software components.
+\end{itemize}
+
+\section{Agent-Oriented Analysis and Design}
+An analysis and design methodology is intended to assist first in gaining an understanding of a particular system and secondly in designing it.\\
+Methodlogies generally consist of a collection of models, and associated with these models, a set of guidelines. The models are intended to formalize understanding of the system being considered.
+
+Analysis and design methodolgies of agent-based systems can be broadly divided into two groups:
+\begin{enumerate}
+\item Those that take their inspiration from OO development, and either extend existing OO methodologies or adapt OO methodologies to the purposes of \side{Agent-Oriented Software Engineering (AOSE)}
+\item Those that adapt knowledge engineering or other techniques
+\end{enumerate}
+\subsection{The AAII methodology}
+The \side{Australian AI Institute (AAII)} developed a range of agent-based systems using their PRS-based belief-desire-intention technology and the distributed  multiagent reasoning system (DMARS).
+
+This methodoly draws primarly upon OO methodologies and enhances them with some agent-based concepts. The methology itself is aimed at the construction of a set of models which, when fully elaborated, define an agent system specification.
+
+The AAII methology provides two types of model:
+\begin{enumerate}
+\item The \side{External model} presents a system level view: the main components visible in this model are agents themselves.
+
+The external model is thus primarly concerned with agents and the relationships between them.\\
+Particularly the external model is intended to define inheritance relationships between agents classes, and to identify the instance of these classes that will appear at run time.
+
+It is itself composed of two further models: the \side{agent model} and the \side{interaction model}.
+
+Furthermore the agent model is divided into an \side{agent class model} and an \side{agent instance model}. 
+
+\item The \side{Internal model} is concerned with the internals of agents: their beliefs, desires and intentions
+\end{enumerate}
+
+These two models define the agents and agent classes that can appear, and relate these classes to one another via inheritance, aggregation and instantiation relations.
+Each agent class is assumed to have at least three attributes: beliefs, desires and intentions. The analyst is able to define how these attributes are overridden during inheritance.
+Details of the internal model are not given but it seems clear that developing an internal model correspons fairly closely to implementing a PRS agent.
+
+The AAII methodology is aimed at elaborating the models described above. It may be summarized as follows:
+\begin{enumerate}
+\item Identify the relevant roles in the application domain and on the basis of these, develop an agent class hierarchy
+\item Identify the responsibilities associated with each role, the services required by and provided by the role and then determine the golas associated with each service.
+\item For each goal, determine the plans that may be used to achieve it and the context conditions under which each plan is appropriate
+\item Determine the belief structure of the syste, the information requirements for each plan and goal.
+\end{enumerate}
+Note that the analysis process will be iterative, as in more traditional methologies. The outcom eiwll be a model that closely corresponds to the PRS agent architecture. As a result, the move from end-design to implementation using PRS is relatively simple
+\subsection{The GAIA methodology}
+The \side{GAIA methology} is intended to allow an anlyst to go systematically from a statement of requirements to a design that is sufficiently detailed that it can be implemented directly.
+
+In applying GAIA, the analyst moves from abstract to increasingly concrete concepts. Each successive move introduces greater implementation bias and shrinks the space of possible systems that  could be implemented to satisfy the original requirement statement.
+Gaia borrows some terminology and notation from OO analysis and design. However, it is not simply a naive attempt to apply such methods to Agent-oriented development. Rather, it provides an agent-specific set of concepts through which a software engineer can understand and model a complex system. In particualr, Gaia encourages a developed to thing of building agent-based systems as a process of \side{organizational design}.
+
+The main Gaia concepts can be divided into two categories: 
+\begin{itemize}
+\item \side{abstract} entities are those used during analysis to conceptualize the system, but which do not necessarily have any direct realization within the system
+\item \side{concrete} entities are used within the design process, and will tipically have direct counterparts in the run-time system.
+\end{itemize}
+
+The objective of the analysis stage is to develop an understanding of the system and its structure without reference to any implementation detail. In the Gaia case, this undestanding is captured in the system's \side{organization}.\\
+An organization is viewed as a collection of roles that stand in certain relationships to one another and that take part in systematic, institutionalized patterns of interactions with other roles.
+
+The idea of a system as a society is useful when thinking about the next level in the concept hierarchy: \side{roles}. A role is defined by four attributes: 
+\begin{enumerate}
+\item \side{Responsibilities}\\
+They determine funcitonality and as such are perhaps the key attribute associated with a role.\\
+Responsibilities are divided into two types:
+\begin{enumerate}
+\item \side{Liveness properties} descirbe those states of affair that an agent must bring about, given certain environmental conditions.
+\item \side{Safety properties} are invariants, which in other terms states that an acceptable state of affairs is maintained across all states of execution.
+\end{enumerate}
+\item \side{Permissions}\\
+A role has a set of permissions which identify the resources that are available to that role in order to realize its responsibilities. Permissions tend to \side{information resources}.
+\item \side{Activities}\\
+The activities of a role are computations associated with the role that may be carried out by the agent without interacting with other agents. activities are thus private actions.
+\item \side{Protocols}\\
+A role is also identified with a number of protocols, which define the way that it can interacti with other roles.
+\end{enumerate}
+\subsection{The Tropos methodology}
+The \side{Tropos methodology} aims to give an agent-oriented view of software throughout the software development lifecycle.\\
+It provides a conceptual framework for modelling systems based on the following concepts:
+\begin{itemize}
+\item \side{Actor}\\
+An entity with strategic goals and intentionality within the system or the organizational setting.\\
+Associated with actors are the notions of role and position.
+\begin{itemize}
+\item A role is an abstract characterization of the behaviour of a social actor within tsome specialized context
+\item A position is a set of roles, typically played by one agent
+\end{itemize}
+\item \side{Goal}\\
+A goal represent sthe actors; strategic interests. Tropos distinguish \side{hard goals} (system funcitonal requirements) and \side{soft goals} (non-functional requirements)
+\item \side{Plan}\\
+A recipe for achieving a goal.
+\item \side{Resource}\\
+Physical entities or information
+\item \side{Dependency}\\
+A relationship between two actors, indicating that one agent needs the other to carry out some part of a plan, deliver some resource, or similar
+\item \side{Capability}\\
+The ability of an actor to achieve some goal or carry out some plan
+\item \side{Belief}\\
+Knowledge that actors have about their environment.
+\end{itemize}
+
+The first phase of analysis in Tropos involves developing an :
+\begin{itemize}
+\item \side{actor model}, which captures the key stake holders in the system and their strategic intersts in the form of their goals 
+\item \side{dependency model}, which documents the dependencies between these actors
+\end{itemize}
+
+A \side{goal model} is then developed, which decomposes goals into their constituent parts, and, associated with this, a \side{plan model} captures the structure of recipes for achieving goals.
+
+\subsection{The Prometheus methodology}
+The \side{Prometheus methodology} consists of three main stages:
+\begin{enumerate}
+\item \side{System specification}, which focuses on identifying the goals and basic functionalities of the system, and specifies the interface between the system and its environment in terms of actions and percepts
+\item \side{Architectural design}, which focuses on identifying agent types, the system structure and the interactions between agents
+\item \side{Detailed design}, which first involves refining agents into their capabilities and specifying the processes ion the system and then involves the detailed design of capabilities
+\end{enumerate}
+Prometheus provides a rich collection of models for each stage and detailed guideline for each step. It also has software tool support
+
+\subsection{Agent UML}
+The \side{Undefined Modelling Language (UML)} is an attempt by three of the main figures behind object-oriented analysis and design to develop a single notation for modelling OO systems.\\
+It is important to note the UML is NOT a methodology, but rather a language for documenting models of systems; however, associated with UML is a methodology known as the rational unified process.
+
+When looking for agent-oriented modelling languages and tools, many researchers felt that UML was the obvious place to start. The result has been a number of attempts to adapt the UML notation for modelling agent systems.\\
+The proposed modifications include:
+\begin{itemize}
+\item support for expressing concurrent threads of interactino thus enabling UML to model such well-known agent protocols as the the Contract Net
+\item A notion of role that extends that provided in UML and in particular allows the modelling of an agent playing many roles
+\end{itemize}
+Both the Object Management Group and FIPA are currently supporting the development of UML-based notations for modelling agent systems, and there is therefore likely to be considerable work in this area.
+
+\subsection{Discussion}
+The predominant appraoch to developing methodologies for MASs is to adapt those developed for OO analysis and design.
+There are several disadvantages with such approaches:
+\begin{itemize}
+\item the kind of \side{decomposition} that OO methods encourage is at odds with the kind of decomposition that agent-oerinted design encourages.
+\item OO methodologies simply do not allow us to capture many aspects of agent systems. The extensions to UML proposed address some, but by no means all of these deficiencies.
+\item At the heart of the problem is the problem of the relationship between  agents and objects which has not yet been satisfactorily resolved.
+\end{itemize}
+
+\section{Pitfalls of Agent Development}
+
+\begin{itemize}
+\item \textbf{You oversell agent solutions, or fail to udnerstand where agents may usefully be applied}
+\item \textbf{You get religious or dogmatic about agents}
+\item \textbf{You do not know why you want agents}
+\item \textbf{You want to build generic solutions to one-off problem}
+\item \textbf{You believe that agents are a silver bullet}
+\item \textbf{You forget that you are developing software}
+\item \textbf{You forget that you are developing multithreaded software}
+\item \textbf{Your design does not exploit concurrency}
+\item \textbf{You decide that you want your own agent architecture}
+\item \textbf{Your agents use too much AI}
+\item \textbf{You see agents everywhere}
+\item \textbf{You havce too few agents}
+\item \textbf{You spend all your time implementing infrastructure}
+\item \textbf{Your agents interact too freely or in a disorganized way}
+\end{itemize}
