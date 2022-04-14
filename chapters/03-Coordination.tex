@@ -172,17 +172,17 @@ Interaction with network control:
 \item better local control may more efficiently uncover information that can focus network control decision
 \end{itemize}
 
-Control decision uncertainty: ambiguity in the next actino choice (often is characterized as the size of the set of next-states)\\
-Resucing degree and/or reducing impact of uncertainty
+\side{Control decision uncertainty}: ambiguity in the next actino choice (often is characterized as the size of the set of next-states)\\
+Resucing degree and/or reducing impact of uncertainty will have an
 \begin{itemize}
-\item Impact- arbitrariness of control decisions
+\item Impact on arbitrariness of control decisions
 \item Impact of control uncertainty can be reduced by reducing common dependencies that agent share
 \end{itemize}
 
 Activities in coordination
 \begin{itemize}
-\item Defining the goal graph
-\item Assigning regions of search space
+\item Defining the goal graph or search space
+\item Assigning regions of search space to different agents
 \item controlling decisions about which areas of the graph to explore
 \item traversing the goal structure satisfying dependencies
 \item ensuring report of the successful traversal
@@ -194,32 +194,31 @@ Determining the approach for each of the phases is a matter of system design and
 \item the desired solution characteristics
 \end{itemize}
 
-
-
-
-
-
-
-
-
-
 \section{Common coordination techniques}
-
 \begin{itemize}
 \item Organisational structures
 \item Meta-level Information exchange
-\item multi-agent Planning
+\item Multi-agent Planning
 \item Explicity analysis and synchronization
 \item Norms and social laws
-\item Coordination models based on human teamwork ( Joint commitments and mutual modelling)
+\item Coordination models based on human teamwork (Joint commitments and mutual modelling)
 \end{itemize}
 
 \subsection{Comparing common coordination techniques}
+The first four common techniques can be compared and classified using three main concepts:
+\begin{itemize}
+\item \side{Predictability}, how easy is it to predict what happens next
+\item \side{Reactivity}, how easy is it to react to change
+\item \side{Information Exchange}
+\end{itemize}
 \missingfigure{24}
+Trade off between predictability, reactivity and information exchange.
 
 \subsection{Organizational structures}
+
 \begin{itemize}
-\item the simplest coordination approach
+\item It is the simplest coordination approach.\\
+Someone allocate responsibility to each agent to some particolar search space
 \item implicit coordination
 \item provides framework for defining
 \begin{itemize}
@@ -227,27 +226,293 @@ Determining the approach for each of the phases is a matter of system design and
 \item communication paths
 \item authority relationships
 \end{itemize}
-\item pre-defined, long-term relations
+\item pre-defined, long-term relations.\\
+the relations that you have do not change often.
 \item specifies the distribution of specializations among agents
 \item a precide way of dividing the problem space without specifying particular problems
 \item agents are associated with problem types and problem instances circulate to the agents which are responsible for instances of that type
 \end{itemize}
 
-Organisational structures may be: functional, spatial, product-oriented
+Organisational structures may be: \side{functional}, \side{spatial}, \side{product-oriented}
 
+Hence, organizational structure models provide a pattern for decision-making and communication among a set of agents who perfrm tasks in order to achieve goals. The most well-known example of the application of organizational structure models is the automotive industry.\\
+In fact, in such a field:
+\begin{itemize}
+\item Has a set of goals, i.e. to produce different lines of cars
+\item Has a set of agents to perform the tasks: designers, engineers and salesmen
+\item It bases its organizational structure based on various costs: production costs, coordination costs and vulnerability costs
+\end{itemize}
+\subsubsection{Product Hierarchy}
+\missingfigure{}
+\begin{itemize}
+\item several divisions for different product lines
+\item each division has a product manager
+\item each division has its own separate departments (agents) for different functions
+\item product manager assigns tasks o agents in its department
+\item communication links in product structure
+\item fails inside department do not affect other products
+\item one message to assign task and one message to notify result 
+\item also model for set of separate companies 
+\end{itemize}
+
+\subsubsection{Functional Hierarchy}
+\missingfigure{}
+\begin{itemize}
+\item a number of agents of similar types are pooled into functional departments
+\item each department has a functional manager
+\item reduce duplication of efforts 
+\item executive office, production manager for all productshierarchilar task allocation
+\item 2 messages to assign task and 2 messages to notify about results
+\item failure of task aget results in a delay and task reallocation
+\item managers are critical
+\end{itemize}
+
+\missingfigure{I did not understand why market are considered}
+\subsubsection{Decentralized market}
+\missingfigure{}
+\begin{itemize}
+\item all buyers are in contact with all possible suppliers
+\item buyers play a role of product managers
+\item each has a communication link with each supplier
+\item buyers can choose the best supplier
+\item given $m$ suppliers, $2m +2 $ messages are requires
+\item if the processor fails the task is reassigned
+\item if manager fails the whole product fails
+\end{itemize}
+\subsubsection{Centralized market}
+\missingfigure{}
+\begin{itemize}
+\item brokers are in contact with possible sellers
+\item fewer connections and communications are required
+\item brokers play a role of functional managers
+\item broker chooses the best supplier
+\item 4 messages needed
+\item similar to functional model
+\item failure of one product manager does not affect others
+\end{itemize}
+\subsubsection{Summary of organization structures}
+\missingfigure{37,38, 39}
+\begin{itemize}
+\item Organizational structures are useful when there are master/slave relationships in the MAS
+\item control over the slaves actions: mitigates against benefist of DAI such as reliability and concurrency
+\item Presumes that atleast one agent has global overview: an unrealistic assumption in MAS
+\end{itemize}
 \subsection{Meta-level information exchange}
 
+\begin{itemize}
+\item Exchange control level information about current priorities and focus
+\item Control level information
+\begin{itemize}
+\item May change
+\item Influence the decisions of agents
+\end{itemize}
+\item Does not specify which goals an agent will or will not consider
+\item Imprecise
+\item Medium term: can only commit to goals for a limited amount of time
+\end{itemize}
+
+Among the most notable implementation of the Meta-Level Information exchange there is the \side{Partial Gloabl Planning (PGP)} proposed by Durfee
+\subsubsection{Partial Global Planning (PGP)}
+The basic condition of PGP is the requirement that several distributed agents work on solution at the same time.
+
+An agent therefore can observe actions adn relations between groups of other agents.
+\missingfigure{}
+
+PGP involves 3 iterated stages:
+\begin{enumerate}
+\item Each agent decides what its own goals are and generates short-term plans in order to achive them
+\item Agents exchange information to determine where plans and goals interact
+\item Agents alter local plans in order to better coordinate their own activities
+\end{enumerate}
+
+Hence PGP involves:
+\begin{itemize}
+\item Task decomposition.\\
+Starts with the premise that tasks are inherently decomposed.\\
+Assumes that an agent with a task to plan for might be unaware of what tasks other agents might be plannign for and how those tasks are related to its own.\\
+No individual agent might be aware of the global tasks or states.\\
+The purpose of oordination is to develop sufficient awareness
+\item Local plan formulation .\\
+Before an agent communicates with others it must first develop an understanding of what goals it is trying to achieve and which actions to perform.\\
+Local plans will most often be uncertain, involving branches of alternative actions depending on results of previous actions and changes in the environment
+\item Local plan abstraction.\\
+Alternative courses of action for achieving the same goal are important for an agent, however, the detail of alternatives might be unnecessary considering the agent-s ability to coordinate with others.''
+An agent might have to commit to activitis at one level of details without committing to activities at more detailed levels.\\
+Agents are designed to identify their major plan steps that could be of interest to other agents
+\item Communication of local plan abstraction .\\
+Agents must communicate about abstract local plans in order to build models of joint activities.\\
+In PGP, the knowledge to guide this communication is contained in the meta-level-organization
+\item Partial global goal identification.\\
+The exchange of local plans gives an oppportunity to identify when the goal of one or more agents could be subgoals of a single global goal.\\
+Only portions of the global goal might be known to agents. Hence the name partial global goal
+\item PGP construction and modification.\\
+Local plans can be itegrated into PGP. PGP can in fact identify opportunities fo improved coordination (performing related tasks earlier, avoiding redundant task achievement).
+As a consequence, agents will undego a reordering of actions (usage of action rates).
+With \side{rates}, it si meant:
+\begin{itemize}
+\item Whether the task is unlikely to have been accomplished already by another agent
+\item how long it is expected to take
+\item how useful its results will be to others in performing their tasks
+\end{itemize}
+
+Hence the algorithm of action reordering goes as follow:
+\begin{enumerate}
+\item For the current ordering, rate the individual actions and sum the ratings
+\item For each action, examise the later actions for the same agent and find the most highly-rated one. If it is higher rated, the swap the actions.
+\item If the new ordering is more highly rated than the current one, then replace the current ordering with the new one and go to step 2.
+\item Return the current ordering
+\end{enumerate}
+\item Communication planning.\\
+Agent must next consider what interactions should take place between agents.\\
+Interactions in the form of communicating the results of tasks are planned.\\
+By examining PGP an agent can determine when a task will be completed by one agent that could be of interest to another agent adn can explicitly plan teh communication action to transmit the result.
+
+Formally, the algorithm for communication plannign goes as follow:
+\begin{enumerate}
+\item Initialize the set of partial task results to integrate
+\item While the set contains more than one element:
+\begin{enumerate}
+\item For each pair of elements: find the earliest time and agent at which they can be obtained
+\item For the pair that can be combined earliest: add a new element to the set of partial results for the combination and remove the two elements that were combined
+\end{enumerate}
+\item Return the single element in the set
+\end{enumerate}
+\item Acting on PGP.\\
+Once a PGP has been constructed and the concurrent local and communication actions have been ordered, the collective activities of the agents have been planned. These activities must be translated back to the local level.
+
+An agent respons to a change in its PGP by modifying the abstract representation of its local plans.\\
+The modified representation is used by agent when choosing its next local action
+\item Ongoing modifications.\\
+As agents pursue their plans, their actions or events in the environment might lead to changes in tasks.\\
+A change in coordination is deciding when the changes in local plans are significant enough or defining a threshold (signiicant temporal deviations)
+\item Task trallocation.\\
+in case of disproportional task load, agents, through PGP, can exchange abstract models of their activities and detect whether they are overburdened.
+
+When this happens a possible task reallocation might occur.
+\end{itemize}
+
+In short: the main principle of PGP is that cooperating agents exchange information in order to raech common conclusions about the problem solving process.
+
+It is said to be \side{partial} because an agent does not generate a plan for the entire problem.\\
+It is said to be \side{global} because agents form non-local plans by exchanging local plans and cooperating to achieve a non-local view of problem solving.
+
+To summarize: PGP is a cooperatively generated data strcuture containing the actions and interactions of a group of agents.
+
+It contains:
+\begin{itemize}
+\item \side{Objective}, the larger goal of the system
+\item \side{Activity map}, what agents are actually doing and the results generated by the activities
+\item \side{Solution construction graph}, a representation of how the agents ought to interact in order to successfully generate a solution
+\end{itemize}
+PGP focuses on dynamically revising plans in cost-effective ways given an unertain world.\\
+PGP is particularly situes to applications where some uncoordinated activity can be tolerated and overcome.\\
+PGP works well for many tasks, but could be inappropriate for domains such as air-traffic control where guarantees about coordination must be made prior to any execution
+
 \subsection{Multi-agent planning}
+Agents generate, exchange and synchronize explicit plans o actions to coordinate their joint activity.\\
+they arrange a priori precisely which tasks each agent will take on.\\
+Plans specify a sequence of actions for each agent.\\
+Consideration of uncertainty is moved to the planning activity.\\
+More specific than organizational structures or PGP and shorter time-horizon.
 
-\subsection{Explicit anaylsis and synchronizatino}
+There are two basic approaches to Multi-agent planning:
+\begin{enumerate}
+\item Centralised: a central coordinator develops, decomposes and allocated plans to individual agents
+\item Distributed: a group of agents cooperate to form either a centralised or a distributed plan
+\end{enumerate}
+
+\subsubsection{Centralized planning}
+\begin{itemize}
+\item Given a goal description, a set of operators and an intial state description, generate a plan
+\item Decompose the plan into subprobelms such that ordering relationships between steps tend to be minimized across subprobelms
+\item Insert synchronization actions into subplans
+\item Allocate subplans to agents using task-passing mechanisms
+\item Initiate plan execution and optionally monitor progress
+\end{itemize}
+\subsubsection{Distributed planning for centralised plans}
+In air traffic control domain, the aim is to enable each aricraft to maintain a flight plan that will aintain a safe distance with all aircrafts in its vicinity.\\
+Hence each aircraft sends a central coordinator information about its intended actions. The coordinator builds a plan which specifies all of the agents' actions including the ones that they should take to avoid collision.\\
+
+Another exaple is a general technological process such as manufacting: the plan is centralized but each step can be planned in parallel. As a consequence, there is a distributed expertize even though the control is centralized.
+\subsubsection{Distributed planning for distributed plans}
+Individual plans of agents, coordinate dynamically.\\
+No individual with a complete view of all the agents' actions.\\
+More difficult to detect and resolve undesirable interactions.
 
 
+Agents in these different scenarios share and process a huge amount of information, hence these approaches require more computing and communication resources
 
+\subsection{Explicit anaylsis and synchronization}
+Analysis of situation in each decision-making step (possible-next-action-set).\\
+Interacting with other agents:
+\begin{itemize}
+\item Exchange among all interdependent agents
+\item locks actions
+\item uses reply information to prune its next-action set
+\item send synchronization unlocking messages
+\end{itemize}
+A lot of time for communication during planning.\\
+If the level of dependency is low and the granularity of actions is high, this approach can provide useful coordination.\\
+Short time-horizon
 
+\subsection{Social Norms and Laws}
+\side{Norm}: an established, expected pattern of behaviour\\
+\side{Social Laws}: similar to Norms, but carry authority.
 
+Social laws in an agent system can be defined as a set of constraints:
+\begin{itemize}
+\item A constraint is formally represented as a tuple $<E\, \alpha>$, where:
+\begin{itemize}
+\item $E' \subseteq E$ is a set of environment states
+\item $\alpha \in Ac$ is an action (in this case $Ac$ is the finite set of actions possible for an agent)
+\end{itemize}
+\item If the environment is in some state $e \in E'$, then the action $\alpha$ is forbidden.
 
+An agent or plan is said to be legal wrt a social law if it never attempts to perform an action that is forbidden by some constraint in the social law.
+\end{itemize}
 
+\subsection{Coordination Models based on human teamwork}
+In this section we will see that it is possible to achieve coordination without communication. Since some the method that we will see are based on human teamwork it is worth making a distinction:
+\begin{itemize}
+\item Coherent behaviour that is not cooperative, e.g. individual drivers in traffic following traffic rules
+\item Coordinated cooperative action, e.g. implicit sharing a common goal like dancers
+\item Teamwork action, e..g conovy-combining individual efforts
+\end{itemize}
+Formally teamwork is defined as a cooperative effort by the members of a team to achieve a common goal.\\
+ In such a scenario an individual intention towards a particular goal ay differ from being a part of a team with a collective intention towards a goal.
+ However, teamwork is enforced with the notion of Responsibility towards the other members of the team
+\subsubsection{Mutual Modelling}
+In Mutual Modelling techniques, each agent builds a model of the other agents, in particular their beliefs and intentions.\\
+Based on this model, the agent will coordinate its own activities and achieve cooperation without communication.
+\subsubsection{Joint Commitments}
+Joint Intentions models are based on human teamwork models: when a group of agents are engaged in a cooperative activity, they must have a joint commitment to the overall aim as well as their individual commitments.
 
+The term commitment refers to a pledge or promise and carries around several properties:
+\begin{itemize}
+\item Commitments are persistent, in the sense that if an agent adopts a commitment, it is not dropped unitl for some reason it becomes redundant
+\item Commitments may change over time, due to a change in the environment
+\end{itemize}
+The main problem with joint commitment si that it is hard for agents to be aware of each others states at all times.
+
+Conventions, refer to means of monitoring a commitment. The overall mechanism of conventions is nevessary to describe when to change a commitment, or more in particular:
+\begin{itemize}
+\item When to keep a commitment (retain)
+\item When to revise a commitment (rectify)
+\item When to remove a commitment (abandon)
+\end{itemize}
+
+Joint action by a team involves more than just the union of simultaneous individual actions.\\
+When a group of agents are engaged in a cooperative activity, they must have:
+\begin{itemize}
+\item Joint commitment to the overall activity
+\item Individual commitment to the specific task that they have been assigned to
+\end{itemize}
+
+More in particular Invividual conventions describe how an agent should monitor its commitments, but not how it should behave towards other agents. In this sense it is both asocial and suffiient for goals that are independent.
+
+However, individual conventions do not work for inter-dependent goals, for which it is necessary to have social conventions, which specify how to behave with respect to the other members of the team.
+
+Team members must be aware of the convention that govern their interaction.
 
 
 
