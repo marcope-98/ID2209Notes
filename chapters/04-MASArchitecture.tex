@@ -1,2 +1,286 @@
 \chapter{MAS Architecture}
 \minitoc
+
+The infrastructure for a MAS is a set of services, conventions and knolwedge that support complex social interactions (e.g. negotiations, agree on commitments...)
+
+Agents need services to:
+\begin{itemize}
+\item Enable them to find each other in open environments
+\item Communicate 
+\item Warrant that proper security constraints are satisfied
+\item ...
+\end{itemize}
+\missingfigure{4}
+\section{Low-level architectures}
+\subsection{Blackboard Architecture}
+Metaphor: a collection of intelligent agents gather around a blackboard, loot at pieces of information written on it, think about them, and add their conclusions.
+
+Some basic assumptions:
+\begin{itemize}
+\item all of the agents can  see all of the blackboards all the time, and what they see represents the current state of solution
+\item any agent can write his conclusions on the blackboard at anytime without gettin in anyone else's way
+\item the act of an agent writing on the blackboard will not confuse any other agents as they work
+\end{itemize}
+The key ideas of the blackboard architecture is that problem solving should be:
+\begin{itemize}
+\item \side{Incremental}: complete solutions are constructed piece by piece, first hypothesizing a partial solution based on incomplete data and then attempting to verify additional data to verify hypothesis
+\item \side{Opportunistic}: the system chooses the action sto take next that it determines will allow it to make the best progress towards meeting its goals in the current situation.
+\end{itemize}
+
+The main components of the blackboard architecture are:
+\begin{itemize}
+\item A \side{blackboard}: a global database containing data and hypotheses (potential partial solutions)
+\item A set of \side{Knowledge Sources (KS)} or agents
+\item A \side{Control mechanism}
+\end{itemize}
+\subsubsection{The control problem}
+
+The term control problem refers to the problem of selecting the best action to execute next.\\
+Blackboard systems, in fact, must have some control mechanism:
+\begin{itemize}
+\item Effective control requires to take into account
+\begin{itemize}
+\item \side{Goal-directed factors}: based on what an agent wants
+\item \side{Data-oriented factors}: based on what an agent is best able to do
+\end{itemize}
+\item Blackboard control is difficult because it can be difficult to determine the expected value of an action by an agent as there may be complex interrelationships among the agents
+\end{itemize}
+Agents are schedulable entities and only one can be running at any time.\\
+The control mechanism selects only the most productive agent at any given moment to work on the problem\\
+The blackboard is not gloabally visible. Agents generally work on a limited area of the blackboard, known as the agent's context.\\
+Implicit assumption: a knowledge source/agent operates within a valid, or consistent context
+\subsubsection{Agenda-based Control}
+\missingfigure{11}
+In the basic agenda-based blackboard architecture, all the control (strategy) knowledge of the system is represented in a single scheduler rating function.
+
+This makes it difficult to encode and modify complex control strategies.\\
+The knowledge and reasoning are not explicit.
+\subsubsection{Event-based Control}
+\missingfigure{12}
+\subsubsection{Goal-directed Control}
+Control that ocnsiders the role and the ultimate value of actions in satisfying the system's goals
+\missingfigure{13}
+Goal processor instantiates goals on the goal blackboard.\\
+Goal processor is driven by the 3 mapping functions.\\
+Integrates goal-directed and data-directed factors:
+\begin{itemize}
+\item Goal-directed goals are created in response to the creation of other goals based on the goal-to-subgoal map
+\item Data-directed goals are created in response to the creation or modification of hypotheses on the blackboard based on the hypothesis-to-goal map
+\end{itemize}
+
+When a goal is inserted onto the goal blackboard, it may trigger KSs that can achieve the goal identified by the goal-to-KS map.\\
+If KS is likely to generate a hypothesis to achieve the goal, KS is added to the agenda.\\
+A possible problem may emerge: subgoaling needs to be carefully controlled
+\subsubsection{Hierarchy of Blackboard Servers}
+\missingfigure{16}
+\subsection{ACTORs}
+
+An ACTOR is a computational system with the following properties:
+\begin{itemize}
+\item \side{Social}, can send messages to other ACTORs
+\item \side{Reactuve}, carry out computation in response to a message received from another actor
+\end{itemize}
+In the ACTOR model, computation itself is viewed as message passing\\
+It can be considered as consisting of:
+\begin{itemize}
+\item An address
+\item A behaviour which specifies what the ACTOR will do upon receipt of a message
+\end{itemize}
+
+The ACTOR approach is formulated around three main design objectives:
+\begin{enumerate}
+\item Shared, mutable data
+\item Reconfigurability
+\item Inherent concurrency
+\end{enumerate}
+An ACTOR is an object that carries out its actions in response to communication it receives.\\
+ACTOR may perform three basic actions:
+\begin{itemize}
+\item Sending messages to itself or other ACTORs
+\item Creating more ACTORs
+\item Specify a replacement behaviour, which is essentially another actor that takes the place of the actor that creates it, for the purpose of responding to certain communications.
+\end{itemize}
+\subsubsection{Behaviour}
+How an ACTOR works:
+\begin{itemize}
+\item Upon receipt of a message, the message is matched against the ACTOR's behaviour (script)
+\item Upon a match, the corresponsing action is executed, which may involve:
+\begin{itemize}
+\item Sending more messages
+\item Creating more ACTORs
+\item Replacing the ACTOR by another
+\end{itemize}
+\end{itemize}
+
+Actor computation is reactive.\\
+An actor is dormant until it receives communication.\\
+In any computation, each actor receives a linearly ordered sequence of computations.\\
+Messages are not guaranteed to arrive in the order in which they are sent\\
+There is no assiognment to local variables in basic actor model\\
+Every communication must be sent to a mail address: mail system is an important part of the model.
+\missingfigure{26}
+\subsubsection{Communication}
+A communication event is called a task and it has 3 parts:
+\begin{enumerate}
+\item A unique tag, distringuishing it from tasks in the system
+\item A target, the mail address of intended receiver
+\item A communication which is the data passed by this communication event
+\end{enumerate}
+
+Actor model is asynchronous.\\
+Communication is:
+\begin{itemize}
+\item explicity, through mail addresses, without shared variables 
+\item buffered and asynchronous
+\end{itemize}
+Weak fairness is assumed:
+\begin{itemize}
+\item every message which is sent is eventually delivered
+\item every computation eventually progress (no starvation)
+\end{itemize}
+
+
+\section{Message sending based architecture: Agent Factory}
+A few words about basic principles of Agent Factory:
+\begin{itemize}
+\item Linear discrete model of time which can be visualized as a sequence of numbers
+\item A guaranteed delivery assumption. Messages are delivered correctly: the content of the message does not change in transaction, the message is sent to destinations and only to them
+\item For any message there is only one sender
+\item In spite of process synchronization: communication is asynchronous via message pool
+\end{itemize}
+\missingfigure{28}
+\section{Testbeds}
+The main purpose of DAI testbeds is to support the implementation of ideas so that they can be evaluated in a useful context.
+
+Most DAI testbeds provide three classes of facilities:
+\begin{itemize}
+\item Domain facilities: representation and simulation of the probelm being solved
+\item Development facilities: an environment or tools for building the agents that will solve the problem
+\item Evaluation facilities: tools for display, data collection, and analysis to understand how well the agents perform
+\end{itemize}
+
+\subsection{DVMT}
+The \side{Distributed Vehicle Monitoring Testbed (DVMT)} is a DAI testbed developed to successfully track a number of vehicles that pass within the range of a set of distributed sensors (agents).
+
+DVMT is a problem dependent testbed and agents (problem solvers) have a blackboard architecture
+\subsection{MACE}
+MACE provides tools for constructing DAI systems at different level of abstraction:
+\begin{itemize}
+\item Each rule can be an agent
+\item coarse-grained systems with large scale agents
+\end{itemize}
+MACE had no fixed domain for problem solving activity
+
+\section{Infrastructures that use wrappers: ARCHON}
+In many industrial applications, a substantial amount of time, effort and money was spent on developing complex and shophisticated software systems (e.g. expert systems and databases)\\
+Can these sub-systems be integrated into a coherent community in whcih they work together to better meet the needs of the entire applications?
+
+\side{ARchitecture for Copperative Heterogeneous ON-line systems (ARCHON)} was (in 1996) Europe's largest project in the area of DAI.\\
+It was originally focused on getting a number of expert systems to pool their expertise in solving problems and diagnosing faults in several industrial domains.\\
+Supports a cooperating community that has decentralized control and individual problem solving agents.\\
+Consists of a:
+\begin{itemize}
+\item \side{Framework}: which provides assistance for interaction between constituent subcomponents
+\item \side{Methodology}: which provides a means for structuring these interactions
+\end{itemize}
+
+ARCHON's individual problem solving entities are agents; they have the ability to control their own problem solving and to interact with other community members\\
+Agents are large grain loosely coupled and semi-autonomous.\\
+Each agent consists of an \side{ARCHON Layer (AL)} and an application program (known as \side{Intelligent System (IS)})\\
+The ISs can be heterogeneous as their differences are masked by a standard AL-IS interface.\\
+\missingfigure{Structure oif an ARCHONM COmmuinity}
+The system's overall objective is expressed in the separate local goals of each agent.\\
+Agents' goals are usually interrelated. Therefore, social interactions are required to meet gloabl contraints.\\
+Such interactions are controlled by the ARCHON layer.
+\subsection{ARCHON Layer}
+Functions of the ARCHON Layer:
+\begin{itemize}
+\item Control tasks within the local IS
+\item Decide when to interact with other agents (it needs to model the capabilities of its own IS as well the ISs of the other agents)
+\item Communicate with other agents
+\end{itemize}
+\missingfigure{Functional view of an Archon aagent}
+
+\section{Infrastructures that use Middle Agents: RETSINA}
+In an open system, the set of agents is not known a priori.\\
+The infrastructure should provide ways for its agents to locate each other based on name, functionality or capability.
+
+Agents that provide this service are called Middle agents which may also take the role of Facilitators or Matchmakers.
+
+\side{REusable Task Structure-based Intelligen Network Agents (RETSINA)} is an open MAS infrastructure that supports communities of heterogeneous agents.\\
+The main idea of RETSINA is that agents should form a community of peers that engage in peer-to-peer relations.
+
+There is no central control and it implements distributed infrastructural services that facilitate the relation between agents.
+
+\missingfigure{42}
+RETSINA middle agents are called Matchmakers, i.e. information agents that look for other agents rather than information:
+\begin{itemize}
+\item Records a mapping between agents in the system and the services they provide
+\item Two types of data: advertisements and requests
+\item the task of matchmakers is to match advertisements to requests
+\item Two types of protocols: single short and monitor
+\end{itemize}
+\section{Market-based architectures}
+
+Online market places offer an opportunity to buyers and sellers to meet electronically and conduct trade.
+
+Offers benefits for both buyers and seller:
+\begin{itemize}
+\item Buyers: ease to process of searching for and comparing sellers
+\item Sellers provide access to much broader customer bases
+\end{itemize}
+The major challenges are:
+\begin{itemize}
+\item to go beyond simple buying and selling
+\item to incorporate time constraints, enforce deadlines, interact with a highly distributed web of suppliers with different capabilities and resources, interact over long periods of time and deal with failure in contract execution
+\end{itemize}
+The requirements of a Market-based Architecture are to:
+\begin{itemize}
+\item Provide support for a variety of transaction types (buying and selling, complex multi-agent contract negotiation, auctions)
+\item Control fraud and misrepresentation
+\item Discourage counterspeculation
+\item Provide for secure and private credit and payment mechanisms
+\item Provide a language in which the rich array of semanting content about commerce can be expressed
+\item Provide for robust exception handling
+\item Scale smoothly from local to global
+\item Be extensible, by third parties
+\item Interoperate with other new and existing electronic commerce services
+\end{itemize}
+\subsection{MAGNET}
+The  \side{Multi-AGent NEgotiation Testbed (MAGNET)} is a testbed to support multiple agents in negotiating contracts.\\
+Supports negotiation of contract for tasks that have temporal and precedence constraints.\\
+Distinguishes between the agents:
+\begin{itemize}
+\item Customer: needs resources outside its direct control in order to carry out its plans
+\item Supplier: provides the resources and services required by customers, for a specified price, over specified time periods
+\end{itemize}
+
+\missingfigure{48}
+The interaction among agents goes as follows
+\begin{enumerate}
+\item A customer issues a Request for Quotes (RFQ), which sp[ecifies tasks, the precedence relations and a timelien for the bidding process
+\item Supplier agents submit a bid, which includes a set of tasks, a price, a portion of the price to be paid as a non-refundable deposit and estimated timeline
+\item The customer decides which bid to accept based on cost, risk and time constraints
+\item The customer awards bid, notifies the suppliers of their commitments and specifies the work schedule
+\end{enumerate}
+The interactions between the customer and supplier agents are encapsulated in a market session. The market session:
+\begin{itemize}
+\item finds suppliers interested in bidding for the customer
+\item provides a catalog of services (market ontology)
+\item time-stamps all the interactions in order to avoid dispute among customers and suppliers
+\end{itemize}
+
+The session:
+\begin{itemize}
+\item Truthfully informs the suppliers of the conditions under which the bidding is being done and enforces these conditions
+\item Can limit the number of bids sent by each supplier
+\item May provide information about suppliers to customers
+\item Enforces the rules of the market
+\item Can act as a trusted auctioneer
+\end{itemize}
+
+\section{Conclusion}
+We consider our MAS infrastructure as middleware on the top of system software.
+Cooperative work support is an important element of the infrastructure and it needs conceptual solutions
+Extensibility and default components are important features
+We should be as much as possible close to standards (if they do not exist then to general tendencies)

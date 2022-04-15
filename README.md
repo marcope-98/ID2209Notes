@@ -1,7 +1,7 @@
 # Overview #
 This repository contains the notes of the course "ID2209 - Distributed Artificial Intelligence and Intelligent Agents"
 
-Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/75)
+Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/90)
 
 # TODO: #
 - [x] fix equation alignment under "simple majority voting" section
@@ -12,10 +12,10 @@ Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/
 - [x] complete "Agent Negotiation" chapter 
 - [x] complete "Agent Communication" chapter 
 - [x] complete "Agent Coordination" chapter 
-- [ ] complete "MAS Architecture" chapter 
+- [x] complete "MAS Architecture" chapter 
 - [x] complete "Agent Oriented Software Engineering" chapter 
-- [ ] complete "Agent Theory" chapter 
-- [ ] complete "Agent Architecture" chapter 
+- [x] complete "Agent Theory" chapter 
+- [x] complete "Agent Architecture" chapter 
 - [x] complete "ML and RL" chapter 
 - [x] complete "Agent Mobility" chapter 
  

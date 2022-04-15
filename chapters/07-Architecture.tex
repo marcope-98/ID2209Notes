@@ -1,2 +1,321 @@
 \chapter{Agent Architecture}
 \minitoc
+We want to build agents that enjoy the properties of autonomy, reactiveness, proactiveness and social ability.\\
+How do we construct computer systems that satisfy properties specified by agent theorists?\\
+The area of agent architecture.
+
+Originally (1956-1985), all agents designed within AI were symbolic reasoning agents: agents use explicit reasoning in order to decide what to do.\\
+
+Problems with symbolic reasoning led to a reaction against this, the so-called reactive agents movement (1985 onwards).\\
+From 1990-present, a number of alternatives was proposed: hybrid architectures, which attempt to combine the best of reasoning and reactive architectures.
+\section{Abstract agent architectures}
+Assume the environment may be in any of a finite set $E$ of discrete, instantaneous states:
+\[E = \{e_1, e_2, ...\}\]
+Agents are assumed to have a repertoire of possibel actions available to them, which transform the state of the environment
+\[A = \{a_1,a_2,...\}\]
+The interaction of agents and environment can be represented as a history (run):
+\missingfigure{7}
+Two important points:
+\begin{enumerate}
+\item Environments are assumed to be history dependent, i.e. the next state of an environment may not solely be determined by the action performed by the agent and the current state of the environment
+\item Possible non-determinism in the environment, i.e. there is uncertainty about the result of performing an action in some state
+\end{enumerate}
+The non-deterministic behaviour of an environment can be modeled as a state transofrmer function
+\[\tau : r(ended\,with\,a)\rightarrow \rho(E)\]
+which takes a run and maps it to a set of environment states $\tau(r)$ those that could result from performing action $a$ in state $e$.
+
+it is said to be:
+\begin{itemize}
+\item non-deterministic if 
+\[\rho(E) = \{e_x, e_y\}\]
+\item deterministic if
+\[\rho(E) = \{e_x\}\]
+\end{itemize}
+Agents can be viewed as a function:
+\[Ag: r(ended \, with \, e)\rightarrow A\]
+The characteristic behaviour of an agent in an environment is the set of all runs.
+
+$R(Ag, Env)$ is the set of all histories/runs of agent in environment ($Env = \{E, e_0, \tau\}$).\\
+If some property holds of all these histories, this property can be regarded as an invariant property of the agent in the environment.
+
+Two agents are behaviourally equivalent wrt to environment $Env$ if and only if
+\[R(Ag1, Env) = R(Ag2, Env)\]
+Two agents are simply behaviourally equivalent iff they are behaviorally equivalent wrt to all environment.
+Certain types of agents  decide what to do without reference to their history: decision making based entirely on the present.
+
+They are agents without internal states.\\
+Behaviour of purely reactive agents can be represented as a function:
+\[Ag: E\rightarrow A\]
+A thermosts is a purely reactive agent.
+
+The see function is the agent's ability to observe its environment.\\
+The action function represents an agent's decision making process\\
+The output of a see function is a percept:
+\[see: E\rightarrow Per\]
+which maps environment states to percepts and action is now a function
+\[action: Per\rightarrow A\]
+which maps sequences of percepts to actions.
+An agent has a perfect perception if it can distinguish every environment state.\\
+
+The agents have some internal data structure, which is tipically used to record information about the environment state and history.\\
+let I be the set of all internal states of the agent.\\
+Perception function is unchanged\\
+The action-selection function action is now defined as a mapping from internal states to actions:
+\[action: I \rightarrow A\]
+A new function next maps an internal state and percept to an internal state
+\[next: I \times Per \rightarrow I\]
+Behaviour of an agent:
+\begin{enumerate}
+\item Starts in initial state $i=i_0$
+\item Observes its environment state $e$ and generates a percept $see(e)$
+\item The internal state of the agent is then updated via the next function
+\[next(i, see(e))\]
+\item The action selected by the agent is then 
+\[action(next(i, see(e)))\]
+\item The action is performed and the agent enters a new cycle (i.e. goes to 2)
+\end{enumerate}
+\begin{lstlisting}[language=C++]
+function action($\Delta$: D) : A
+begin
+	for each a $\in A$ do 
+		if $\Delta |- Do(a)$ then 
+			return a
+		end if
+	end for
+	for each $a\in A$ do
+		if $\Delta \neg{} |- \neg Do(a)$ then 
+			return a
+		end if
+	end for
+	return null
+end function action
+\end{lstlisting}
+
+Distinction between practical reasoning and theoretical reasoning:
+\begin{itemize}
+\item Theoretical reasoning is directed towards beliefs
+\item Practical reasoning is directed towards actions
+\end{itemize}
+Practical reasoning directed towards action: the process of figuring out what to do:\\
+Practical reasoning is a matter of weighing conflicting considerations for and against competing options, where the relevant considerations are provided by what the agent desires/values/cares about and what the agent believes.
+
+Human practical reasoning consists of 2 activities:
+\begin{itemize}
+\item \side{Deliberation}: deciding what state of affairs we want to achieve
+\item \side{Means-end reasoning}: deciding how to achieve these states of affairs
+\end{itemize}
+The output of deliberations are intentions.\\
+The output of means-end reasoning are plans.\\
+Means end reasoning is a process of deciding how to achieve an end using available means (aka AI as planning).\\
+The basic idea is to given an agent the following and have it generate a plan to achieve the goal:
+\begin{itemize}
+\item Representation of goal/intention to achieve
+\item Representation of actions it can perform
+\item Representation of the environment
+\end{itemize}
+
+How does an agent deliberate?
+\begin{itemize}
+\item Option generation: trying to understand what the available options are:\\
+Agent generates a set of alternatives (goals/desires)
+\item Filtering: choosing between options and committing to one:\\
+Agent chooses between competing alternatives and commits to achieving them
+\end{itemize}
+The chosen options are then intentions
+\section{Deliberative Architectures}
+The classical approach to building agents is to view them as a particular type of knoledge-based system, and bring all associated methodologies of such systems.\\
+The paradigm is known as symbolic AI.\\
+We define a deliberative agent or agent architecture to be one that:
+\begin{itemize}
+\item Contains an explicitly represented, symbolic model of the world
+\item Makes decision via symbolic reasoning
+\end{itemize}
+
+Early systesm were planning systems (e,g. STRIPS):
+\begin{itemize}
+\item Takes a symbolic description of the world, a desired goal state and a set of action description (pre and post-conditions are associated)
+\item Find a sequence of actions that will achieve the goal (matching post-conditions and goals)
+\end{itemize}
+In the end, it is very simple planning algorithms but very inefficient planning.
+
+Two key problems
+\begin{enumerate}
+\item Transduction:\\
+Translating the real world into accurate, adequate symbolic description, in time for that description to be useful (.. vision, speech understanding, learning).
+\item Representation/reasoning\\
+How to symbolically represent information about complex real-world entities and processes and how to get agents to reason with this information in time for the results to useful (... knowledge representation, automated reasoning, automatic planning)
+\end{enumerate}
+\subsection{BDI - Belief, Desire, Intentions}
+\missingfigure{25}
+\begin{lstlisting}[language=C++]
+function action(p : E) : A
+begin
+	B := brf(B,p)
+	D := options(B, I)
+	I := filter(B,D,I)
+	return execute(I)
+end function action
+\end{lstlisting}
+\subsection{PRS - Procedural Reasoning Systems}
+\missingfigure{27}
+In PRS, each agent is equipped with a plan library, representing the agent's procedureal knowledge: knowledge about the mechanisms that can be used by the agent in order to realize its intentions.\\
+The options available to an agent are directly determined by the plans an agent has: an agent with no plans has no options\\
+PRS agents have explicit representations of beliefs, desires (goals) and intentions.
+\subsection{IRMA - Intelligent Resource-bounded Machine Architecture}
+\missingfigure{29}
+IRMA has 4 key symbolic data structures:
+\begin{enumerate}
+\item A plan library
+\item Beliefs: information available to the agent
+\item Goals/Desires: those things that the agent would like to make true
+\item Intentions: goals/desires that the agent has chosen and committed to.
+\end{enumerate}
+
+Additionally, the architecture has:
+\begin{itemize}
+\item A reasoner: for reasoning about the world, an inference engine
+\item A means-end analyser: determines which plans might be used to achieve the intentions
+\item An opportunity analyser: monitors the environemnt and as a result of changes, generates new options
+\item A filtering process: determines which options are compatible with current intentions
+\item A deliberation process: responsible for deciding upon the best intentions to adopt
+\end{itemize}
+\section{Reactive Architectures}
+There are many unsolved perhaps insoluble problems associated with symbolic AU, which has led researchers to develop reactive architectures\\
+They use many different techniques. The most vocal critic is attributed to Rodney Brooks
+\subsection{Brook's subsumption Architecture}
+Brooks has put forward 3 theses:
+\begin{enumerate}
+\item Intelligent behaviour can be generated without explicit representations of the kind that symbolic AI processes
+\item Intelligent behaviour can be generated without explicit reasoning of the kind that symbolic AI processes
+\item Intelligence is an emergent property of certain complex systems
+\end{enumerate}
+
+He identified 2 key areas that have informed his research:
+\begin{itemize}
+\item Situatedness and embodiment: real intelligence is situated in the world, not in disembodied systems such as theorem provers and expert systems
+\item Intelligence and emergence: intelligent behaviour arises as a result of an agent's interaction with its environment. Also, intelligence is ``In the eye of the beholder'': it is not an innate isolated property.
+\end{itemize}
+
+Reactivity is a behaviour based model of activity as opposed to the symbol manipulation model used in planning: A stimulus-response model.\\
+It situates rules of the form\\
+If <perceived situation> then <specifications>\\
+Reactive agents are situated: they do not take past events into account and cannot foresee the future\\
+Do not have to revise their world model when perturbations change the world in unexpected ways\\
+Considered as very floexible and adaptive because they can manage their resource abilities in unpredictable worlds\\
+
+Can describe very simple behaviour, but hardly applicable for some complex actions.\\
+Cannot plan ahears.\\
+Actions come only from perceptions\\
+Assumes mutually exclusive rules and no rule conflicts\\
+Reactive agents are difficult to predict
+
+Situated automata:
+\begin{itemize}
+\item Agent is specified in declarative terms of two components: perception and action
+\item The logic used to specify an agent is essentially modal logic of beliefs
+\item Perception is specified by three components:
+\begin{enumerate}
+\item Semantics of agent's input
+\item A set of static facts
+\item A specification of state transitions
+\end{enumerate}
+\item An action is specified by semantics of output
+\item The compiler syntheses a circuit whose output will have the correct semantics
+\item The generated circuit does not represent or manipulate symbolic expressions
+\item All symbolic manipulation is done at compile time
+\end{itemize}
+
+To illustrate his ideas, Brooks built some robots based on his subsumption architecture\\
+A subsumption architecture is a hierarchy of task-accomplishing behaviours\\
+Each behaviour is a rather simple rule-like structure\\
+Each behaviour competes with others to exercise control over the others.\\
+It is made of a set of modules, represented as augmented finite state machines (AFSM)\\
+AFSM is triggered if its input signal exceeds some threshold\\
+Modules are linked through master/slave relationship of inhibition\\
+Modules are grouped and placed into layers which work asynchronously\\
+Modules in a lower level can inhibit those in higher layers\\
+
+Lower layers represent more primitive kinds of behaviour, and have precedence over layers further up the hierarchy.
+\subsection{Steel's Mars Explorer}
+Uses subsumption architecture. Achieves near-optimal cooperative performance in simulated rock gathering on Mars domain\\
+The objective is to explore a distant planer, and in particular to collect samples of a precious rock. The location of the samples is not known in advance, but it is known that they tend to be clustered.\\
+
+For individual (non-cooperative agents), the lowest level behaviour (and hence the behaviour with the highest priority) is obstacle avoidance.\\
+Any samples carried by agents are dropped back at the mother-ship\\
+Agents carrying samples will return to the mother-ship\\
+Agent will collect samples they find\\
+An agent with nothing better to do will explore randomly
+
+\begin{lstlisting}[language=C++]
+function action(p : P) : A
+begin
+	fired := {(ci, a) | (ci, a)\in R and p \in ci}
+	for each (ci,a) \in fired do
+		if \neg{(\exists(ci-1, a')\in fired such that (ci-1, a') < (ci,a))} then 
+			return a
+		end if
+	end for
+	return null
+end function action
+\end{lstlisting}
+Where 
+\begin{itemize}
+\item $(c,a)$ is the condition action pair
+\item R is the set of condition-action pairs
+\item $c_1<c_2$ is read as $c_1$ is lower in hierarchy than  $c_2$
+\end{itemize}
+
+
+\section{Hybrid Architectures}
+
+Many researchers have argues that neither a completely deliberative nor completely reactive approach is suitable for building agents.\\
+They have suggested using hybrid systems, which marry deliberative and reactive systems\\
+The approach consists in building an agent out of 2 subsystems:
+\begin{enumerate}
+\item A deliberative one: containing a symbolic world model which develops plans and makes decisions in the way proposed by symbolic AI
+\item A reactive one which is capabl;e of reacting to events without complex reasoning
+\end{enumerate}
+A key problem in such architectures is what kind of control framework to embed the agent's subsystems in, to manage the interactions between the layers:
+\begin{itemize}
+\item Horizontal layering: layers are each directly connected to the sensory input and action output
+\item Vertical layering: Sensory input and action output are each dealt with by at most one layer
+\end{itemize}
+\missingfigure{50}
+\subsection{Touring Machine}
+The Trouring Machines architecture consists of perception and action subsystems, which interface directly with the agents's environment and control layers embedded in a control framework, which mediates between the layers:
+\begin{itemize}
+\item Reactive layer: immediate response
+\item Planning layer: day to day running under normal circumstances
+\item Modelling layer: predicts conflicts and generate goals to be achieved in order to solve these conflicts
+\item Control sybsystem: decides which of the layers should take control over the agent
+\end{itemize}
+Different from Brook's subsumption architecture is that layers may contain excplicit representations 
+\subsection{InteRRaP}
+\begin{itemize}
+\item Vertically layered architecture
+\item Layers, divided into knowledge bases and control components
+\item Lowest layer represents reactive components and highest layers deliberative components
+\item Control is both data and goal driven: Reactive, local planning, cooperative planning
+\end{itemize}
+\missingfigure{57, 58, 59, 60}
+\section{Discussion}
+Deliberative approach is currently the dominant approach in DAI, because the technology is familiar, it has a clear methodology and it has lots of nice theory.
+However tends not to work well in highly dynamic domains.\\
+
+Reactive architectures are currently in the melting pot:
+\begin{itemize}
+\item No technology consensus
+\item No methodology
+\item Only isolated islands of theory
+\item Only simple behaviour
+\end{itemize}
+Works best in unknown environments
+
+Hybrid architectures are a major force in current work on agents:
+\begin{itemize}
+\item A pragmatic solution
+\item But an ad hoc one
+\item Still no clear consensus but a lot of similarity
+\item No real methodology
+\item No real theory
+\end{itemize}
