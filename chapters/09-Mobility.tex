@@ -1,7 +1,7 @@
 \chapter{Mobile Agents}
 \minitoc
 
-\side{Mobile agents} are agents that are capable of transmitting themselves, their program and their state, across a computer network, and recommencing execution at a remote site.
+\phantom{c}\side{Mobile agents} are agents that are capable of transmitting themselves, their program and their state, across a computer network, and recommencing execution at a remote site.
 
 The program in this way can choose when and where to migrate, therefore suspending its execution at an arbitrary point and transport itself to another machine where it would resume execution.
 
@@ -24,7 +24,11 @@ In other terms, remote procedure calls enable one computer to call procedures in
 Each interaction entails two acts of communication: request and acknowledge, which, consequently, means that the ongoing interaction requires ongoing remote communication.
 
 The overall general architecture is depicted in the following figure:
-\missingfigure{7}
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=.5\textwidth]{09/00}
+\end{figure}
 
 \subsection{Remote execution}
 The idea of mobile agents is to replace the remote procedure call by sending out an agent to do the computation. Thus instead of invoking a method:

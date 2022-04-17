@@ -164,7 +164,37 @@ Cohen and Perrault also demonstrated how the preconditions and postconditions of
 In short, in order for a speech act to be successful the preconditions must be fullfilled; however the fulfillment of the preconditions are not enough in itself to guarantee that the desired action will actually be performed. This is because some speech act such as request or inform only models the illocutionary force of the act, not the perlocutionary force.
 
 For this reason, Cohen and Perrault introduced some mediating act: Convince and CauseToWant; which respectively will make the hearer believe an inform act and believe that the speaker of a request act wants the hearer to do an action.
-\missingfigure{plan based theory table page 175}
+\begin{table}[!h]
+\centering
+\begin{NiceTabular}{|lll|}
+\hline
+\Block{1-2}{$Request(S, H, \alpha)$}&&\\
+\hline
+Precondition& Cando.pr&$(S\,\,BELIEVE\,\,(H\,\,CANDO\,\,\alpha))\,\land$\\
+&&$(S\,\,BELIEVE\,\,(H \,\,BELIEVE\,\,(H\,\,CANDO\,\,\alpha)))$\\
+& Want.pr &$(S\,\,BELIEVE\,\,(S\,\,WANT\,\,requestInstance))$\\
+Effect&&$(H\,\,BELIEVE\,\,(S\,\,BELIEVE\,\,(S\,\,WANT\,\,\alpha))$\\
+\hline
+\Block{1-2}{$CauseToWant(A_1, A_2, \alpha)$}&&\\
+\hline
+Precondition& Cando.pr&$(A_1\,\,BELIEVE\,\,(A_2 \,\,BELIEVE\,\,(A_2\,\,WANT\,\,\alpha)))$\\
+& Want.pr &$\times$\\
+Effect&&$(A_1\,\,BELIEVE\,\,(A_1\,\,WANT\,\,\alpha))$\\
+\hline
+\Block{1-2}{$Inform(S, H, \phi)$}&&\\
+\hline
+Precondition& Cando.pr&$(S\,\,BELIEVE\,\,\phi)$\\
+& Want.pr &$(S\,\,BELIEVE\,\,(S\,\,WANT\,\,informInstance))$\\
+Effect&&$(H\,\,BELIEVE\,\,(S\,\,BELIEVE\,\,\phi))$\\
+\hline
+\Block{1-2}{$Convince(A_1, A_2, \phi)$}&&\\
+\hline
+Precondition& Cando.pr&$(A_1\,\,BELIEVE\,\,(A_2\,\,BELIEVE\,\,\phi))$\\
+& Want.pr &$\times$\\
+Effect&&$(A_1\,\,BELIEVE\,\,\phi)$\\
+\hline
+\end{NiceTabular}
+\end{table}
 
 \subsection{Speech acts as rational actions}
 While the plan-based theory of speech acts was a major step forward, it was recognized that a theory of speech acts should be rooted in a more general theory of rational action.\\
@@ -297,12 +327,73 @@ An example of a KQML object is
 \end{lstlisting}
 
 KQML defines a set of standard performatives to choose from of which different parameters are required. 
-In table \ref{} the list of 41 performatives are proposed with their meaning and in table \ref{} the list of the main parameters of KQML messages are summarized.
+In table \ref{tbl:KQMLper} the list of 41 performatives are proposed with their meaning and in table \ref{tbl:KQMLparams} the list of the main parameters of KQML messages are summarized.
 
-\missingfigure{KQML performatives + meaning}
-\missingfigure{KQML parameters + meaning}
+\begin{table}[!h]
+\centering
+\begin{NiceTabular}{ll}[hvlines]
+\textbf{Parameter} & \textbf{Meaning}\\
+\texttt{:content}& content of the message\\
+\texttt{:force}&whether the sender will ever deny the content of the message\\
+\texttt{:reply-with}&whether the sender expects a reply, and, if so, an identifier for the reply \\
+\texttt{:in-reply-to}& reference to the \texttt{:reply-with} parameter\\
+\texttt{:sender}&sender of the message\\
+\texttt{:receiver}&intended recipient of the message
+\end{NiceTabular}
+\caption{Parameters for KQML messages}
+\label{tbl:KQMLparams}
+\end{table}
 
-To more fuly understand these performatives, it is necessary to understand the notion of a \side{virtual knowledge base (VKB)} as it was used in KQML. The idea was that agents using KQML to communicate may be implemented using different programming languages and paradigms and any information that agents have may be internally represented in many different ways. However, for the purpose of communication, it makes sense for agents to treat other agents as if they had some internal representation of knowledge.  \\
+\begin{table}[!h]
+\centering
+\begin{NiceTabular}{ll}[hvlines]
+\textbf{Performative} & \textbf{Meaning}\\
+\texttt{achieve}&S wants R to make something true of their environment\\
+\texttt{advertise}&S claims to be suited to processing a performative\\
+\texttt{ask-about}&S wants all relevant sentences in R’s VKB\\
+\texttt{ask-all}&S wants all of R’s answers to a question C\\
+\texttt{ask-if}&S wants to know whether the answer to C is in R’s VKB\\
+\texttt{ask-one}&S wants one of R’s answers to question C\\
+\texttt{break}&S wants R to break an established pipe\\
+\texttt{broadcast}&S wants R to send a performative over all connections\\
+\texttt{broker-all}&S wants R to collect all responses to a performative\\
+\texttt{broker-one}&S wants R to get help in responding to a performative\\
+\texttt{deny}&the embedded performative does not apply to S (any more)\\
+\texttt{delete-all}&S wants R to remove all sentences matching C from its VKB\\
+\texttt{delete-one}&S wants R to remove one sentence matching C from its VKB\\
+\texttt{discard}&S will not want R’s remaining responses to a query\\
+\texttt{eos}&end of a stream response to an earlier query\\
+\texttt{error}&S considers R’s earlier message to be malformed\\
+\texttt{evaluate}&S wants R to evaluate (simplify)C\\
+\texttt{forward}&S wants R to forward a message to another agent\\
+\texttt{generator}&same as \texttt{standby} of a \texttt{stream-all}\\
+\texttt{insert}&S asks R to add content to its VKB\\
+\texttt{monitor}&S wants updates to R’s response to a stream-all\\
+\texttt{next}&S wants R’s next response to a previously streamed performative\\
+\texttt{pipe}&S wants R to route all further performatives to another agent\\
+\texttt{ready}&S is ready to respond to R’s previously mentioned performative\\
+\texttt{recommend-all}&S wants all names of agents who can respond to C\\
+\texttt{recommend-one}&S wants the name of an agent who can respond to a C\\
+\texttt{recruit-all}&S wants R to get all suitable agents to respond to C\\
+\texttt{recruit-one}&S wants R to get one suitable agent to respond to C\\
+\texttt{register}&S can deliver performatives to some named agent\\
+\texttt{reply}&communicates an expected reply\\
+\texttt{rest}&S wants R’s remaining responses to a previously named performative\\
+\texttt{sorry}&S cannot provide a more informative reply\\
+\texttt{standby}&S wants R to be ready to respond to a performative\\
+\texttt{stream-about}&multiple response version of ask-about\\
+\texttt{stream-all}&multiple response version of ask-all\\
+\texttt{subscribe}&S wants updates to R’s response to a performative\\
+\texttt{tell}&S claims to R that C is in S’s VKB\\
+\texttt{transport-address}&S associates symbolic name with transport address\\
+\texttt{unregister}&the deny of a register\\
+\texttt{untell}&S claims to R that C is not in S’s VKB
+\end{NiceTabular}
+\caption{Performatives for KQML messages}
+\label{tbl:KQMLper}
+\end{table}
+
+To more fully understand these performatives, it is necessary to understand the notion of a \side{virtual knowledge base (VKB)} as it was used in KQML. The idea was that agents using KQML to communicate may be implemented using different programming languages and paradigms and any information that agents have may be internally represented in many different ways. However, for the purpose of communication, it makes sense for agents to treat other agents as if they had some internal representation of knowledge.  \\
 This attributed knoledge is known as the virtual knowledge base.\\
 
 Despite the initial success, KQML was subsequently criticized on a number of grounds:
@@ -385,7 +476,39 @@ In additino the concrete syntax for FIPA ACL messages closely resembles that of 
 }
 \end{lstlisting}
 Hence the structure of messages is the same and the message attribute fields are also very similar, however the most important difference between the two languages is the collection of performatives they provide.
-\missingfigure{FIPA ACL performatives +meaning}
+
+\begin{table}[!h]
+\centering
+\begin{NiceTabular}{lccccc}
+\hline
+& \Block{2-1}{Passing\\Information}&\Block{2-1}{Requesting Information}&&\Block{2-1}{Performing\\actions}&\Block{2-1}{Error\\handling}\\
+Performative&&&Negotiation&&\\
+\hline
+\texttt{accept-proposal}&&&$\times$&&\\
+\texttt{agree}&&&&$\times$&\\
+\texttt{cancel}&&$\times$&&$\times$&\\
+\texttt{cfp}&&&$\times$&&\\
+\texttt{confirm}&$\times$&&&&\\
+\texttt{disconfirm}&$\times$&&&&\\
+\texttt{failure}&&&&&$\times$\\
+\texttt{inform}&$\times$&&&&\\
+\texttt{inform-if}&$\times$&&&&\\
+\texttt{inform-ref}&$\times$&&&&\\
+\texttt{not-understood}&&&&&$\times$\\
+\texttt{propagate}&&&&$\times$&\\
+\texttt{propose}&&$\times$&&&\\
+\texttt{proxy}&&&&$\times$&\\
+\texttt{query-if}&&$\times$&&&\\
+\texttt{query-ref}&&$\times$&&&\\
+\texttt{refuse}&&&&$\times$&\\
+\texttt{reject-proposal}&&&$\times$&&\\
+\texttt{request}&&&&$\times$&\\
+\texttt{request-when}&&&&$\times$&\\
+\texttt{request-whenever}&&&&$\times$&\\
+\texttt{subscribe}&&$\times$&&&\\
+\hline
+\end{NiceTabular}
+\end{table}
 
 FIPA provides some standardization of agent interaction protocols.\\
 Ongoing conversations between agents fall into typical patterns. In such cases, certain message sequences are expected and at any point in the conversation other messages are expected to follow.\\
