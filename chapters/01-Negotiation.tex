@@ -12,7 +12,7 @@ final agreement is achieved by \side{mutual selection}.
 \item Pruitt\\
 \say{Negotiation is a process by which a joint decision is made by two or more parties. The parties first verbalize contradictory demands and then move towards agreement by a process of concession or search for new alternatives}\\
 
-\side{Mutual conflict} is the necessary condition to start negotiation.\\
+\phantom{c}\side{Mutual conflict} is the necessary condition to start negotiation.\\
 Negotiation involves three main elements: \side{communication}, \side{decision making} (decision about next concession to make in order to continue negotiation) and a \side{procedural model} (protocol inside which we communicate and make decision).\\
 \side{Implicit negotiation} where one or more parties does not know that there is conflict can happen but it will not be treated in the course.
 \end{itemize}
@@ -40,7 +40,7 @@ The decision category deals with which strategy and consequently which language 
 It deals with the concepts of:
 \begin{itemize}
 \item preferences\\ 
-what are preferrable outcomes
+what are preferable outcomes
 \item utility functions\\
  numerical/functional representation of preferences
 \item comparing and matching functions
@@ -60,7 +60,7 @@ analysis of the interaction between different parts of the system in order to re
 \begin{figure}[!h]
 \centering
 \includegraphics[width=.5\textwidth]{/01/00}
-\caption{trivial form of how the categories are interralated in the negotiation context}
+\caption{trivial form of how the categories are interrelated in the negotiation context}
 \end{figure}
 
 Furthermore, since negotiation happens when mutual conflict occurs, we can say that negotiation is a \side{conflict resolution} approach/method/area.
@@ -108,7 +108,7 @@ In order to simplify the analysis of multiagent interactions, throughout this ch
 	Since the agents are self-interest each agent will have its own utility function, hence:
 	\[u_i\,:\,\Omega\rightarrow\mathbb{R}\qquad;\qquad u_j\,:\,\Omega\rightarrow\mathbb{R}\]
 	The introduction of an utility function eventually leads to a \side{preference ordering} over the outcomes of the set for each agent.
-	This means that, if $\omega$ and $\omega’$ are both possible outcomes contained in $\Omega$ and $u_i(\omega)\ge u_i(\omega’)$, then agent $i$ preferes outcome $\omega$ at least as much as outcome $\omega’$.
+	This means that, if $\omega$ and $\omega’$ are both possible outcomes contained in $\Omega$ and $u_i(\omega)\ge u_i(\omega’)$, then agent $i$ prefers outcome $\omega$ at least as much as outcome $\omega’$.
 	
 	Since we will make extensive use of the concept of preference ordering throughout the next sections, it is worth introduce a much more compact notation. We will write:
 	\begin{align*}
@@ -135,7 +135,7 @@ In order to simplify the analysis of multiagent interactions, throughout this ch
 	The strict preference relationship still has the second and third property, however it is not reflexive
 	
 \subsection{Setting the scene}
-So far, we have talked introduced a model to represent the agents preferences, but we still need to formalize a model of the environment in which agents act and interact. In particular, we will assume that:
+So far, we have introduced a model to represent the agents preferences, but we still need to formalize a model of the environment in which agents act and interact. In particular, we will assume that:
 	\begin{itemize}
 	\item Two agents will simultaneously choose an action to perform in the environment
 	\item as a result of the actions they select, an outcome in $\Omega$ will result
@@ -148,8 +148,8 @@ So far, we have talked introduced a model to represent the agents preferences, b
 	
 	We will restrict our analysis to two possible actions that the agent can choose from: cooperate $C$ and defect $D$. Hence, we will refer to the \side{set of actions} with the notation
 	\[Ac = \{C,D\}\]
-	Given all the above, the environment formally described by a \side{state transformer function}:
-	\[\tau: \underbrace{Ac}{\text{agent $i$’s action}}\times\underbrace{Ac}{\text{agent $j$’s action}}\rightarrow \Omega\]
+	Given all the above, the environment is formally described by a \side{state transformer function}:
+	\[\tau: \underbrace{Ac}_{\text{agent $i$’s action}}\times\underbrace{Ac}_{\text{agent $j$’s action}}\rightarrow \Omega\]
 	Hence, several scenarios can happen:
 	\begin{enumerate}
 	\item The environment maps each combination of actions to a different outcome, and thus is sensitive to the actions of both agents
@@ -205,7 +205,7 @@ So far, we have talked introduced a model to represent the agents preferences, b
 	\end{itemize}
 	
 \subsection{Solution Concepts and Solution Properties}
-A question still remains unanswered: What should an agent do? What action should he chooses? 
+A question still remains unanswered: What should an agent do? What action should it choose? 
 		
 		We briefly touched on the topic on the previous section, but we have provided neither the concepts that make up the solution nor the desirable properties that a solution should have.
 		
@@ -215,7 +215,7 @@ A question still remains unanswered: What should an agent do? What action should
 One of the main concept that we will introduce is that of \side{dominance}.
 		
 		\say{A strategy $s_i$ is [said to be] \textbf{dominant} for player $i$ if, no matter what strategy $s_j$ agent $j$ chooses, $i$ will do at least as well playing $s_i$ as it would doing anything else}\cite{mastxt}.
-		The notion of \side{dominant strategy} is strictly related to the concept of \side{best response}, in the sense that \say{a strategy $s_i$ for agent $i$ is dominant if it is the best response to \textbf{all} of agent strategies}\cite{mastxt}.
+		The notion of \side{dominant strategy} is strictly related to the concept of \side{best response}, in the sense that \say{a strategy $s_i$ for agent $i$ is dominant if it is the best response to \textbf{all} of agent $j$ strategies}\cite{mastxt}.
 		
 		Thus, a dominant strategy, if it exists, simplify the decision about what action to perform: \say{the agent guarantees its best outcome 
 by performing the dominant strategy}\cite{mastxt}.
@@ -299,7 +299,7 @@ Similarly to Pareto efficiency, \side{social welfare} is an important property o
 		The core principle of \side{Maximizing social welfare} involves the measurement of how much utility is created by an outcome in total.\\
 		Formally, let $sw(\omega)$ denote the sum of utilities of each agent for outcome $\omega$
 		\[sw(\omega) =\sum_{i\in Ag} u_i(\omega)\]
-		the outcome that maximized social welfare is the one that maximizes this value.
+		the outcome that maximizes social welfare is the one that maximizes this value.
 		
 		From an individual agent’s point of view, the problem with maximizing social welfare is that it does not look at the pay-offs of individual agents, only to the total welfare created. (maximizing social welfare does not care about how the utility of an outcome is divided among the players).
 
@@ -320,17 +320,17 @@ A mechanism is individually rational if participation is individually rational f
 If the negotiated solution is not individually rational for some agent then self-interested agent would not participate in that negotiation.
 \end{itemize}
 \subsection{Competitive and Zero-Sum Interactions}
-A scenario in which an outcome $\omega\in\Omega$ is preferred by agent $i$ over an outcome $\omega’$, if ,and only if, $\omega’$ is preferred over $\omega$ by agent $j$, is said to be \side{strictly competitive}.\\
+A scenario in which an outcome $\omega\in\Omega$ is preferred by agent $i$ over an outcome $\omega’$, if, and only if, $\omega’$ is preferred over $\omega$ by agent $j$, is said to be \side{strictly competitive}.\\
 	Formally, a competitive scenario takes the form:
 	\[\omega \cmore_i \omega’\qquad\iff\qquad\omega’\cmore_j \omega\]
 	Under this condition, it is straightforward to see that the preferences of the players are \side{diametrically opposed} to one another
 	
 	\side{Zero-sum encounters}, similarly, are those in which, for any particular outcome, the utilities of the two agents sum to zero. Formally, these scenario is described by the condition:
-	\[u_i(\omega) + u_j(omega) = 0\qquad \forall \omega \in \Omega\]
+	\[u_i(\omega) + u_j(\omega) = 0\qquad \forall \omega \in \Omega\]
 	Once again, any zero-sum scenario is strictly competitive, allowing for no possibility of cooperative behavior: \say{the best outcome for an agent is the worst outcome for its opponent. If an agent allows the opponent to get a positive utility, then it will get negative utility.}\cite{mastxt}\\
 	Popular Zero-sum encounters are the games of chess and checkers as well as rock-paper-scissors.
 	
-	Interesting enough, zero-sum is debatable that zero-sum games actually exists in real-world scenarios (apart from artificially forms of interaction like the games mentioned before). However, it appears that people interacting in many scenarios have a tendency to treat them as if they were zero sum.
+	Interesting enough, it is debatable that zero-sum games actually exists in real-world scenarios (apart from artificially forms of interaction like the games mentioned before). However, it appears that people interacting in many scenarios have a tendency to treat them as if they were zero sum.
 	
 \subsection{The Prisoner's Dilemma}
 The \side{Prisoner’s Dilemma} is as follows:
@@ -340,7 +340,7 @@ The \side{Prisoner’s Dilemma} is as follows:
 	\item If both confess to the crime, then each will be jailed for two years
 	\end{enumerate}
 	Both prisoners know that if neither confesses, then they will each be jailed for one year.}\cite{mastxt}
-	Under this conditions let us associate the act of confessing with defection $D$ and not confessing with coopering $C$.
+	Under this conditions let us associate the act of confessing with defection $D$ and not confessing with cooperating $C$.
 	
 	There exists 4 possible outcomes to the prisoner’s dilemma:
 	\begin{table}[!h]
@@ -355,6 +355,7 @@ The \side{Prisoner’s Dilemma} is as follows:
 	&0&&3&
 	\end{NiceTabular}
 	\end{table}
+	
 	Where the number displayed are NOT the year spent in prison.
 	
 	From the provided payoff matrix we can come up with the preference ordering of each agent/prisoner:
@@ -382,7 +383,7 @@ The \side{Prisoner’s Dilemma} is as follows:
 	
 	Moreover, the prisoner’s dilemma also seems to be the game that characterized the \side{tragedy of the commons}: which is concerned with the use of a shared, depletable resource by a society of self-interested individuals (e.g. overfishing in the seas, exploitation of bandwidth capacity on the Internet).
 	
-	Many people find the conclusion of the analysis deeply upsetting: \say{the result seems to imply that cooperatoin can only arise as a result of irrational behavior, and that cooperative behavior can be exploited by those who behave rationally.}\cite{mastxt}\\
+	Many people find the conclusion of the analysis deeply upsetting: \say{the result seems to imply that cooperation can only arise as a result of irrational behavior, and that cooperative behavior can be exploited by those who behave rationally.}\cite{mastxt}\\
 	Binmore argues that the discomfort we have with the analsys of the prisoner’s dilemma is misplaced:\\
 	\say{A whole generation of scholars swallowed the line that the prisoner’s dilemma embodies the essence of the problem of human cooperation. They therefore set themselves the hopeless task of giving reasons why [this analysis] is mistaken... Rational players don’t cooperate in the prisoner’s dilemma because the conditions necessary for rational cooperation are absent}.
 	
@@ -462,7 +463,7 @@ The prisoner’s dilemma and its variation are not the only type of multiagent i
 
 
 \section{Voting}
-So far we have lloked at the general setting of a multiagent encounter. In this section we will look at a specific class of protocols intended for making group decisions. This is the domain of social choice theory (aka voting theory).
+So far we have looked at the general setting of a multiagent encounter. In this section we will look at a specific class of protocols intended for making group decisions. This is the domain of social choice theory (aka voting theory).
 
 \subsection{Social Welfare Functions and Social Choice Functions}
 The general setting of a voting protocol is as follows:
@@ -479,7 +480,7 @@ The goal of the agents is to rank or order these candidates or simply to choose 
 The problem that social choice theory tries to solve is,\\
  \say{given a collection of preference orders, one for each agent, how do we combine these to derive a group decision?}.
  
- The answert isby using a \side{social welfare function} which maps the voter preferences to a \side{social preference order}\\
+ The answer is by using a \side{social welfare function} which maps the voter preferences to a \side{social preference order}\\
  \[f:\quad \Pi(\Omega) \times ...\times\Pi(\Omega) \rightarrow \Pi(\Omega)\]
  The social preference ordering will be denoted with the notation $\cmore^*$.
  
@@ -510,11 +511,11 @@ This means that in principle the majority of the voters will be unhappy with the
 Furthermore, this simple majority protocol is sensible to insincere strategical voting (e.g. the 14\% that voted $D$ instead could have voted for $L$ just to make $C$ lose the voting).
 
 Moreover, the simple majority voting is sensible to \side{Condorcet's paradox}:
-\begin{equation*}
+\begin{gather*}
 \omega_1 \cmore_i \omega_2 \cmore_i \omega_3\\
 \omega_3 \cmore_j \omega_1 \cmore_j \omega_2\\
 \omega_2 \cmore_k \omega_3 \cmore_k \omega_1\\
-\end{equation*}
+\end{gather*}
 In this case the winner is dependent on the agenda: which order we start to compute the outcome, but nonetheless $\sfrac{2}{3}$ of the voters will prefer another candidate.
 
 \subsubsection{Binary protocol}
@@ -522,7 +523,7 @@ Among the alternative to simple majority voting there is the \side{Binary protoc
 
 \begin{itemize}
 \item Voters submit their preference ordering
-\item The element of the set of outcomes are compare pairwise
+\item The element of the set of outcomes are compared pairwise
 \item the winner of the pairwise ``election'' is allowed to continue to the next pairwise election
 \item The order of pairwise elections (i.e. which candidates to compare first), is called \side{agenda}
 \end{itemize}
@@ -536,13 +537,13 @@ Among the alternative to simple majority voting there is the \side{Binary protoc
 From the picture provided we can clearly notice that the winner of the overall election depends on the agenda, which imply that the protocol can be manipulated if the preference orderings in known a priori.
 
 \subsubsection{Borda protocol}
-One issue with simple majority voting and the binary protocol is that they completely ignore the information that is enconded in each submitted preference ordering (they only loop at the top voted candidates).\\
+One issue with simple majority voting and the binary protocol is that they completely ignore the information that is enconded in each submitted preference ordering (they only look at the top voted candidates).\\
 The \side{Borda protocol} addresses such issue:
 \begin{itemize}
 \item Each voter submit its preference ordering over the candidates
 \item a number equal to the cardinality of the set of candidates (i.e. $\abs{\Omega}$) is assigned to the highest candidate in some agent's preference list
 \item a value of $\abs{\Omega}-1$ is assigned to the second and so on
-\item a the end we sum up the numeric value associated to each preference orderic and obtain the social choice result
+\item a the end we sum up the numeric value associated to each preference ordering and obtain the social choice result
 \end{itemize}
 
 This protocol is fast when compared to the binary protocol in the case of a large amount of candidates.
@@ -561,7 +562,7 @@ An useful tool to analyse voting procedures or protocols is the \side{Majority G
 
 While the overall winner determination is straightforward in the case of a majority graph with no loops (cfr. Condorcet's Winner), it is otherwise in the case of a majority graph with loops.
 
-In that specific scenario, the \side{slater rule} or \side{slater ranking} is considered: it, in fact, tries to find a consistent ranking that does not contain any cycle that is as close a possible to the majority graph.
+In that specific scenario, the \side{slater rule} or \side{slater ranking} is considered: it, in fact, tries to find a consistent ranking that does not contain any cycle that is as close as possible to the majority graph.
 
 In other terms, it tries to \say{minimize the number of disagreements between the majority graph and the social choice}.
 
@@ -603,7 +604,7 @@ If $\abs{\Omega}>2$ then the only voting procedure that satisfies Pareto conditi
 \end{itemize}
 However:\\
 
-Let each agent $i$ from $A$ have some ordering $\theta_i$ from $\Theta$ which totally characterized his preferences. A social choice function $f:\quad \Theta \rightarrow \Omega$ chooses a social outcome given the agent's orderings.
+Let each agent $i$ from $A$ have some ordering $\theta_i$ from $\Theta$ which totally characterizes his preferences. A social choice function $f:\quad \Theta \rightarrow \Omega$ chooses a social outcome given the agent's orderings.
 
 \begin{theorem}[Gibbard-Satterthwaite impossibility theorem]\pside{Gibbard- Satterthwaite impossibility theorem}\\
 Let each agent's ordering $\theta_i$ consists of a preference order $\cmore_i$ on $\Omega$.\\
@@ -617,14 +618,14 @@ Broadly speaking, the only procedure or mechanism that is immune to strategic ma
 There are ways to circumvent the impossibility theorem, by relaxing the assumptions made by the theorem itself.\\
 The individual preferences, in fact, may happen to belong to some restrincted domain, thus invalidating the conditions of the impossibility theorem, and it is known that there are island in the space of agent's preferences for which non-manipulable non-dictatorial protocols can be constructed.
 
-The solution in practive is to make agents precisely internalize the externality by imposing a tax on those agents whose vote changes the outcome. The size of tax is exactly how much its vote lowers the other's utility.\\
+The solution in practice is to make agents precisely internalize the externality by imposing a tax on those agents whose vote changes the outcome. The size of tax is exactly how much its vote lowers the other's utility.\\
 Such solution is known as the \side{Clark tax algorithm}:
 \begin{itemize}
 \item Every agent $i$ from $A$ reveals his valuation $v^*_i(g)$ for every possible $g$ (which may be non-truthful)
 \item The social choice is 
 \[g^* =\argmax_g \, \sum \,v^*_i(g)\]
 \item Every agent is levied a tax:
-\[tax_i = \sum_{j\ne i} v^*_j(g)\,\left(\argmax_g\, \sum _{k\ne i}\,v^*_k(g)\right) - \sum_{j\ne i}\,v^*_j(g)\]
+\[tax_i = \sum_{j\ne i} v^*_j\,\left(\argmax_g\, \sum _{k\ne i}\,v^*_k(g)\right) - \sum_{j\ne i}\,v^*_j(g)\]
 \end{itemize}
 It follows that
 \begin{theorem}
@@ -648,7 +649,7 @@ Other way to circumvent the Impossibilty theorem:
 \end{itemize}
 
 \section{Auctions}
-Auctinos are mechanisms sed to reach agreeements on one very simple issue: that of how to allocate scarce resources to agents.
+Auctions are mechanisms used to reach agreeements on one very simple issue: that of how to allocate scarce resources to agents.
 
 It is important to understand that the resource in question is scarce and it is tipically desired by more than one agent (if one of the preconditions is not met than the allocation is trivial and straighforward).
 
@@ -657,7 +658,7 @@ Auctions provide a reasonable and principled way to allocate resources to agents
 In general terms:
 \begin{itemize}
 \item An auction takes place between an agent known as the \side{auctioneer} and a collection of agents known as the \side{bidders}
-\item The goal of the auctino is for the auctioneer to allocate a good to one of the bidders
+\item The goal of the auction is for the auctioneer to allocate a good to one of the bidders
 \item The auctioneer desires to maximize the price at which the good is allocated.
 
 Hence the agent auctioneer will attempt to achieve its desire through the design of an appropriate auction
@@ -666,7 +667,7 @@ Hence the agent auctioneer will attempt to achieve its desire through the design
 Hence the bidder agents will attempt to achieve their desires by using an effective strategy
 \end{itemize}
 
-There are several factors that can affect both the auctino protocol and the strategy that agents use:
+There are several factors that can affect both the auction protocol and the strategy that agents use:
 \begin{itemize}
 \item The good has a \side{private value}, \side{public/common value} or a \side{correlated value} (i.e. an agent valuation of the good depends partly on private factors and partly on other agents' valuations of it).
 \item \side{winner determination}: who gets the good that the bidders are bidding for and how much do they pay.
@@ -782,7 +783,7 @@ A solution to collusion of the bidder is to modify the protocol so that the bidd
 
 With regard to the honesty of the auctioneer, the main opportunity for lying occurs in the Vickrey auctions: the auctioneer can lie to the winner about the price of the second highest bid. A solution to this is to sign bids in some way so that the winner can independently verify the value of the second highest bid ro use a trusted third party to handle bids.
 
-In open cry auctino settings there is no possibility for lying by the auctioneer, nor in  the first-price sealed-bid auctions.
+In open cry auction settings there is no possibility for lying by the auctioneer, nor in  the first-price sealed-bid auctions.
 
 Lastly, another possible opportunity for lying by the auctioneer is to place bogus bidders (aka \side{shills}), in an attempt to artificially inflate the current bidding price.
 
