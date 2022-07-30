@@ -1,71 +1,87 @@
-\documentclass[a4paper, 10pt, oneside]{report}
- %\documentclass[a4paper, 10pt, oneside,draft]{report}
+% ==============================================================
+% File     : main.tex
+% Date     : 03 Apr. 2022
+% Revision : 30 July 2022
+% Creator  : Marco Peressutti
+% ==============================================================
+
+\documentclass[a4paper, 10pt, oneside]{book}
 \usepackage[utf8]{inputenc}
 
-%\pdfcompresslevel=0
-%\pdfobjcompresslevel=0
 
+\input{lib/includes} % usepackages
+\input{lib/acronyms} % acromyms
+\input{lib/commands} % newcommands
 
-\input{lib/includes}
-\input{lib/acronyms}
-\input{lib/commands}
-
-
+% title page
 \title{Distributed Artificial Intelligence\\and\\ Intelligent Agents}
 \author{Marco Peressutti}
 \date{\today}
 
-
-
+% chapters
 \includeonly{
-chapters/00-Introduction,
-chapters/01-Negotiation,
-chapters/02-Communication,
-chapters/03-Coordination,
-chapters/04-MASArchitecture,
-chapters/05-AOSE,
-chapters/06-Theory,
-chapters/07-Architecture,
-chapters/08-MLandRL,
-chapters/09-Mobility
+    chapters/00-Introduction,
+    chapters/01-Negotiation,
+    chapters/02-Communication,
+    chapters/03-Coordination,
+    chapters/04-MASArchitecture,
+    chapters/05-AOSE,
+    chapters/06-Theory,
+    chapters/07-Architecture,
+    chapters/08-MLandRL,
+    chapters/09-Mobility
 }
-	
+
+
+% bibliography resources
 \addbibresource{bib/bibliography.bib}
-\graphicspath{
-{images/}
-}
+% path to images
+\graphicspath{{images/}}
+% load acronyms
 \makeglossaries
 
 \begin{document}
+    \selectlanguage{english}
  
-\maketitle
-\printglossaries
-\dominitoc[n]
-\tableofcontents
-%\begin{empheq}[box=%
-%	\fbox]{gather*}
-%		\mathbf{OP} = f(q_1,\dots,\,q_N,\,t)
-%	\end{empheq}
-	
+    \maketitle
+
+    \frontmatter
+    \setcounter{page}{1}
+    \cleardoublepage
+
+    \fancypagestyle{plain}{}
+
+    \renewcommand{\chaptermark}[1]{ \markboth{#1}{}} 
+    \dominitoc[n]
+    \tableofcontents
+      \markboth{\contentsname}{}      
+    \cleardoublepage
+
+    %% mainmatter
+    \mainmatter
 
 
-\clearpage
-\setcounter{page}{1}
 
-\include{chapters/00-Introduction}
-\include{chapters/01-Negotiation}
-\include{chapters/02-Communication}
-\include{chapters/03-Coordination}
-\include{chapters/04-MASArchitecture}
-\include{chapters/05-AOSE}
-\include{chapters/06-Theory}
-\include{chapters/07-Architecture}
-\include{chapters/08-MLandRL}
-\include{chapters/09-Mobility}
+    %\tableofcontents
+%
+    %\clearpage
+    %\setcounter{page}{1}
+    %% mainmatter
 
-\clearpage 
-\chapter*{Bibliography}
-\addcontentsline{toc}{chapter}{{Bibliography}}
-\printbibliography[heading=bibempty]
+    \include{chapters/00-Introduction}
+    \include{chapters/01-Negotiation}
+    \include{chapters/02-Communication}
+    \include{chapters/03-Coordination}
+    \include{chapters/04-MASArchitecture}
+    \include{chapters/05-AOSE}
+    \include{chapters/06-Theory}
+    \include{chapters/07-Architecture}
+    \include{chapters/08-MLandRL}
+    \include{chapters/09-Mobility}
+
+    \clearpage 
+    \chapter*{Bibliography}
+    \addcontentsline{toc}{chapter}{{Bibliography}}
+    \printbibliography[heading=bibempty]
 
 \end{document}

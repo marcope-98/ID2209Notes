@@ -1,3 +1,9 @@
+# STATUS : DISCONTINUED #
+The repository will not see any more updates from now on.
+The notes are still littered with grammar mistakes, typos, missing figures, missing citations, lack of details and unclear sentences.
+
+The status of the repository might change in the future, but it is not in my best interest as of now.
+
 # Overview #
 This repository contains the notes of the course "ID2209 - Distributed Artificial Intelligence and Intelligent Agents"
 
@@ -7,7 +13,7 @@ Progress: ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/
 - [x] fix equation alignment under "simple majority voting" section
 - [x] replace \missingfigure{} with proper images
 - [x] add tables with performatives of KQML and FIPA, + image with KQML communication architecture 
-- [ ] improve Agent coordination chapter structure
+- [x] improve Agent coordination chapter structure
 - [x] complete "Introduction" chapter 
 - [x] complete "Agent Negotiation" chapter 
 - [x] complete "Agent Communication" chapter 

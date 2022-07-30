@@ -1,0 +1,60 @@
+{
+    "latex-workshop.latex.recipes":[
+        {
+            "name": "makeglossaries -> latexmk ",
+            "tools": [
+                "latexmk",
+                "biber",
+                "makeglossaries"
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.tools":[
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args":[
+                "--shell-escape", // if you want to have the shell-escape flag
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"    
+            ],
+            "env": {}
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-file-line-error",
+                "-pdf",
+                "-interaction=nonstopmode",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+
+        },
+        {
+            "name" : "biber",
+            "command" : "biber",
+            "args":[
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name" : "makeglossaries",
+            "command" : "makeglossaries",
+            "args":[
+                "%DOCFILE%"
+            ],
+            "env": {}
+        }
+
+    ]
+    
+}
+
